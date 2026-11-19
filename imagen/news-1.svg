@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" preserveAspectRatio="xMidYMid slice" role="img">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#026892"/>
+      <stop offset="1" stop-color="#039ed6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <!-- cielo estrellado (noche, brigadistas nocturnos) -->
+  <g fill="#ffffff" opacity="0.5">
+    <circle cx="120" cy="80" r="1.5"/><circle cx="280" cy="140" r="1"/><circle cx="450" cy="60" r="2"/>
+    <circle cx="680" cy="120" r="1.5"/><circle cx="920" cy="70" r="1"/><circle cx="1100" cy="160" r="2"/>
+    <circle cx="200" cy="220" r="1"/><circle cx="780" cy="200" r="1.5"/><circle cx="1020" cy="240" r="1"/>
+  </g>
+  <!-- luna -->
+  <circle cx="1080" cy="120" r="45" fill="#f4c542" opacity="0.9"/>
+  <circle cx="1095" cy="110" r="45" fill="#026892"/>
+  <!-- silueta Sierra Maestra -->
+  <path d="M0,520 L150,380 L280,440 L420,360 L560,420 L700,340 L850,400 L1000,360 L1150,420 L1280,380 L1280,720 L0,720 Z" fill="#026892" opacity="0.7"/>
+  <path d="M0,560 L180,440 L320,490 L480,420 L640,470 L800,400 L960,460 L1120,420 L1280,470 L1280,720 L0,720 Z" fill="#026892"/>
+  <!-- brigadista central con farol -->
+  <g transform="translate(640,360)">
+    <!-- cuerpo -->
+    <path d="M-50,180 L-55,40 Q-55,0 -30,-15 L30,-15 Q55,0 55,40 L50,180 Z" fill="#ffffff"/>
+    <!-- cabeza -->
+    <circle cx="0" cy="-40" r="28" fill="#f4c5a0"/>
+    <!-- gorro brigadista -->
+    <path d="M-30,-50 Q-30,-75 0,-75 Q30,-75 30,-50 L28,-40 L-28,-40 Z" fill="#039ed6"/>
+    <!-- farol en mano -->
+    <line x1="55" y1="60" x2="80" y2="100" stroke="#ffffff" stroke-width="4"/>
+    <rect x="68" y="100" width="28" height="40" rx="3" fill="#f4c542" stroke="#026892" stroke-width="2"/>
+    <rect x="72" y="106" width="20" height="28" rx="1" fill="#f4c542" opacity="0.7"/>
+    <!-- libro en la otra mano -->
+    <rect x="-90" y="80" width="50" height="38" rx="2" fill="#d63b3b" stroke="#026892" stroke-width="2"/>
+    <line x1="-65" y1="80" x2="-65" y2="118" stroke="#026892" stroke-width="1.5"/>
+  </g>
+  <!-- bandera cubana ondeando -->
+  <g transform="translate(950,250)">
+    <line x1="0" y1="0" x2="0" y2="220" stroke="#ffffff" stroke-width="4"/>
+    <path d="M0,10 Q60,0 120,15 L120,80 Q60,70 0,80 Z" fill="#ffffff"/>
+    <path d="M0,10 Q60,0 120,15 L120,30 Q60,20 0,30 Z" fill="#026892"/>
+    <path d="M0,50 Q60,40 120,55 L120,80 Q60,70 0,80 Z" fill="#026892"/>
+    <polygon points="30,40 35,50 45,50 37,57 40,67 30,60 20,67 23,57 15,50 25,50" fill="#d63b3b"/>
+  </g>
+  <!-- más faroles pequeños en el horizonte -->
+  <g fill="#f4c542" opacity="0.8">
+    <circle cx="200" cy="500" r="4"/><circle cx="380" cy="490" r="4"/><circle cx="560" cy="510" r="4"/>
+    <circle cx="780" cy="495" r="4"/><circle cx="980" cy="500" r="4"/>
+  </g>
+  <!-- título categoría -->
+  <text x="60" y="80" font-family="Georgia,serif" font-size="22" font-weight="700" fill="#ffffff" opacity="0.9">Historia · 1961</text>
+  <g opacity="0.9" transform="translate(1080,670)">
+    <circle cx="0" cy="0" r="14" fill="none" stroke="#ffffff" stroke-width="2"/>
+    <text x="0" y="5" font-family="Georgia,serif" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">APC</text>
+    <text x="30" y="5" font-family="Arial,sans-serif" font-size="11" fill="#ffffff" opacity="0.7">Macarenco</text>
+  </g>
+</svg>

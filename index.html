@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Macarenco · Revista de Pedagogos de Cuba</title>
+    
+    <!-- Favicon (Logo redondo) -->
+    <link href="imagen/logo-apc.png" rel="icon">
+
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           CARGAR LA FUENTE 1979 LOCAL
+           ========================================= */
+        @font-face {
+            font-family: 'Fuente1979';
+            src: url('css/fonts/1979.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        /* =========================================
+           VARIABLES Y ESTILOS GENERALES
+           ========================================= */
+        :root {
+            --azul-cielo: #039ed6;
+            --azul-oscuro: #026892;
+            --azul-fuerte: #0044cc; 
+            --blanco: #ffffff;
+            --gris-oscuro: #1a2630;
+            --gris-fondo: #f4f7f9;
+            --rojo-evento: #d32f2f;
+            --dorado-premio: #fbc02d;
+        }
+
+        html, body {
+            margin: 0; padding: 0; width: 100%; height: auto;
+            overflow-x: hidden; overflow-y: auto;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--gris-oscuro);
+            background-color: var(--gris-fondo);
+        }
+
+        /* =========================================
+           TOP BAR Y HEADER
+           ========================================= */
+        .top-bar {
+            background-color: var(--gris-oscuro); color: var(--blanco);
+            font-size: 0.85rem; padding: 8px 0;
+        }
+        .top-bar a { color: var(--blanco); margin-left: 15px; text-decoration: none; }
+        .top-bar a:hover { color: var(--azul-cielo); }
+
+        .main-header {
+            background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-fuerte));
+            padding: 40px 0; border-bottom: 4px solid var(--azul-cielo); position: relative; 
+        }
+        .header-box {
+            background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            border: 3px solid transparent; border-radius: 15px; padding: 30px 20px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .header-brand {
+            display: flex; flex-direction: column; align-items: center;
+            text-decoration: none; color: inherit; margin-bottom: 20px; width: 100%;
+        }
+        
+        /* Efecto Espejo Header */
+        .banner-wrapper {
+            position: relative; display: inline-block;
+            margin-bottom: 50px; text-align: center; width: 100%;
+        }
+        .logo-banner {
+            max-width: 100%; max-height: 150px; object-fit: contain; position: relative; z-index: 2;
+        }
+        .logo-banner-reflection {
+            max-width: 100%; max-height: 150px; object-fit: contain; position: absolute;
+            top: 100%; left: 50%; transform: translateX(-50%) scaleY(-1);
+            opacity: 0.25;
+            -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+            z-index: 1;
+        }
+
+        .header-text { display: flex; flex-direction: column; align-items: center; width: 100%; }
+        
+        .header-title {
+            font-family: 'Fuente1979', fallback, sans-serif; font-size: 6rem;
+            font-weight: normal; color: var(--gris-oscuro); line-height: 1; margin: 0;
+            letter-spacing: 3px; text-shadow: 3px 3px 0px rgba(3, 158, 214, 0.2); 
+        }
+        .header-subtitle {
+            font-family: 'Tahoma', sans-serif; font-size: 1.5rem; font-weight: 700;
+            background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-top: 15px; line-height: 1.4; letter-spacing: 1px; max-width: 800px;
+        }
+        .header-actions {
+            display: flex; align-items: center; justify-content: center;
+            gap: 20px; flex-wrap: wrap; width: 100%; margin-top: 10px;
+        }
+        .search-container {
+            display: flex; align-items: center; background: var(--blanco);
+            border: 2px solid transparent;
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            border-radius: 5px; padding: 5px 10px; width: 350px; 
+        }
+        .search-icon { width: 18px; height: 18px; margin-right: 8px; opacity: 0.6; }
+        .search-container input {
+            border: none; outline: none; font-family: 'Poppins', sans-serif; font-size: 0.95rem; width: 100%; 
+        }
+        .btn-buscar {
+            background-color: var(--azul-fuerte); color: var(--blanco); border: none;
+            padding: 6px 15px; border-radius: 4px; font-size: 0.9rem; font-weight: 600;
+            margin-left: 8px; cursor: pointer; transition: background 0.2s;
+        }
+        .btn-buscar:hover { background-color: var(--azul-cielo); }
+
+        .btn-enviar {
+            color: var(--blanco); font-weight: 600; font-size: 1rem; padding: 10px 20px;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            white-space: nowrap; border-radius: 5px; border: 2px solid transparent;
+            background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) padding-box,
+                        linear-gradient(135deg, var(--azul-fuerte), var(--azul-cielo)) border-box;
+        }
+        .btn-enviar:hover {
+            background: linear-gradient(135deg, var(--azul-fuerte), var(--azul-oscuro)) padding-box,
+                        linear-gradient(135deg, var(--azul-oscuro), var(--azul-cielo)) border-box;
+            color: var(--blanco); text-decoration: none;
+        }
+
+        /* =========================================
+           MENÚ
+           ========================================= */
+        .navbar-custom {
+            background-color: var(--azul-cielo); border-bottom: 4px solid;
+            border-image: linear-gradient(to right, var(--azul-fuerte), var(--azul-cielo)) 1;
+            position: relative; 
+        }
+        .navbar-custom .nav-link {
+            color: var(--blanco) !important; font-weight: 500; margin: 0 10px;
+        }
+        .navbar-custom .nav-link:hover, .navbar-custom .active {
+            color: var(--gris-oscuro) !important; border-bottom: 3px solid var(--blanco);
+        }
+
+        /* =========================================
+           ESTILOS BASE DE LAS TARJETAS
+           ========================================= */
+        .card-articulo, .card-especial {
+            border: 3px solid transparent;
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            border-radius: 10px; overflow: hidden; display: flex; flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-articulo:hover, .card-especial:hover {
+            transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 68, 204, 0.25);
+        }
+
+        .card-img-wrapper {
+            width: 100%; aspect-ratio: 16 / 9; overflow: hidden;
+            border-bottom: 3px solid var(--azul-cielo); flex-shrink: 0;
+        }
+        .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+
+        .card-body { 
+            padding: 20px; flex-grow: 1; display: flex; flex-direction: column; overflow: hidden;
+        }
+        .card-cat { color: var(--azul-fuerte); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
+        .card-title { font-size: 1.2rem; font-weight: 600; margin: 10px 0; color: var(--gris-oscuro); line-height: 1.3; }
+        .card-title a { color: inherit; text-decoration: none; }
+        .card-title a:hover { color: var(--azul-cielo); }
+        .card-excerpt { font-size: 0.95rem; color: #555; flex-grow: 1; overflow: hidden; }
+        .card-meta { font-size: 0.85rem; color: #777; border-top: 1px solid #ddd; padding-top: 10px; margin-top: 10px; }
+
+        /* =========================================
+           CARRUSEL DE ARTÍCULOS (EFECTO "PEEK")
+           ========================================= */
+        .carousel-container { position: relative; padding: 0 40px; }
+
+        .carousel-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 60px; height: 60px; background-color: var(--blanco); color: var(--azul-fuerte);
+            border: 3px solid var(--azul-fuerte); border-radius: 50%; font-size: 1.8rem;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: all 0.2s;
+        }
+        .carousel-btn:hover {
+            background-color: var(--azul-fuerte); color: var(--blanco); transform: translateY(-50%) scale(1.1);
+        }
+        .carousel-btn.prev { left: -10px; }
+        .carousel-btn.next { right: -10px; }
+
+        .horizontal-scroll-wrapper {
+            display: flex; overflow-x: auto; gap: 20px; padding: 10px 0 20px 0;
+            scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scroll-behavior: smooth;
+        }
+        .horizontal-scroll-wrapper::-webkit-scrollbar { display: none; }
+        .horizontal-scroll-wrapper { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .carousel-item-card {
+            flex: 0 0 88%;
+            scroll-snap-align: center;
+            height: 480px;
+        }
+
+        @media (min-width: 768px) { 
+            .carousel-item-card { flex: 0 0 46%; }
+        }
+
+        /* =========================================
+           SECCIÓN NOVEDADES
+           ========================================= */
+        .section-title {
+            border-left: 5px solid var(--azul-fuerte); padding-left: 10px; 
+            color: var(--azul-fuerte); font-weight: bold; margin-bottom: 20px;
+        }
+
+        /* =========================================
+           ESTILOS ESPECÍFICOS EVENTOS Y PREMIOS (CORREGIDOS)
+           ========================================= */
+        /* Forzamos a que las tarjetas especiales tengan la altura de su contenedor */
+        .card-especial {
+            height: 100%;
+        }
+        
+        .card-evento {
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--rojo-evento), #b71c1c) border-box;
+        }
+        .card-evento .card-img-wrapper { border-bottom-color: var(--rojo-evento); }
+        .card-evento .card-cat, .card-evento .card-title a:hover { color: var(--rojo-evento); }
+        
+        .card-premio {
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--dorado-premio), #f57f17) border-box;
+        }
+        .card-premio .card-img-wrapper { border-bottom-color: var(--dorado-premio); }
+        .card-premio .card-cat, .card-premio .card-title a:hover { color: #f57f17; }
+
+        /* =========================================
+           SIDEBAR CON POSICIÓN STICKY
+           ========================================= */
+        .sidebar-wrapper {
+            /* Esto hace que la barra lateral baje acompañando el scroll */
+            position: -webkit-sticky;
+            position: sticky;
+            top: 20px;
+        }
+
+        .boletin-card {
+            border: 3px solid transparent;
+            background: linear-gradient(var(--azul-cielo), var(--azul-cielo)) padding-box,
+                        linear-gradient(135deg, var(--azul-fuerte), var(--azul-oscuro)) border-box;
+            color: var(--blanco); border-radius: 10px; padding: 20px; text-align: center; margin-bottom: 20px;
+        }
+        .boletin-card input {
+            border: 2px solid var(--azul-fuerte); border-radius: 5px; padding: 10px; width: 100%; margin-bottom: 10px;
+        }
+        .boletin-card button {
+            background-color: var(--gris-oscuro); color: var(--blanco);
+            border: 2px solid var(--azul-fuerte); padding: 10px; width: 100%; font-weight: bold; border-radius: 5px;
+        }
+
+        .indexadores-card {
+            border: 3px solid transparent;
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            border-radius: 10px; padding: 20px; text-align: center; margin-bottom: 20px;
+        }
+        .indexadores-card h4 { color: var(--azul-fuerte); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; }
+        .indexadores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; align-items: center; justify-items: center; }
+        .indexadores-grid img { max-width: 100%; max-height: 60px; object-fit: contain; filter: grayscale(100%); opacity: 0.7; transition: all 0.3s ease; }
+        .indexadores-grid img:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
+
+        .about-card {
+            border: 3px solid transparent;
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            border-radius: 10px; padding: 25px 20px;
+        }
+        .about-card h4 { color: var(--azul-fuerte); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; text-align: center; }
+        .about-card p { font-size: 0.9rem; color: #555; line-height: 1.6; text-align: justify; margin-bottom: 15px; }
+        .btn-leer-mas {
+            display: block; width: 100%; text-align: center; padding: 10px;
+            background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte));
+            color: var(--blanco); font-weight: 600; text-decoration: none; border-radius: 5px;
+        }
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+        .footer {
+            background-color: var(--gris-oscuro); color: var(--blanco); border-top: 4px solid;
+            border-image: linear-gradient(to right, var(--azul-fuerte), var(--azul-cielo)) 1;
+            padding: 40px 0 20px; margin-top: 40px;
+        }
+        .footer a { color: var(--azul-cielo); text-decoration: none; }
+        .footer-bottom { border-top: 1px solid #444; padding-top: 20px; margin-top: 20px; font-size: 0.8rem; text-align: center; }
+
+        /* =========================================
+           RESPONSIVE
+           ========================================= */
+        @media (max-width: 992px) {
+            .header-title { font-size: 4.5rem; }
+            .header-subtitle { font-size: 1.3rem; }
+            .logo-banner, .logo-banner-reflection { max-height: 120px; }
+            .carousel-btn { width: 45px; height: 45px; font-size: 1.2rem; }
+            .carousel-container { padding: 0 20px; }
+            .carousel-btn.prev { left: -15px; }
+            .carousel-btn.next { right: -15px; }
+            .sidebar-wrapper { position: static; } /* Quitamos el sticky en tablets/móviles */
+        }
+
+        @media (max-width: 768px) {
+            .header-title { font-size: 3.5rem; }
+            .header-subtitle { font-size: 1.1rem; }
+            .search-container, .header-actions .btn-enviar { width: 100%; }
+            .header-actions { flex-direction: column; gap: 10px; }
+            .carousel-btn { top: auto; bottom: -20px; }
+            .carousel-btn.prev { left: 30%; }
+            .carousel-btn.next { right: 30%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap">
+            <div><i class="far fa-calendar-alt"></i> Jueves, 19 de noviembre de 2026</div>
+            <div class="mt-2 mt-sm-0">
+                <a href="contacto.html">Suscríbete</a>
+                <a href="acerca-de.html">Acerca de</a>
+                <a href="contacto.html">Contacto</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-box">
+                <a href="index.html" class="header-brand">
+                    <div class="banner-wrapper">
+                        <img src="imagen/banner-header.png" alt="Asociación de Pedagogos de Cuba" class="logo-banner">
+                        <img src="imagen/banner-header.png" alt="" class="logo-banner-reflection">
+                    </div>
+                    <div class="header-text">
+                        <h1 class="header-title">Macarenco</h1>
+                        <span class="header-subtitle">Revista informativa de la Asociación de Pedagogos de Cuba<br>Filial Santiago de Cuba</span>
+                    </div>
+                </a>
+                <div class="header-actions">
+                    <form class="search-container">
+                        <img src="imagen/lupa.png" alt="Buscar" class="search-icon" onerror="this.style.display='none'">
+                        <input type="text" placeholder="Buscar artículos...">
+                        <button type="submit" class="btn-buscar">Buscar</button>
+                    </form>
+                    <a href="contacto.html" class="btn-enviar"><i class="fas fa-paper-plane"></i> Enviar Artículo</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menú -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="acerca-de.html">Acerca de</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">Artículos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sección Principal -->
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Columna Izquierda -->
+            <div class="col-lg-8 mb-5 mb-lg-0">
+                
+                <!-- 1. CARRUSEL -->
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="section-title">Artículos Recientes</h3>
+                </div>
+                
+                <div class="carousel-container">
+                    <button class="carousel-btn prev" id="btn-prev" aria-label="Anterior"><i class="fas fa-chevron-left"></i></button>
+                    
+                    <div class="horizontal-scroll-wrapper" id="carousel-track">
+                        <article class="card-articulo carousel-item-card">
+                            <a href="articulo_1.html"><div class="card-img-wrapper"><img src="imagen/news-1.svg" alt="Artículo 1"></div></a>
+                            <div class="card-body">
+                                <span class="card-cat">Historia</span>
+                                <h4 class="card-title"><a href="articulo_1.html">La Campaña de Alfabetización de 1961</a></h4>
+                                <p class="card-excerpt">A 65 años de la mayor movilización educativa del continente, pedagogos santiagueros revisan su huella...</p>
+                                <div class="card-meta">Diego Salcedo · 18 de noviembre</div>
+                            </div>
+                        </article>
+
+                        <article class="card-articulo carousel-item-card">
+                            <a href="articulo_2.html"><div class="card-img-wrapper"><img src="imagen/news-2.svg" alt="Artículo 2"></div></a>
+                            <div class="card-body">
+                                <span class="card-cat">Práctica Docente</span>
+                                <h4 class="card-title"><a href="articulo_2.html">La escuela-taller: una experiencia santiaguera</a></h4>
+                                <p class="card-excerpt">Cinco instituciones aplican un modelo que integra formación inicial, práctica profesional e investigación.</p>
+                                <div class="card-meta">Elena Mariscal · 16 de noviembre</div>
+                            </div>
+                        </article>
+
+                        <article class="card-articulo carousel-item-card">
+                            <a href="articulo_3.html"><div class="card-img-wrapper"><img src="imagen/news-3.svg" alt="Artículo 3"></div></a>
+                            <div class="card-body">
+                                <span class="card-cat">Tecnología</span>
+                                <h4 class="card-title"><a href="articulo_3.html">La IA en el aula: una oportunidad pedagógica</a></h4>
+                                <p class="card-excerpt">La inteligencia artificial generativa se incorpora a la planificación de clases y elaboración de recursos.</p>
+                                <div class="card-meta">Ana Lucía Vera · 14 de noviembre</div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <button class="carousel-btn next" id="btn-next" aria-label="Siguiente"><i class="fas fa-chevron-right"></i></button>
+                </div>
+
+                <!-- 2. NOVEDADES -->
+                <div class="mt-5">
+                    <h3 class="section-title">Novedades</h3>
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <article class="card-articulo grid-card">
+                                <a href="articulo_5.html"><div class="card-img-wrapper"><img src="imagen/news-5.svg" alt="Novedad 1"></div></a>
+                                <div class="card-body">
+                                    <span class="card-cat">Formación</span>
+                                    <h4 class="card-title"><a href="articulo_5.html">Formación permanente del docente</a></h4>
+                                    <p class="card-excerpt">La formación continua del docente cubano ha avanzado, pero la comunidad pedagógica se divide.</p>
+                                    <div class="card-meta">Diego Salcedo · 10 de noviembre</div>
+                                </div>
+                            </article>
+                        </div>
+
+                        <div class="col-md-6 mb-4">
+                            <article class="card-articulo grid-card">
+                                <a href="articulo_6.html"><div class="card-img-wrapper"><img src="imagen/news-6.svg" alt="Novedad 2"></div></a>
+                                <div class="card-body">
+                                    <span class="card-cat">Investigación</span>
+                                    <h4 class="card-title"><a href="articulo_6.html">Jóvenes investigadores en pedagogía</a></h4>
+                                    <p class="card-excerpt">Cinco tesis de maestría defendidas en 2026 abren nuevas líneas de investigación sobre didáctica.</p>
+                                    <div class="card-meta">Carlos Tunán · 8 de noviembre</div>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. EVENTOS Y PREMIOS (CORREGIDOS) -->
+                <div class="row mt-4">
+                    <!-- TARJETA EVENTO -->
+                    <div class="col-md-6 mb-4 d-flex">
+                        <article class="card-especial card-evento">
+                            <a href="#"><div class="card-img-wrapper"><img src="imagen/news-2.svg" alt="Próximo Evento"></div></a>
+                            <div class="card-body">
+                                <span class="card-cat">Próximo Evento</span>
+                                <h4 class="card-title"><a href="#">Taller Provincial de Pedagogía 2026</a></h4>
+                                <p class="card-excerpt">Inscripciones abiertas para el encuentro de referencia de la región oriental.</p>
+                                <div class="card-meta">📍 Santiago de Cuba · 15 de diciembre</div>
+                            </div>
+                        </article>
+                    </div>
+
+                    <!-- TARJETA PREMIO -->
+                    <div class="col-md-6 mb-4 d-flex">
+                        <article class="card-especial card-premio">
+                            <a href="#"><div class="card-img-wrapper"><img src="imagen/news-3.svg" alt="Premio"></div></a>
+                            <div class="card-body">
+                                <span class="card-cat">Premiación</span>
+                                <h4 class="card-title"><a href="#">Premio Nacional de Pedagogía 2026</a></h4>
+                                <p class="card-excerpt">La APC convoca a todos los docentes del país a postular sus mejores investigaciones.</p>
+                                <div class="card-meta">🏆 Recepción hasta el 30 de noviembre</div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Columna Derecha (Sidebar Sticky) -->
+            <div class="col-lg-4">
+                <!-- Envolvemos todo el sidebar en un div sticky -->
+                <div class="sidebar-wrapper">
+                    <div class="boletin-card">
+                        <h4>Boletín Semanal</h4>
+                        <p class="small">Recibe lo más relevante de la pedagogía cubana cada lunes.</p>
+                        <form action="contacto.html">
+                            <input type="email" placeholder="Tu correo electrónico" required>
+                            <button type="submit">Suscribirme</button>
+                        </form>
+                    </div>
+
+                    <div class="indexadores-card">
+                        <h4>Indexada en:</h4>
+                        <div class="indexadores-grid">
+                            <img src="imagen/placeholder.svg" alt="Scopus" title="Scopus">
+                            <img src="imagen/placeholder.svg" alt="Google Académico" title="Google Académico">
+                            <img src="imagen/placeholder.svg" alt="Redalyc" title="Redalyc">
+                            <img src="imagen/placeholder.svg" alt="SciELO" title="SciELO">
+                            <img src="imagen/placeholder.svg" alt="DOAJ" title="DOAJ">
+                            <img src="imagen/placeholder.svg" alt="Latindex" title="Latindex">
+                        </div>
+                    </div>
+
+                    <div class="about-card">
+                        <h4>¿Quiénes Somos?</h4>
+                        <p>La Asociación de Pedagogos de Cuba (APC) es una organización científica y social que agrupa a los profesionales de la educación en el país.</p>
+                        <p>Fundada con el objetivo de elevar la calidad educativa, fomentar la investigación pedagógica y promover la formación permanente de los docentes.</p>
+                        <a href="acerca-de.html" class="btn-leer-mas">Leer más sobre la APC</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 style="color: var(--azul-cielo);">Macarenco</h5>
+                    <p class="small">Revista informativa de la Asociación de Pedagogos de Cuba, Filial Santiago de Cuba.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 style="color: var(--azul-cielo);">Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="acerca-de.html">Acerca de</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 style="color: var(--azul-cielo);">Contacto</h5>
+                    <p class="small mb-1"><i class="fas fa-envelope"></i> redaccion@apc-santiago.cu</p>
+                    <p class="small"><i class="fas fa-phone"></i> +53 22 64 38 25</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2026 Macarenco · Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JAVASCRIPT DEL CARRUSEL -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const track = document.getElementById('carousel-track');
+            const btnNext = document.getElementById('btn-next');
+            const btnPrev = document.getElementById('btn-prev');
+            let autoPlayInterval;
+
+            function getCardWidth() {
+                const card = track.querySelector('.carousel-item-card');
+                if (!card) return 0;
+                return card.offsetWidth + 20; 
+            }
+
+            function scrollNext() {
+                const cardWidth = getCardWidth();
+                if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
+                    track.scrollTo({ left: 0, behavior: 'smooth' }); 
+                } else {
+                    track.scrollBy({ left: cardWidth, behavior: 'smooth' });
+                }
+            }
+
+            function scrollPrev() {
+                const cardWidth = getCardWidth();
+                track.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+            }
+
+            function startAutoPlay() { autoPlayInterval = setInterval(scrollNext, 10000); }
+            function stopAutoPlay() { clearInterval(autoPlayInterval); }
+
+            btnNext.addEventListener('click', () => { scrollNext(); stopAutoPlay(); startAutoPlay(); });
+            btnPrev.addEventListener('click', () => { scrollPrev(); stopAutoPlay(); startAutoPlay(); });
+
+            track.addEventListener('mouseenter', stopAutoPlay);
+            track.addEventListener('mouseleave', startAutoPlay);
+            track.addEventListener('touchstart', stopAutoPlay);
+            track.addEventListener('touchend', startAutoPlay);
+
+            startAutoPlay();
+        });
+    </script>
+</body>
+</html>
