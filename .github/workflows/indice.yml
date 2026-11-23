@@ -1,0 +1,36 @@
+name: Indice de articulos
+
+# Regenera articulos/indice.json e indice.js cada vez que se sube o edita
+# un artículo. Así la portada y el buscador se actualizan solos: no hay que
+# ejecutar nada en la máquina de nadie. (Ver COMO_PUBLICAR.md.)
+
+on:
+  push:
+    paths:
+      - 'articulos/**'
+      - 'hacer_indice.py'
+      - '.github/workflows/indice.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  indice:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Reconstruir el indice
+        run: python3 hacer_indice.py
+
+      - name: Guardar el indice en el repositorio
+        run: |
+          git config user.name "Macarenco (bot)"
+          git config user.email "actions@github.com"
+          git add articulos/indice.json articulos/indice.js
+          if git diff --cached --quiet; then
+            echo "indice sin cambios"
+          else
+            git commit -m "Actualiza el indice de articulos"
+            git push
+          fi
