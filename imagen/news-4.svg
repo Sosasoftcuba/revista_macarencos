@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" preserveAspectRatio="xMidYMid slice" role="img">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#026892"/>
+      <stop offset="1" stop-color="#039ed6"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bg)"/>
+  <!-- círculo central de unión -->
+  <circle cx="640" cy="360" r="180" fill="#026892" opacity="0.3"/>
+  <circle cx="640" cy="360" r="120" fill="#039ed6" opacity="0.4"/>
+  <!-- tres manos formando triángulo -->
+  <g transform="translate(640,280)">
+    <path d="M-40,0 Q-50,-20 -30,-30 Q-10,-40 0,-20 Q10,-40 30,-30 Q50,-20 40,0 Q50,20 30,30 Q10,40 0,20 Q-10,40 -30,30 Q-50,20 -40,0 Z" fill="#ffffff"/>
+  </g>
+  <g transform="translate(540,440)">
+    <path d="M-40,0 Q-50,-20 -30,-30 Q-10,-40 0,-20 Q10,-40 30,-30 Q50,-20 40,0 Q50,20 30,30 Q10,40 0,20 Q-10,40 -30,30 Q-50,20 -40,0 Z" fill="#f4c542"/>
+  </g>
+  <g transform="translate(740,440)">
+    <path d="M-40,0 Q-50,-20 -30,-30 Q-10,-40 0,-20 Q10,-40 30,-30 Q50,-20 40,0 Q50,20 30,30 Q10,40 0,20 Q-10,40 -30,30 Q-50,20 -40,0 Z" fill="#5cb8e0"/>
+  </g>
+  <!-- símbolo accesibilidad (silla de ruedas) -->
+  <g transform="translate(180,200)" fill="#ffffff">
+    <circle cx="0" cy="-20" r="18"/>
+    <rect x="-8" y="0" width="16" height="30"/>
+    <path d="M-15,30 L20,30 L20,40 L-5,40 L-5,60 L-20,60 Z"/>
+    <circle cx="-10" cy="70" r="25" fill="none" stroke="#ffffff" stroke-width="6"/>
+  </g>
+  <!-- braille (puntos) -->
+  <g transform="translate(1040,200)" fill="#ffffff">
+    <rect x="-50" y="-40" width="100" height="80" rx="6" fill="#026892"/>
+    <circle cx="-25" cy="-20" r="6"/><circle cx="-25" cy="0" r="6"/><circle cx="-25" cy="20" r="6"/>
+    <circle cx="25" cy="-20" r="6"/><circle cx="25" cy="20" r="6"/>
+    <text x="0" y="65" font-family="Arial" font-size="14" fill="#ffffff" text-anchor="middle">Braille</text>
+  </g>
+  <!-- LSE (lenguaje de señas) mano -->
+  <g transform="translate(180,500)" fill="#f4c542">
+    <rect x="-5" y="0" width="10" height="50"/>
+    <rect x="-25" y="-5" width="10" height="40"/>
+    <rect x="15" y="-5" width="10" height="40"/>
+    <rect x="-35" y="0" width="10" height="35"/>
+    <rect x="25" y="0" width="10" height="35"/>
+    <rect x="-40" y="30" width="80" height="20" rx="6"/>
+  </g>
+  <!-- corazón -->
+  <g transform="translate(1100,500)" fill="#d63b3b">
+    <path d="M0,30 C-30,0 -30,-20 -15,-20 C-5,-20 0,-10 0,-5 C0,-10 5,-20 15,-20 C30,-20 30,0 0,30 Z"/>
+  </g>
+  <text x="60" y="80" font-family="Georgia,serif" font-size="22" font-weight="700" fill="#ffffff" opacity="0.9">Educación especial</text>
+  <g opacity="0.9" transform="translate(1080,670)">
+    <circle cx="0" cy="0" r="14" fill="none" stroke="#ffffff" stroke-width="2"/>
+    <text x="0" y="5" font-family="Georgia,serif" font-size="13" font-weight="700" text-anchor="middle" fill="#ffffff">APC</text>
+    <text x="30" y="5" font-family="Arial,sans-serif" font-size="11" fill="#ffffff" opacity="0.7">Macarenco</text>
+  </g>
+</svg>
