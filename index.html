@@ -286,30 +286,29 @@
         .card-excerpt { font-size: 0.95rem; color: #555; flex-grow: 1; overflow: hidden; }
         .card-meta { font-size: 0.85rem; color: #777; border-top: 1px solid #ddd; padding-top: 10px; margin-top: 10px; }
 
-        /* CARRUSEL (EFECTO PEEK) — iconos de las flechas SVG inline */
-        .carousel-container { position: relative; padding: 0 40px; }
-        .carousel-btn {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            width: 60px; height: 60px; background-color: var(--blanco); color: var(--azul-fuerte);
-            border: 3px solid var(--azul-fuerte); border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; z-index: 10; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: all 0.2s;
-            padding: 0;
-        }
-        .carousel-btn svg.icon { width: 26px; height: 26px; }
-        .carousel-btn:hover {
-            background-color: var(--azul-fuerte); color: var(--blanco); transform: translateY(-50%) scale(1.1);
-        }
-        .carousel-btn.prev { left: -10px; }
-        .carousel-btn.next { right: -10px; }
+        /* CARRUSEL (CINTA CONTINUA, estilo "caballitos del parque"): las fichas
+           desfilan solas y sin parar, como una cinta que da vueltas; se
+           detienen al pasar el cursor por encima y mientras se toca la
+           pantalla. Las flechas SVG viejas quedan en el HTML pero ocultas:
+           con movimiento constante no hacen falta. Con "movimiento reducido"
+           (accesibilidad) la cinta queda quieta y se desliza con el dedo. */
+        .carousel-container { position: relative; padding: 0; overflow: hidden; }
+        .carousel-btn { display: none; }
         .horizontal-scroll-wrapper {
-            display: flex; overflow-x: auto; gap: 20px; padding: 10px 0 20px 0;
-            scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; scroll-behavior: smooth;
+            display: flex; overflow-x: hidden; padding: 10px 0 20px 0;
+            width: max-content; animation: gira-carrusel 45s linear infinite;
         }
-        .horizontal-scroll-wrapper::-webkit-scrollbar { display: none; }
-        .horizontal-scroll-wrapper { -ms-overflow-style: none; scrollbar-width: none; }
-        .carousel-item-card { flex: 0 0 88%; scroll-snap-align: center; min-height: 480px; }
-        @media (min-width: 768px) { .carousel-item-card { flex: 0 0 46%; } }
+        .horizontal-scroll-wrapper.pausa { animation-play-state: paused; }
+        .carousel-container:hover .horizontal-scroll-wrapper { animation-play-state: paused; }
+        @keyframes gira-carrusel {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); } /* la mitad es idéntica: el giro no se nota */
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .horizontal-scroll-wrapper { animation: none; overflow-x: auto; }
+        }
+        .carousel-item-card { flex: 0 0 min(340px, 86vw); margin-right: 20px; min-height: 480px; }
+        @media (min-width: 768px) { .carousel-item-card { flex: 0 0 380px; } }
 
         .section-title {
             border-left: 5px solid var(--azul-fuerte); padding-left: 10px;
@@ -360,6 +359,39 @@
         .indexadores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; align-items: center; justify-items: center; }
         .indexadores-grid img { max-width: 100%; max-height: 60px; object-fit: contain; filter: grayscale(100%); opacity: 0.7; transition: all 0.3s ease; }
         .indexadores-grid img:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
+        /* «Últimas entradas»: las 5 más recientes, numeradas. Diseño
+           profesional: número en insignia a la izquierda, titular en una
+           línea y la DEBAJO la fecha, pequeña y discreta (la fecha nunca
+           comparte línea con el titular: eso apretaba el texto y daba
+           aspecto de tabloide). */
+        .lista-ultimas { list-style: none; counter-reset: ult; margin: 0; padding: 0; }
+        .lista-ultimas li {
+            counter-increment: ult; display: flex; align-items: flex-start;
+            gap: 12px; padding: 12px 2px; border-bottom: 1px solid #e3edf8;
+            text-align: left; /* la tarjeta centra su título; la lista queda alineada a la izquierda */
+        }
+        .lista-ultimas li:last-child { border-bottom: none; padding-bottom: 2px; }
+        .lista-ultimas li::before {
+            content: counter(ult); flex: 0 0 26px; height: 26px; line-height: 26px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte));
+            color: var(--blanco); font-size: 0.72rem; font-weight: 700; text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 68, 204, 0.28);
+        }
+        .lista-ultimas-info { flex: 1; min-width: 0; }
+        .lista-ultimas li a {
+            color: var(--gris-oscuro); font-weight: 600; text-decoration: none;
+            line-height: 1.35; display: block;
+        }
+        .lista-ultimas li a:hover { color: var(--azul-fuerte); }
+        .lista-ultimas li .fecha-ult {
+            display: flex; align-items: center; gap: 5px;
+            margin-top: 4px; color: #6b7a89; font-size: 0.75rem; letter-spacing: 0.2px;
+        }
+        .lista-ultimas li .fecha-ult .icon {
+            width: 12px; height: 12px; stroke-width: 1.8;
+            color: var(--azul-cielo); flex: 0 0 auto;
+        }
 
         .about-card {
             border: 3px solid transparent;
@@ -586,9 +618,6 @@
         @media (max-width: 992px) {
             .carousel-btn { width: 45px; height: 45px; }
             .carousel-btn svg.icon { width: 20px; height: 20px; }
-            .carousel-container { padding: 0 20px; }
-            .carousel-btn.prev { left: -15px; }
-            .carousel-btn.next { right: -15px; }
             .article-title { font-size: 1.9rem; }
         }
         @media (max-width: 768px) {
@@ -693,42 +722,17 @@
                 </div>
 
                 <div class="carousel-container">
-                    <!-- Flechas con SVG inline: funcionan sin conexión en cualquier navegador -->
-                    <button class="carousel-btn prev" id="btn-prev" aria-label="Anterior"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="15 18 9 12 15 6"/></svg></button>
+                    <!-- Flechas SVG antiguas retiradas: la cinta gira sola y no
+                         necesita botones. El CSS de .carousel-btn queda por si
+                         algún día se quiere volver al modo manual. -->
 
                     <div class="horizontal-scroll-wrapper" id="carousel-track">
-                        <article class="card-articulo carousel-item-card">
-                            <a href="articulo_1.html"><div class="card-img-wrapper"><img src="imagen/news-1.svg" alt="Artículo 1"></div></a>
-                            <div class="card-body">
-                                <span class="card-cat">Historia</span>
-                                <h4 class="card-title"><a href="articulo_1.html">La Campaña de Alfabetización de 1961</a></h4>
-                                <p class="card-excerpt">A 65 años de la mayor movilización educativa del continente, pedagogos santiagueros revisan su huella...</p>
-                                <div class="card-meta">Diego Salcedo · 18 de noviembre</div>
-                            </div>
-                        </article>
+                        <!-- Las 5 fichas (por partida doble, para el giro continuo)
+                             se rellenan solas desde articulos/indice.json -->
 
-                        <article class="card-articulo carousel-item-card">
-                            <a href="articulo_7.html"><div class="card-img-wrapper"><img src="imagen/news-7.svg" alt="La escuela-taller"></div></a>
-                            <div class="card-body">
-                                <span class="card-cat">Práctica Docente</span>
-                                <h4 class="card-title"><a href="articulo_7.html">La escuela-taller: una experiencia santiaguera</a></h4>
-                                <p class="card-excerpt">Cinco instituciones aplican un modelo que integra formación inicial, práctica profesional e investigación.</p>
-                                <div class="card-meta">Elena Mariscal · 16 de noviembre</div>
-                            </div>
-                        </article>
 
-                        <article class="card-articulo carousel-item-card">
-                            <a href="articulo_3.html"><div class="card-img-wrapper"><img src="imagen/news-3.svg" alt="Artículo 3"></div></a>
-                            <div class="card-body">
-                                <span class="card-cat">Tecnología</span>
-                                <h4 class="card-title"><a href="articulo_3.html">La IA en el aula: una oportunidad pedagógica</a></h4>
-                                <p class="card-excerpt">La inteligencia artificial generativa se incorpora a la planificación de clases y elaboración de recursos.</p>
-                                <div class="card-meta">Ana Lucía Vera · 14 de noviembre</div>
-                            </div>
-                        </article>
                     </div>
 
-                    <button class="carousel-btn next" id="btn-next" aria-label="Siguiente"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="9 18 15 12 9 6"/></svg></button>
                 </div>
 
                 <!-- 2. NOVEDADES -->
@@ -736,27 +740,11 @@
                     <h3 class="section-title">Novedades</h3>
                     <div class="row">
                         <div class="col-md-6 mb-4">
-                            <article class="card-articulo grid-card">
-                                <a href="articulo_5.html"><div class="card-img-wrapper"><img src="imagen/news-5.svg" alt="Novedad 1"></div></a>
-                                <div class="card-body">
-                                    <span class="card-cat">Formación</span>
-                                    <h4 class="card-title"><a href="articulo_5.html">Formación permanente del docente</a></h4>
-                                    <p class="card-excerpt">La formación continua del docente cubano ha avanzado, pero la comunidad pedagógica se divide.</p>
-                                    <div class="card-meta">Diego Salcedo · 10 de noviembre</div>
-                                </div>
-                            </article>
+                            <article class="card-articulo grid-card" id="novedad-1"></article>
                         </div>
 
                         <div class="col-md-6 mb-4">
-                            <article class="card-articulo grid-card">
-                                <a href="articulo_6.html"><div class="card-img-wrapper"><img src="imagen/news-6.svg" alt="Novedad 2"></div></a>
-                                <div class="card-body">
-                                    <span class="card-cat">Investigación</span>
-                                    <h4 class="card-title"><a href="articulo_6.html">Jóvenes investigadores en pedagogía</a></h4>
-                                    <p class="card-excerpt">Cinco tesis de maestría defendidas en 2026 abren nuevas líneas de investigación sobre didáctica.</p>
-                                    <div class="card-meta">Carlos Tunán · 8 de noviembre</div>
-                                </div>
-                            </article>
+                            <article class="card-articulo grid-card" id="novedad-2"></article>
                         </div>
                     </div>
                 </div>
@@ -766,12 +754,12 @@
                     <!-- TARJETA EVENTO -->
                     <div class="col-md-6 mb-4 d-flex">
                         <article class="card-especial card-evento">
-                            <a href="#"><div class="card-img-wrapper"><img src="imagen/news-2.svg" alt="Próximo Evento"></div></a>
+                            <a href="articulos/articulo_2.html"><div class="card-img-wrapper"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a2/Zahid_Maleque_Speech_G-77_Plus_China_Summit_Havana_Cuba_2023-09-19_%28PID-0013584%29.jpg/500px-Zahid_Maleque_Speech_G-77_Plus_China_Summit_Havana_Cuba_2023-09-19_%28PID-0013584%29.jpg" alt="Salón principal del Palacio de Convenciones de La Habana durante una sesión internacional"></div></a>
                             <div class="card-body">
                                 <span class="card-cat">Próximo Evento</span>
-                                <h4 class="card-title"><a href="#">Taller Provincial de Pedagogía 2026</a></h4>
-                                <p class="card-excerpt">Inscripciones abiertas para el encuentro de referencia de la región oriental.</p>
-                                <div class="card-meta">📍 Santiago de Cuba · 15 de diciembre</div>
+                                <h4 class="card-title"><a href="articulos/articulo_2.html">Pedagogía 2027: camino a la XX edición</a></h4>
+                                <p class="card-excerpt">Los congresos municipales y provinciales preparan la cita mundial de los educadores en La Habana.</p>
+                                <div class="card-meta">📍 Palacio de Convenciones, La Habana · En preparación</div>
                             </div>
                         </article>
                     </div>
@@ -779,12 +767,12 @@
                     <!-- TARJETA PREMIO -->
                     <div class="col-md-6 mb-4 d-flex">
                         <article class="card-especial card-premio">
-                            <a href="#"><div class="card-img-wrapper"><img src="imagen/news-3.svg" alt="Premio"></div></a>
+                            <a href="articulos/articulo_9.html"><div class="card-img-wrapper"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Santiago_de_Cuba_-_Parque_Cespedes_and_House_of_Don_Diego_Velasquez.jpg/500px-Santiago_de_Cuba_-_Parque_Cespedes_and_House_of_Don_Diego_Velasquez.jpg" alt="Parque Céspedes y Casa de Diego Velázquez, centro histórico de Santiago de Cuba"></div></a>
                             <div class="card-body">
-                                <span class="card-cat">Premiación</span>
-                                <h4 class="card-title"><a href="#">Premio Nacional de Pedagogía 2026</a></h4>
-                                <p class="card-excerpt">La APC convoca a todos los docentes del país a postular sus mejores investigaciones.</p>
-                                <div class="card-meta">🏆 Recepción hasta el 30 de noviembre</div>
+                                <span class="card-cat">Patrimonio y Lectura</span>
+                                <h4 class="card-title"><a href="articulos/articulo_9.html">Elvira Cape: la memoria lectora de Santiago</a></h4>
+                                <p class="card-excerpt">63 años en Heredia y 127 desde el primer museo-biblioteca público del país.</p>
+                                <div class="card-meta">📍 Heredia #257, entre Carnicería y Aguilera</div>
                             </div>
                         </article>
                     </div>
@@ -804,15 +792,15 @@
                     </div>
 
                     <div class="indexadores-card">
-                        <h4>Indexada en:</h4>
-                        <div class="indexadores-grid">
-                            <img src="imagen/placeholder.svg" alt="Scopus" title="Scopus">
-                            <img src="imagen/placeholder.svg" alt="Google Académico" title="Google Académico">
-                            <img src="imagen/placeholder.svg" alt="Redalyc" title="Redalyc">
-                            <img src="imagen/placeholder.svg" alt="SciELO" title="SciELO">
-                            <img src="imagen/placeholder.svg" alt="DOAJ" title="DOAJ">
-                            <img src="imagen/placeholder.svg" alt="Latindex" title="Latindex">
-                        </div>
+                        <h4>Últimas entradas</h4>
+                        <!-- La lista se rellena sola desde articulos/indice.json:
+                             son las 5 entradas más recientes, numeradas, cada una
+                             con la fecha debajo del titular. Sustituye a la vieja
+                             caja "Indexada en". -->
+                        <ol class="lista-ultimas" id="lista-ultimas">
+                            <li class="ult-cargando">Cargando los artículos…</li>
+                        </ol>
+                        <p class="small mt-3 mb-0"><a href="articulos_publicados.html">Ver todas y buscar &rarr;</a></p>
                     </div>
 
                     <!-- PROYECTOS COLABORATIVOS (restaurado de la versión original) --><!--
@@ -1026,47 +1014,98 @@
             });
         })();
     </script>
-    <!-- JAVASCRIPT DEL CARRUSEL -->
+    <!-- PORTADA DINÁMICA: el carrusel y las novedades se rellenan solos
+         leyendo articulos/indice.json (lo genera hacer_indice.py con los
+         metadatos que lleva cada artículo). Publicar un artículo nuevo ya
+         NO requiere tocar esta página:
+         1) guarda el artículo en la carpeta articulos/,
+         2) ejecuta "python hacer_indice.py",
+         3) sube la carpeta articulos/ al repositorio.
+         Si indice.json no se puede leer (p. ej. al abrir la página con
+         doble clic, porque el navegador bloquea fetch() sobre archivos
+         locales), se usa el respaldo articulos/indice.js con los mismos
+         datos: así la portada funciona también desde el disco o una USB. -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var track = document.getElementById('carousel-track');
-            var btnNext = document.getElementById('btn-next');
-            var btnPrev = document.getElementById('btn-prev');
-            if (!track || !btnNext || !btnPrev) return;
-            var autoPlayInterval;
-
-            function getCardWidth() {
-                var card = track.querySelector('.carousel-item-card');
-                if (!card) return 0;
-                return card.offsetWidth + 20;
+        (function () {
+            function esc(s) {
+                return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
             }
-
-            function scrollNext() {
-                var cardWidth = getCardWidth();
-                if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
-                    track.scrollTo({ left: 0, behavior: 'smooth' });
-                } else {
-                    track.scrollBy({ left: cardWidth, behavior: 'smooth' });
+            function rellenar(lista) {
+                var track = document.getElementById('carousel-track');
+                if (!track || !lista.length) return;
+                function tarjeta(a, clase) {
+                    return '<article class="' + clase + '">'
+                        + '<a href="articulos/' + a.url + '"><div class="card-img-wrapper"><img src="' + a.img + '" alt="' + esc(a.imgAlt) + '" loading="lazy"></div></a>'
+                        + '<div class="card-body">'
+                        + '<span class="card-cat">' + esc(a.cat) + '</span>'
+                        + '<h4 class="card-title"><a href="articulos/' + a.url + '">' + esc(a.titulo) + '</a></h4>'
+                        + '<p class="card-excerpt">' + esc(a.resumen) + '</p>'
+                        + '<div class="card-meta">' + esc(a.autor) + ' · ' + esc(a.fechaTxt) + '</div>'
+                        + '</div></article>';
                 }
+                /* SIN REPETIDOS EN LA PORTADA: los artículos de las dos fichas
+                   fijas de «Eventos y Premios» ya tienen su ficha ahí, así que
+                   se apartan del carrusel y de las novedades. Así ningún
+                   artículo aparece dos veces entre las fichas de la portada. */
+                var DESTACADAS = ['articulo_2.html', 'articulo_9.html'];
+                var rotacion = lista.filter(function (a) {
+                    return DESTACADAS.indexOf(a.url) === -1;
+                });
+                track.innerHTML = rotacion.slice(0, 5).map(function (a) {
+                    return tarjeta(a, 'card-articulo carousel-item-card');
+                }).join('')
+                /* Segunda mitad idéntica (oculta a lectores de pantalla): la
+                   cinta del carrusel gira sin parar y, al acabar la primera
+                   mitad, la segunda ya está en pantalla: el salto no se nota. */
+                + rotacion.slice(0, 5).map(function (a) {
+                    return tarjeta(a, 'card-articulo carousel-item-card')
+                        .replace('<article ', '<article aria-hidden="true" tabindex="-1" ');
+                }).join('');
+                /* Las 2 novedades van después de las 5 del carrusel: así ningún
+                   artículo se repite entre el carrusel y las novedades. */
+                if (rotacion[5]) {
+                    var n1 = document.getElementById('novedad-1');
+                    if (n1) n1.outerHTML = tarjeta(rotacion[5], 'card-articulo grid-card');
+                }
+                if (rotacion[6]) {
+                    var n2 = document.getElementById('novedad-2');
+                    if (n2) n2.outerHTML = tarjeta(rotacion[6], 'card-articulo grid-card');
+                }
+                /* Caja lateral «Últimas entradas»: las 5 más recientes,
+                   numeradas, con la fecha DEBAJO del titular (una línea cada
+                   cosa: nada pegado a la derecha ni titulares apretados). */
+                var ul = document.getElementById('lista-ultimas');
+                if (ul) ul.innerHTML = lista.slice(0, 5).map(function (a) {
+                    return '<li><span class="lista-ultimas-info">'
+                        + '<a href="articulos/' + a.url + '">' + esc(a.titulo) + '</a>'
+                        + '<span class="fecha-ult">'
+                        + '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>'
+                        + esc(a.fechaTxt || a.fecha || '') + '</span></span></li>';
+                }).join('');
             }
-
-            function scrollPrev() {
-                var cardWidth = getCardWidth();
-                track.scrollBy({ left: -cardWidth, behavior: 'smooth' });
+            function avisarFallo() {
+                var track = document.getElementById('carousel-track');
+                if (track) track.innerHTML = '<p style="padding:24px;color:#6b7a89;">No se pudo cargar el índice de artículos. Comprueba que existan <strong>articulos/indice.json</strong> e <strong>indice.js</strong> junto a esta página.</p>';
             }
-
-            function startAutoPlay() { autoPlayInterval = setInterval(scrollNext, 10000); }
-            function stopAutoPlay() { clearInterval(autoPlayInterval); }
-
-            btnNext.addEventListener('click', function () { scrollNext(); stopAutoPlay(); startAutoPlay(); });
-            btnPrev.addEventListener('click', function () { scrollPrev(); stopAutoPlay(); startAutoPlay(); });
-
-            track.addEventListener('mouseenter', stopAutoPlay);
-            track.addEventListener('mouseleave', startAutoPlay);
-            track.addEventListener('touchstart', stopAutoPlay);
-            track.addEventListener('touchend', startAutoPlay);
-
-            startAutoPlay();
+            fetch('articulos/indice.json').then(function (r) { return r.json(); }).then(rellenar).catch(function () {
+                var s = document.createElement('script');
+                s.src = 'articulos/indice.js';
+                s.onload = function () { rellenar(window.INDICE_ARTICULOS || []); };
+                s.onerror = avisarFallo;
+                document.head.appendChild(s);
+            });
+        })();
+    </script>
+    <!-- JAVASCRIPT DEL CARRUSEL: la cinta gira sola por CSS. Aquí solo se
+         detiene mientras un dedo la toca (con el ratón basta el :hover). -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var zona = document.querySelector('.carousel-container');
+            var track = document.getElementById('carousel-track');
+            if (!zona || !track) return;
+            zona.addEventListener('touchstart', function () { track.classList.add('pausa'); }, { passive: true });
+            zona.addEventListener('touchend', function () { track.classList.remove('pausa'); }, { passive: true });
+            zona.addEventListener('touchcancel', function () { track.classList.remove('pausa'); }, { passive: true });
         });
     </script>
     <!-- AJUSTE AUTOMÁTICO DE LA SOLAPA "MACARENCO": mide el ancho real del

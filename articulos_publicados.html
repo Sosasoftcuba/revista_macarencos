@@ -927,18 +927,37 @@
     <!-- BUSCADOR DE ARTÍCULOS PUBLICADOS: filtra el catálogo con lo que
          se escribió en la caja de búsqueda (viene por ?q=...) -->
     <script>
-    var ARTICULOS = [
-        { titulo: "La Campaña de Alfabetización de 1961: un legado pedagógico vigente", cat: "Historia", resumen: "A 65 años de la mayor movilización educativa del continente: más de 100 000 brigadistas redujeron el analfabetismo en Cuba del 23,6 % al 3,9 % en apenas un año. Su huella metodológica sigue orientando la formación de docentes en Santiago de Cuba.", meta: "Diego Salcedo Leyva · 18 de noviembre de 2026 · 5 min de lectura", img: "imagen/news-1.svg", url: "articulo_1.html", pdf: "pdf/articulo_1.pdf" },
-        { titulo: "Pedagogía 2027: Cuba se prepara para el gran evento educativo", cat: "Evento Internacional", resumen: "El comité organizador inició los preparativos de la cita académica más importante del sector educativo en Cuba, bajo el lema «Por una educación de calidad para todos». La Universidad de Oriente coordinará simposios y talleres.", meta: "Dr. C. Alexis Céspedes Quiala · 20 de noviembre de 2026 · 4 min de lectura", img: "imagen/news-2.svg", url: "articulo_2.html", pdf: "pdf/articulo_2.pdf" },
-        { titulo: "La IA en el aula: una oportunidad pedagógica", cat: "Tecnología", resumen: "La inteligencia artificial generativa se incorpora a la planificación de clases y a la elaboración de recursos didácticos en escuelas santiagueras. Usos concretos, límites éticos y una guía de arranque para el docente.", meta: "Ana Lucía Vera Nápoles · 14 de noviembre de 2026 · 4 min de lectura", img: "imagen/news-3.svg", url: "articulo_3.html", pdf: "pdf/articulo_3.pdf" },
-        { titulo: "Educación inclusiva: avances en la diversidad", cat: "Inclusión", resumen: "Las escuelas de la provincia avanzan de la declaración a la práctica: diagnósticos participativos, adecuaciones curriculares individuales y trabajo con las familias. Qué funciona, qué falta y qué viene.", meta: "Roberto Ferrer Castellanos · 12 de noviembre de 2026 · 5 min de lectura", img: "imagen/news-4.svg", url: "articulo_4.html", pdf: "pdf/articulo_4.pdf" },
-        { titulo: "Formación permanente del docente: ¿cursos o escuela?", cat: "Formación", resumen: "La formación continua del docente cubano ha avanzado, pero la comunidad pedagógica se divide entre los que apuestan por cursos estructurados y quienes defienden la investigación en la propia escuela. Analizamos una vía intermedia.", meta: "Diego Salcedo Leyva · 10 de noviembre de 2026 · 6 min de lectura", img: "imagen/news-5.svg", url: "articulo_5.html", pdf: "pdf/articulo_5.pdf" },
-        { titulo: "Jóvenes investigadores en pedagogía: cinco tesis que abren camino", cat: "Investigación", resumen: "Cinco tesis de maestría defendidas en 2026 abren nuevas líneas de investigación sobre didáctica de la matemática, lectoescritura, evaluación formativa, entornos virtuales y educación rural.", meta: "Carlos Tunán · 8 de noviembre de 2026 · 4 min de lectura", img: "imagen/news-6.svg", url: "articulo_6.html", pdf: "pdf/articulo_6.pdf" },
-        { titulo: "La escuela-taller: una experiencia santiaguera", cat: "Práctica Docente", resumen: "Cinco instituciones aplican un modelo que integra formación inicial, práctica profesional e investigación. Los estudiantes enseñan, producen recursos y estudian su propia práctica bajo la guía de tutores.", meta: "Elena Mariscal Hechavarría · 16 de noviembre de 2026 · 5 min de lectura", img: "imagen/news-7.svg", url: "articulo_7.html", pdf: "pdf/articulo_7.pdf" }
-    ];
+    /* Los artículos ya NO se escriben en esta página: se leen solos de
+       articulos/indice.json (ese archivo lo genera hacer_indice.py con los
+       metadatos que lleva cada artículo dentro). Para publicar uno nuevo,
+       guárdalo en la carpeta articulos/ y ejecuta hacer_indice.py.
+       Si indice.json no se puede leer (p. ej. al abrir esta página con
+       doble clic, porque el navegador bloquea fetch() sobre archivos
+       locales), se usa el respaldo articulos/indice.js con los mismos
+       datos: así el sitio funciona también desde el disco o una USB. */
+    var ARTICULOS = [];
 
-    /* Icono PDF inline para el botón de descarga */
-    var ICONO_PDF = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="12" x2="12" y2="17"/><polyline points="9.5 14.5 12 17 14.5 14.5"/></svg>';
+    function cargarArticulos(continuar) {
+        fetch('articulos/indice.json').then(function (r) { return r.json(); }).then(function (lista) {
+            ARTICULOS = lista;
+            continuar();
+        }).catch(function () {
+            var s = document.createElement('script');
+            s.src = 'articulos/indice.js';
+            s.onload = function () {
+                ARTICULOS = window.INDICE_ARTICULOS || [];
+                continuar();
+            };
+            s.onerror = function () {
+                ARTICULOS = [];
+                continuar();
+            };
+            document.head.appendChild(s);
+        });
+    }
+
+    /* Icono de impresora para el botón Imprimir/PDF */
+    var ICONO_PDF = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>';
 
     function sinAcentos(s) {
         s = s.toLowerCase();
@@ -955,21 +974,21 @@
 
     function tarjeta(a) {
         return '<article class="resultado-card">'
-            + '<a class="resultado-img" href="' + a.url + '"><img src="' + a.img + '" alt="" onerror="this.style.display=\'none\'"></a>'
+            + '<a class="resultado-img" href="articulos/' + a.url + '"><img src="' + a.img + '" alt="' + esc(a.imgAlt) + '" loading="lazy" onerror="this.style.display=\'none\'"></a>'
             + '<div class="resultado-body">'
             + '<span class="resultado-cat">' + esc(a.cat) + '</span>'
-            + '<h3><a href="' + a.url + '">' + esc(a.titulo) + '</a></h3>'
+            + '<h3><a href="articulos/' + a.url + '">' + esc(a.titulo) + '</a></h3>'
             + '<p>' + esc(a.resumen) + '</p>'
             + '<div class="resultado-meta">' + esc(a.meta) + '</div>'
             + '</div>'
             + '<div class="resultado-acciones">'
-            + '<a class="btn-pdf" href="' + a.pdf + '" download title="Descargar el artículo en PDF">' + ICONO_PDF + '<span>Descargar</span><small>PDF</small></a>'
-            + '<a class="btn-leer-mini" href="' + a.url + '">Leer en línea</a>'
+            + '<a class="btn-pdf" href="articulos/' + a.pdf + '" target="_blank" rel="noopener" title="Abrir el artículo con el cuadro de impresión para guardarlo como PDF">' + ICONO_PDF + '<span>Imprimir</span><small>PDF</small></a>'
+            + '<a class="btn-leer-mini" href="articulos/' + a.url + '">Leer en línea</a>'
             + '</div>'
             + '</article>';
     }
 
-    (function () {
+    function mostrar() {
         var q = '';
         var m = window.location.search.match(/[?&]q=([^&]*)/);
         if (m) { try { q = decodeURIComponent(m[1].replace(/\+/g, ' ')); } catch (e) { q = m[1]; } }
@@ -986,6 +1005,12 @@
         }
 
         var info = document.getElementById('buscando-info');
+        if (!ARTICULOS.length) {
+            info.textContent = 'No se pudo cargar la lista de artículos. Comprueba que existan articulos/indice.json e indice.js junto a esta página.';
+            document.getElementById('lista-resultados').innerHTML = '';
+            document.getElementById('sin-resultados').style.display = 'none';
+            return;
+        }
         info.textContent = q
             ? 'Resultados de la búsqueda por «' + q + '»: ' + filtrados.length + (filtrados.length === 1 ? ' artículo encontrado' : ' artículos encontrados')
             : 'Todos los artículos publicados (' + ARTICULOS.length + ')';
@@ -999,7 +1024,10 @@
             document.getElementById('sin-resultados').style.display = 'block';
             document.getElementById('texto-buscado').textContent = '«' + q + '»';
         }
-    })();
+    }
+
+    /* Primero se descarga el índice; después se muestran los resultados. */
+    cargarArticulos(mostrar);
     </script>
 
     <!-- AJUSTE AUTOMÁTICO DE LA SOLAPA "MACARENCO": mide el ancho real del
