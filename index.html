@@ -698,8 +698,6 @@
     </script>
 
     <!-- PORTADA DINÁMICA + CARRUSEL (UNIFICADOS) -->
-     
-        <!-- PORTADA DINÁMICA + CARRUSEL (UNIFICADOS) -->
     <script>
     (function () {
         var track = document.getElementById('carousel-track');
@@ -711,7 +709,7 @@
         var pausadoPorUsuario = false;
         var timerAuto = null;
 
-        // 1. INYECTAR TARJETAS DE CARGA (Mientras llega el JSON)
+        // 1. INYECTAR TARJETAS DE CARGA
         if (track) {
             var skeletonHTML = '';
             for (var i = 0; i < 18; i++) { 
@@ -725,7 +723,7 @@
             track.innerHTML = skeletonHTML;
         }
 
-        // 2. FUNCIONES DEL MOTOR
+        // 2. FUNCIONES DEL MOTOR (A PRUEBA DE FALLOS)
         function pausarTemporalmente() {
             pausadoPorUsuario = true;
             if (timerAuto) clearTimeout(timerAuto);
@@ -739,14 +737,18 @@
             if (!track) return 0;
             var tarjeta = track.querySelector('.carousel-item-card');
             if (!tarjeta) return 0;
-            return (tarjeta.offsetWidth + 20) * 6;
+            // Si el ancho es 0 (porque el CSS no ha cargado aún), usamos un valor por defecto
+            var ancho = tarjeta.offsetWidth || 380; 
+            return (ancho + 20) * 6;
         }
 
         function tickAuto() {
+            // Si el carrusel está vacío o pausado, intentamos de nuevo en 30ms sin apagar el motor
             if (!track || pausadoPorUsuario || track.children.length === 0) {
-                timerAuto = setTimeout(tickAuto, intervaloMs); // Sigue intentando si está vacío
+                timerAuto = setTimeout(tickAuto, intervaloMs);
                 return;
             }
+            
             var unTercio = getUnTercio();
             if (unTercio > 0) {
                 track.scrollLeft += (SPEED * intervaloMs) / 1000;
@@ -754,26 +756,25 @@
                     track.scrollLeft -= unTercio;
                 }
             }
+            // ¡CRUCIAL! Esta línea debe ejecutarse SIEMPRE para que el motor no muera
             timerAuto = setTimeout(tickAuto, intervaloMs);
         }
 
-        // LA FUNCIÓN QUE ENCIENDE EL MOTOR
         function arrancarMotor() {
-            if (timerAuto) clearTimeout(timerAuto); // Prevenir duplicados
+            if (timerAuto) clearTimeout(timerAuto);
             pausadoPorUsuario = false;
-            timerAuto = setTimeout(tickAuto, intervaloMs);
+            tickAuto(); // Arrancamos inmediatamente
         }
 
-        // 3. BOTONES
+        // 3. BOTONES Y ARRASTRE
         if (track) {
             function moverCarrusel(dir) {
                 pausarTemporalmente();
                 var tarjeta = track.querySelector('.carousel-item-card');
                 if (!tarjeta) return;
-                var anchoPaso = tarjeta.offsetWidth + 20;
+                var anchoPaso = (tarjeta.offsetWidth || 380) + 20;
                 var unTercio = getUnTercio();
 
-                // Usamos scrollLeft directo para evitar fallos de scrollBy en Firefox
                 if (dir > 0 && unTercio > 0 && track.scrollLeft >= unTercio * 2 - 20) {
                     track.scrollLeft -= unTercio;
                 } else if (dir < 0 && unTercio > 0 && track.scrollLeft <= 20) {
@@ -786,16 +787,16 @@
             if (btnNext) btnNext.addEventListener('click', function() { moverCarrusel(1); });
             if (btnPrev) btnPrev.addEventListener('click', function() { moverCarrusel(-1); });
 
+            // Pausar solo si el usuario hace scroll manual o toca el carrusel
             track.addEventListener('touchstart', function() { pausadoPorUsuario = true; }, { passive: true });
             track.addEventListener('touchend', function() { pausarTemporalmente(); }, { passive: true });
-            track.addEventListener('mousedown', function() { pausadoPorUsuario = true; });
-            track.addEventListener('mouseup', function() { pausarTemporalmente(); });
+            
+            // ELIMINAMOS el mousedown/mouseup del track porque bloquea el clic en las tarjetas y botones
         }
 
-        // 4. CARGAR DATOS Y ENCENDER EL MOTOR
+        // 4. CARGAR DATOS DEL JSON Y REEMPLAZAR
         function rellenar(lista) {
             if (!track || !lista.length) return;
-            
             function tarjeta(a, esDuplicado) {
                 var aria = esDuplicado ? ' aria-hidden="true" tabindex="-1"' : '';
                 return '<article class="card-articulo carousel-item-card"' + aria + '>' +
@@ -805,12 +806,10 @@
                     '<p class="card-excerpt">' + a.resumen + '</p>' +
                     '<div class="card-meta">' + a.autor + ' · ' + a.fechaTxt + '</div></div></article>';
             }
-            
             var DESTACADAS = ['articulo_2.html', 'articulo_9.html'];
             var rotacion = lista.filter(function (a) { return DESTACADAS.indexOf(a.url) === -1; });
             var visibles = rotacion.slice(0, 6);
 
-            // Inyectar tarjetas reales
             track.innerHTML =
                 visibles.map(function (a) { return tarjeta(a, false); }).join('') +
                 visibles.map(function (a) { return tarjeta(a, true); }).join('') +
@@ -827,11 +826,10 @@
                 return '<li><span class="lista-ultimas-info"><a href="articulos/' + a.url + '">' + a.titulo + '</a><span class="fecha-ult">' + (a.fechaTxt || '') + '</span></span></li>';
             }).join('');
 
-            // ¡AQUÍ SE ENCIENDE EL MOTOR! Solo cuando las tarjetas reales están en el DOM
-            arrancarMotor();
+            arrancarMotor(); // ENCENDEMOS EL MOTOR AQUÍ
         }
 
-        // Iniciar la carga
+        // Iniciar fetch
         fetch('articulos/indice.json').then(function (r) { return r.json(); }).then(rellenar).catch(function () {
             var s = document.createElement('script');
             s.src = 'articulos/indice.js';
@@ -839,12 +837,10 @@
                 if(window.INDICE_ARTICULOS && window.INDICE_ARTICULOS.length > 0){
                     rellenar(window.INDICE_ARTICULOS); 
                 } else {
-                    arrancarMotor(); // Si falla el JSON, arranca de todos modos con los esqueletos
+                    arrancarMotor();
                 }
             };
-            s.onerror = function() {
-                arrancarMotor(); // Si el archivo ni siquiera existe, arranca con los esqueletos
-            };
+            s.onerror = function() { arrancarMotor(); };
             document.head.appendChild(s);
         });
     })();
