@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conosca Santiago · MAKARENKOS — Galería de la Ciudad Héroe</title>
+    <meta name="description" content="Galería fotográfica de Santiago de Cuba: historia, cultura, paisajes y patrimonio de la Ciudad Héroe.">
+    <meta name="author" content="Asociación de Pedagogos de Cuba — Filial Santiago de Cuba">
+    <meta name="theme-color" content="#039ed6">
+    
+    <link rel="icon" href="imagen/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="imagen/favicon-32.png?v=2">
+    <link rel="icon" type="image/png" sizes="192x192" href="imagen/icon-192.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="imagen/apple-touch-icon.png?v=2">
+
+    <link rel="manifest" href="manifest.webmanifest">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="MAKARENKOS">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* CARGAR LA FUENTE DM SERIF */
+        @font-face {
+            font-family: 'DMSerif';
+            src: url('css/fonts/DMSerifDisplay-Regular.ttf') format('truetype');
+            font-weight: normal; font-style: normal; font-display: swap;
+        }
+        @font-face {
+            font-family: 'DMSerif';
+            src: url('css/fonts/DMSerifDisplay-Italic.ttf') format('truetype');
+            font-weight: normal; font-style: italic; font-display: swap;
+        }
+
+        :root {
+            --azul-cielo: #039ed6;
+            --azul-oscuro: #026892;
+            --azul-fuerte: #0044cc;
+            --blanco: #ffffff;
+            --gris-oscuro: #1a2630;
+            --gris-fondo: #f4f7f9;
+            --rojo-evento: #d32f2f;
+            --dorado-premio: #fbc02d;
+            --grosor-marco: 2px;
+        }
+
+        html, body { margin: 0; padding: 0; height: auto; overflow-x: hidden; overflow-y: auto; }
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            margin: 8px;
+            border: var(--grosor-marco) solid var(--azul-fuerte);
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: var(--gris-oscuro);
+            background-color: var(--gris-fondo);
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        img { max-width: 100%; height: auto; }
+        h1, h2, h3, h4, h5, h6 { margin: 0 0 .5rem; font-weight: 600; line-height: 1.3; }
+        p, ul, ol { margin: 0 0 1rem; }
+        button, input { font-family: inherit; }
+        a { color: var(--azul-fuerte); }
+
+        .icon {
+            width: 1em; height: 1em;
+            fill: none; stroke: currentColor;
+            stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+            vertical-align: -0.125em;
+        }
+
+        .container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 15px; }
+        .row { display: flex; flex-wrap: wrap; margin: 0 -15px; }
+        .row > [class*="col-"] { width: 100%; padding: 0 15px; }
+
+        .d-flex { display: flex; }
+        .justify-content-between { justify-content: space-between; }
+        .justify-content-center { justify-content: center; }
+        .align-items-center { align-items: center; }
+        .flex-wrap { flex-wrap: wrap; }
+        .small { font-size: 80%; }
+        .list-unstyled { list-style: none; padding-left: 0; }
+
+        .mt-2 { margin-top: .5rem !important; }
+        .mt-3 { margin-top: 1rem !important; }
+        .mt-4 { margin-top: 1.5rem !important; }
+        .mb-0 { margin-bottom: 0 !important; }
+        .mb-1 { margin-bottom: .25rem !important; }
+        .mb-4 { margin-bottom: 1.5rem !important; }
+        .mb-5 { margin-bottom: 3rem !important; }
+
+        @media (min-width: 576px) { .mt-sm-0 { margin-top: 0 !important; } }
+        @media (min-width: 768px) {
+            .col-md-6 { flex: 0 0 50%; max-width: 50%; }
+            .col-md-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+        }
+        @media (min-width: 992px) {
+            .col-lg-8 { flex: 0 0 66.666667%; max-width: 66.666667%; }
+            .col-lg-4 { flex: 0 0 33.333333%; max-width: 33.333333%; }
+        }
+
+        /* TOP BAR Y HEADER */
+        .top-bar { background-color: var(--gris-oscuro); color: var(--blanco); font-size: 0.85rem; padding: 8px 0; }
+        .top-bar a { color: var(--blanco); margin-left: 15px; text-decoration: none; }
+        .top-bar a:hover { color: var(--azul-cielo); }
+        #pagina-actual { color: #7dd3f7; font-weight: 600; white-space: nowrap; }
+
+        .main-header {
+            background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-fuerte));
+            padding: 25px 0 30px; border-bottom: 4px solid var(--azul-cielo); position: relative;
+        }
+        .header-box {
+            background: linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            border: 3px solid transparent; border-radius: 15px; padding: 22px 18px;
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        .header-brand { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: inherit; width: 100%; }
+        .banner-wrapper { position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 0; width: 100%; min-height: 110px; }
+        .logo-banner { display: block; position: relative; z-index: 1; width: auto; height: auto; max-width: 100%; max-height: clamp(220px, 40vw, 420px); object-fit: contain; }
+        
+        .header-title {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 2;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'DMSerif', 'Poppins', serif; 
+            font-size: clamp(2.5rem, 9vw, 6.5rem);
+            font-weight: normal; line-height: 1; margin: 0; letter-spacing: 1px; color: var(--blanco);
+        }
+        .header-title span {
+            background: rgba(2, 62, 100, 0.45); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+            padding: 12px 30px; border-radius: 16px; border: 2px solid rgba(255, 255, 255, 0.55);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+            text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000,
+                         -3px 0 0 #000, 3px 0 0 #000, 0 -3px 0 #000, 0 3px 0 #000,
+                         -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000,
+                         0 0 15px rgba(255, 255, 255, 0.95), 0 0 35px rgba(255, 255, 255, 0.65), 0 0 60px rgba(255, 255, 255, 0.35);
+        }
+        .header-subtitle {
+            font-family: 'Tahoma', sans-serif; font-size: clamp(1rem, 2.2vw, 1.35rem); font-weight: 700;
+            background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte));
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            margin-top: 10px; line-height: 1.4; letter-spacing: 1px; max-width: min(800px, 100%);
+        }
+        .header-actions { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; width: 100%; margin-top: 16px; }
+        .search-container {
+            display: flex; align-items: center; border: 2px solid transparent;
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            border-radius: 5px; padding: 5px 10px; width: 350px; max-width: 100%;
+        }
+        .search-icon { width: 18px; height: 18px; margin-right: 8px; opacity: 0.6; }
+        .search-container input { border: none; outline: none; font-size: 16px; width: 100%; }
+        .btn-buscar {
+            background-color: var(--azul-fuerte); color: var(--blanco); border: none;
+            padding: 8px 15px; border-radius: 4px; font-size: 0.9rem; font-weight: 600;
+            margin-left: 8px; cursor: pointer; transition: background 0.2s; min-height: 38px;
+        }
+        .btn-buscar:hover { background-color: var(--azul-cielo); }
+        .btn-enviar {
+            color: var(--blanco); font-weight: 600; font-size: 1rem; padding: 10px 20px;
+            text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+            white-space: nowrap; border-radius: 5px; border: 2px solid transparent;
+            background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) padding-box,
+                        linear-gradient(135deg, var(--azul-fuerte), var(--azul-cielo)) border-box;
+            min-height: 44px;
+        }
+        .btn-enviar:hover { background: linear-gradient(135deg, var(--azul-fuerte), var(--azul-oscuro)) padding-box, linear-gradient(135deg, var(--azul-oscuro), var(--azul-cielo)) border-box; color: var(--blanco); text-decoration: none; }
+
+        /* MENÚ */
+        .navbar-custom { background-color: var(--azul-cielo); border-bottom: 4px solid; border-image: linear-gradient(to right, var(--azul-fuerte), var(--azul-cielo)) 1; position: relative; }
+        .navbar-custom .container { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; min-height: 52px; }
+        .navbar-toggler { display: none; background: none; color: var(--blanco); border: 2px solid rgba(255, 255, 255, 0.7); border-radius: 5px; padding: 8px 12px; cursor: pointer; font-size: 1.35rem; line-height: 1; min-width: 44px; min-height: 44px; }
+        .navbar-nav { display: flex; flex-direction: column; list-style: none; margin: 0; padding: 0; }
+        .navbar-custom .nav-link { display: block; padding: 12px 0; color: var(--blanco) !important; font-weight: 500; margin: 0 10px; text-decoration: none; }
+        .navbar-custom .nav-link:hover, .navbar-custom .active { color: var(--gris-oscuro) !important; border-bottom: 3px solid var(--blanco); }
+        @media (min-width: 992px) { .navbar-nav { flex-direction: row; justify-content: center; } }
+        @media (max-width: 991px) {
+            .navbar-toggler { display: inline-flex; align-items: center; justify-content: center; }
+            .navbar-collapse { display: none; width: 100%; }
+            .navbar-collapse.open { display: block; }
+            .navbar-custom .nav-link { border-bottom: 1px solid rgba(255, 255, 255, 0.25); }
+            .navbar-nav .nav-item:last-child .nav-link { border-bottom: none; }
+        }
+
+        /* SIDEBAR */
+        .sidebar-wrapper { position: static; }
+        .boletin-card { border: 3px solid transparent; background: linear-gradient(var(--azul-cielo), var(--azul-cielo)) padding-box, linear-gradient(135deg, var(--azul-fuerte), var(--azul-oscuro)) border-box; color: var(--blanco); border-radius: 10px; padding: 20px; text-align: center; margin-bottom: 20px; }
+        .boletin-card input { border: 2px solid var(--azul-fuerte); border-radius: 5px; padding: 10px; width: 100%; margin-bottom: 10px; font-size: 16px; }
+        .boletin-card button { background-color: var(--gris-oscuro); color: var(--blanco); border: 2px solid var(--azul-fuerte); padding: 10px; width: 100%; font-weight: bold; border-radius: 5px; min-height: 44px; }
+        
+        .ficha-card { border: 3px solid transparent; background: linear-gradient(var(--blanco), var(--blanco)) padding-box, linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box; border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+        .ficha-card h4 { color: var(--azul-fuerte); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; text-align: center; }
+        .ficha-card ul { list-style: none; padding-left: 0; margin-bottom: 0; }
+        .ficha-card li { font-size: 0.9rem; color: #555; margin-bottom: 10px; }
+        .ficha-card .icon { color: var(--azul-fuerte); margin-right: 6px; }
+
+        .about-card { border: 3px solid transparent; background: linear-gradient(var(--blanco), var(--blanco)) padding-box, linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box; border-radius: 10px; padding: 25px 20px; }
+        .about-card h4 { color: var(--azul-fuerte); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; text-align: center; }
+        .about-card p { font-size: 0.9rem; color: #555; line-height: 1.6; text-align: justify; margin-bottom: 15px; }
+        .btn-leer-mas { display: block; width: 100%; text-align: center; padding: 10px; background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)); color: var(--blanco); font-weight: 600; text-decoration: none; border-radius: 5px; min-height: 44px; line-height: 24px; }
+
+        /* PROYECTOS COLABORATIVOS */
+        .proyectos-card .section-title { font-size: 1.35rem; margin-bottom: 5px; }
+        .proyectos-card h4 { color: var(--azul-fuerte); font-weight: 700; font-size: 1.1rem; text-align: center; margin: 14px 0 10px; }
+        .proyectos-card p { font-size: 0.88rem; margin-bottom: 12px; }
+        .proy-img { border: 1px solid #d7e4f2; border-radius: 8px; background: linear-gradient(135deg, #eef4fb, #dce9f7); min-height: 64px; margin-bottom: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .proy-img img { max-width: 100%; height: auto; display: block; }
+        .proyectos-card hr { border-top: 1px solid #d7e4f2; opacity: 1; margin: 16px 0; }
+        .proyectos-card .btn-leer-mas:hover { opacity: 0.92; }
+
+        /* FOOTER */
+        .footer { background-color: var(--gris-oscuro); color: var(--blanco); border-top: 4px solid; border-image: linear-gradient(to right, var(--azul-fuerte), var(--azul-cielo)) 1; padding: 40px 0 20px; margin-top: 40px; }
+        .footer a { color: var(--azul-cielo); text-decoration: none; }
+        .footer .icon { color: var(--azul-cielo); }
+        .footer-bottom { border-top: 1px solid #444; padding-top: 20px; margin-top: 20px; font-size: 0.8rem; text-align: center; }
+
+        /* PÁGINAS INTERNAS Y GALERÍA */
+        .breadcrumb-custom { background: transparent; padding: 0; margin-bottom: 20px; font-size: 0.9rem; }
+        .breadcrumb-custom a { color: var(--azul-fuerte); text-decoration: none; }
+        .breadcrumb-custom a:hover { text-decoration: underline; }
+        .breadcrumb-custom span { color: #777; margin: 0 5px; }
+        .page-title { font-size: 2.2rem; font-size: clamp(1.8rem, 6vw, 2.6rem); margin-bottom: 10px; }
+        .page-lead { font-size: 1.05rem; color: #555; max-width: 850px; margin-bottom: 30px; }
+
+        /* GALERÍA DE FOTOS (TARJETAS HORIZONTALES) */
+        .galeria-card {
+            display: flex;
+            background: var(--blanco);
+            border-radius: 10px;
+            border: 3px solid transparent;
+            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
+                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
+            overflow: hidden;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .galeria-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 68, 204, 0.15);
+        }
+        
+        .galeria-img {
+            flex: 0 0 45%;
+            position: relative;
+            min-height: 250px;
+            background: linear-gradient(135deg, #eef4fb, #dce9f7);
+            overflow: hidden;
+        }
+        .galeria-img img {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .galeria-card:hover .galeria-img img {
+            transform: scale(1.05);
+        }
+
+        .galeria-body {
+            flex: 1;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .galeria-cat {
+            color: var(--azul-fuerte); font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+            margin-bottom: 8px; letter-spacing: 1px;
+        }
+        .galeria-title {
+            font-family: 'DMSerif', Georgia, serif;
+            font-size: 1.6rem; font-weight: normal; color: var(--gris-oscuro); margin-bottom: 10px;
+            line-height: 1.2;
+        }
+        .galeria-desc {
+            font-size: 0.95rem; color: #555; line-height: 1.6;
+            margin-bottom: 0;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .logo-banner { height: clamp(180px, 48vw, 230px); width: 100%; max-height: none; object-fit: cover; object-position: 50% 50%; }
+            .search-container, .header-actions .btn-enviar { width: 100%; }
+            .header-actions { flex-direction: column; gap: 10px; }
+            
+            .galeria-card { flex-direction: column; }
+            .galeria-img { flex: 1 1 auto; width: 100%; min-height: 200px; height: 220px; }
+            .galeria-body { padding: 20px; }
+            .galeria-title { font-size: 1.4rem; }
+        }
+        @media (max-width: 480px) {
+            .header-box { padding: 16px 12px; }
+            .header-title span { padding: 8px 11px; }
+            .header-title { font-size: clamp(1.4rem, 12vw, 2.7rem); letter-spacing: 0px; }
+            .footer { margin-top: 25px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="container d-flex justify-content-between align-items-center flex-wrap">
+            <div><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> <span id="fecha-actual">Consultando el servidor de horario…</span> <span id="pagina-actual"></span></div>
+            <div class="mt-2 mt-sm-0">
+                <a href="contacto.html">Suscríbete</a>
+                <a href="acerca-de.html">Acerca de</a>
+                <a href="contacto.html">Contacto</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-box">
+                <a href="index.html" class="header-brand">
+                    <div class="banner-wrapper">
+                        <img src="imagen/banner-header.png" alt="Asociación de Pedagogos de Cuba" class="logo-banner">
+                        <h1 class="header-title"><span>MAKARENKOS</span></h1>
+                    </div>
+                    <span class="header-subtitle">Revista informativa de la Asociación de Pedagogos de Cuba<br>Filial Santiago de Cuba</span>
+                </a>
+                <div class="header-actions">
+                    <form class="search-container" action="articulos_publicados.html" method="get" role="search">
+                        <img src="imagen/lupa.png" alt="" class="search-icon" onerror="this.style.display='none'">
+                        <input type="text" name="q" placeholder="Buscar artículos..." aria-label="Buscar">
+                        <button type="submit" class="btn-buscar">Buscar</button>
+                    </form>
+                    <a href="contacto.html" class="btn-enviar"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Enviar Artículo</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menú -->
+    <nav class="navbar navbar-custom" aria-label="Navegación principal">
+        <div class="container">
+            <button class="navbar-toggler" type="button" id="nav-toggler" aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir menú">
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            </button>
+            <div class="navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="acerca-de.html">Acerca de</a></li>
+                    <li class="nav-item"><a class="nav-link" href="articulos_publicados.html">Artículos</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="conosca_santiago.html">Conosca Santiago</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <nav class="breadcrumb-custom"><a href="index.html"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> Inicio</a><span>/</span><span>Conosca Santiago</span></nav>
+        
+        <h1 class="page-title">Conosca Santiago de Cuba</h1>
+        <p class="page-lead">Un recorrido visual por la Ciudad Héroe: sus calles, su historia, su cultura y el calor de su gente. Una galería para enamorarse de la capital del oriente cubano.</p>
+
+        <div class="row mt-4">
+            <!-- Columna Principal (Galería) -->
+            <div class="col-lg-8">
+
+                <!-- FOTO 1 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Santiago_de_Cuba_-_Parque_Cespedes_and_House_of_Don_Diego_Velasquez.jpg/800px-Santiago_de_Cuba_-_Parque_Cespedes_and_House_of_Don_Diego_Velasquez.jpg" alt="Parque Céspedes" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Centro Histórico</span>
+                        <h2 class="galeria-title">Parque Céspedes</h2>
+                        <p class="galeria-desc">El corazón palpitante de Santiago de Cuba. Rodeado por la Catedral, el Ayuntamiento y la Casa de Diego Velázquez, es el punto de encuentro por excelencia de santiagueros y visitantes.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 2 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Escuela_Primaria_de_Tony_Alom%C3%A1.jpg/800px-Escuela_Primaria_de_Tony_Alom%C3%A1.jpg" alt="Escuela Primaria Tony Alomá" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Educación</span>
+                        <h2 class="galeria-title">Escuela Primaria Tony Alomá</h2>
+                        <p class="galeria-desc">Un ejemplo del compromiso santiaguero con la educación. Esta escuela rural ha formado a generaciones de niños en las afueras de la ciudad, manteniendo viva la llama del conocimiento.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 3 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Catedral_de_Santiago_de_Cuba.jpg/800px-Catedral_de_Santiago_de_Cuba.jpg" alt="Catedral de Santiago de Cuba" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Arquitectura Religiosa</span>
+                        <h2 class="galeria-title">Catedral Metropolitana</h2>
+                        <p class="galeria-desc">De estilo neoclásico, la Catedral de Nuestra Señora de la Asunción domina el Parque Céspedes. Ha sido testigo de la historia de la ciudad desde el siglo XVI, aunque su estructura actual data del siglo XIX.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 4 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Castillo_del_Morro%2C_Santiago_de_Cuba.jpg/800px-Castillo_del_Morro%2C_Santiago_de_Cuba.jpg" alt="Castillo del Morro" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Patrimonio Militar</span>
+                        <h2 class="galeria-title">Castillo de San Pedro de la Roca</h2>
+                        <p class="galeria-desc">Declarado Patrimonio de la Humanidad por la UNESCO, el Castillo del Morro es una impresionante fortaleza del siglo XVII que defendía la bahía. Sus vistas al mar Caribe son simplemente inolvidables.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 5 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Santiago_de_Cuba_-_Calle_Enramadas.jpg/800px-Santiago_de_Cuba_-_Calle_Enramadas.jpg" alt="Calle Enramadas" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Vida Urbana</span>
+                        <h2 class="galeria-title">Calle Enramadas</h2>
+                        <p class="galeria-desc">La arteria comercial más importante de la ciudad. Recorrerla es sumergirse en el bullicio, la música y los colores de Santiago. Llena de tiendas, cafeterías y el inconfundible ritmo de la ciudad.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 6 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Bacardi_Museum.jpg/800px-Bacardi_Museum.jpg" alt="Museo Bacardí" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Cultura</span>
+                        <h2 class="galeria-title">Museo Bacardí</h2>
+                        <p class="galeria-desc">Ubicado frente a la bahía, este museo rinde homenaje a la historia del ron cubano. Aunque la empresa se trasladó, el edificio conserva la memoria de una de las industrias más emblemáticas de la isla.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 7 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Cementerio_Santa_Ifigenia.jpg/800px-Cementerio_Santa_Ifigenia.jpg" alt="Cementerio Santa Ifigenia" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Historia</span>
+                        <h2 class="galeria-title">Cementerio Santa Ifigenia</h2>
+                        <p class="galeria-desc">Un museo al aire libre. Aquí descansan los restos de José Martí, así como figuras clave de la historia cubana. Su arquitectura y mausoleos lo convierten en un lugar de peregrinación y respeto.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 8 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Plaza_de_la_Revoluci%C3%B3n_Antonio_Maceo.jpg/800px-Plaza_de_la_Revoluci%C3%B3n_Antonio_Maceo.jpg" alt="Plaza de la Revolución" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Monumentos</span>
+                        <h2 class="galeria-title">Plaza de la Revolución</h2>
+                        <p class="galeria-desc">Un espacio enorme presidido por el monumento a Antonio Maceo. Es el lugar donde se realizan los grandes actos públicos y donde la historia de la ciudad se hace presente.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 9 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Casa_de_la_Trova.jpg/800px-Casa_de_la_Trova.jpg" alt="Casa de la Trova" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Música</span>
+                        <h2 class="galeria-title">Casa de la Trova</h2>
+                        <p class="galeria-desc">Templo de la música tradicional cubana. Por sus escenarios han pasado los grandes de la trova. Un lugar imprescindible para sentir el son, la guaracha y la emoción de la música santiaguera.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 10 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Museo_Hist%C3%B3rico_26_de_Julio.jpg/800px-Museo_Hist%C3%B3rico_26_de_Julio.jpg" alt="Cuartel Moncada" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Historia Viva</span>
+                        <h2 class="galeria-title">Cuartel Moncada</h2>
+                        <p class="galeria-desc">Convertido en Ciudad Escolar y Museo Histórico, fue escenario de uno de los acontecimientos más importantes del siglo XX cubano. Su fachada conserva las marcas de la historia.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 11 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Loma_del_Alba.jpg/800px-Loma_del_Alba.jpg" alt="Loma del Alba" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Naturaleza</span>
+                        <h2 class="galeria-title">Loma del Alba</h2>
+                        <p class="galeria-desc">Un mirador natural desde donde se divisa toda la ciudad y la bahía. Ideal para ver el atardecer y comprender la geografía santiaguera.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 12 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Gran_Piedra.jpg/800px-Gran_Piedra.jpg" alt="Gran Piedra" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Paisaje</span>
+                        <h2 class="galeria-title">Gran Piedra</h2>
+                        <p class="galeria-desc">Una roca gigante de más de 60 mil toneladas en la cima de una montaña. Un sitio mágico rodeado de vegetación y niebla que ofrece vistas panorámicas.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 13 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/Bas%C3%ADlica_del_Cobre.jpg/800px-Bas%C3%ADlica_del_Cobre.jpg" alt="Basílica del Cobre" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Religión</span>
+                        <h2 class="galeria-title">Basílica del Cobre</h2>
+                        <p class="galeria-desc">Santuario de la Virgen de la Caridad del Cobre, patrona de Cuba. Un lugar de fe y devoción donde confluyen creyentes católicos y practicantes de religiones de origen africano.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 14 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Tivoli.jpg/800px-Tivoli.jpg" alt="Reparto Tivoli" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Urbanismo</span>
+                        <h2 class="galeria-title">Reparto Tivoli</h2>
+                        <p class="galeria-desc">Una de las zonas residenciales más pintorescas. Sus calles empinadas y casas de colores recuerdan la influencia francesa en la ciudad.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 15 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/Acuario_Santiago.jpg/800px-Acuario_Santiago.jpg" alt="Acuario de Santiago" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Recreación</span>
+                        <h2 class="galeria-title">Acuario de Santiago</h2>
+                        <p class="galeria-desc">Un espacio para el disfrute de la familia, donde se puede aprender sobre la fauna marina del Caribe y disfrutar del entorno costero.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 16 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Estadio_Guillermon_Monzon.jpg/800px-Estadio_Guillermon_Monzon.jpg" alt="Estadio Guillermón Moncada" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Deporte</span>
+                        <h2 class="galeria-title">Estadio Guillermón Moncada</h2>
+                        <p class="galeria-desc">El templo del béisbol santiaguero. Aquí juega el equipo de las Avispas, y la afición vive el deporte con pasión desbordada.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 17 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Teatro_Heredia.jpg/800px-Teatro_Heredia.jpg" alt="Teatro Heredia" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Cultura</span>
+                        <h2 class="galeria-title">Teatro Heredia</h2>
+                        <p class="galeria-desc">Un coliseo con historia, sede de importantes eventos culturales y escenario de artistas nacionales e internacionales.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 18 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Palacio_de_Justicia.jpg/800px-Palacio_de_Justicia.jpg" alt="Palacio de Justicia" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Arquitectura</span>
+                        <h2 class="galeria-title">Palacio de Justicia</h2>
+                        <p class="galeria-desc">Elegante edificio de estilo ecléctico que refleja el esplendor arquitectónico de la ciudad en el siglo XX.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 19 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Playa_de_Siboney.jpg/800px-Playa_de_Siboney.jpg" alt="Playa Siboney" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Playas</span>
+                        <h2 class="galeria-title">Playa Siboney</h2>
+                        <p class="galeria-desc">A pocos kilómetros de la ciudad, esta playa de aguas cristalinas es el escape perfecto para los santiagueros.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 20 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Faro_de_Santiago.jpg/800px-Faro_de_Santiago.jpg" alt="Faro de Santiago" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Paisaje Costero</span>
+                        <h2 class="galeria-title">Faro de Santiago</h2>
+                        <p class="galeria-desc">Guía de navegantes y símbolo de la bahía. Su luz ha acompañado a generaciones de marinos y soñadores.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 21 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Museo_del_Carnaval.jpg/800px-Museo_del_Carnaval.jpg" alt="Museo del Carnaval" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Tradición</span>
+                        <h2 class="galeria-title">Museo del Carnaval</h2>
+                        <p class="galeria-desc">Un recorrido por la fiesta más esperada del año. Trajes, carrozas y la historia de una celebración que es identidad.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 22 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Parque_Alameda.jpg/800px-Parque_Alameda.jpg" alt="Alameda" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Paseos</span>
+                        <h2 class="galeria-title">Alameda</h2>
+                        <p class="galeria-desc">Un paseo junto al puerto, ideal para caminar al atardecer y disfrutar de la brisa del mar Caribe.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 23 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Universidad_de_Oriente.jpg/800px-Universidad_de_Oriente.jpg" alt="Universidad de Oriente" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Educación Superior</span>
+                        <h2 class="galeria-title">Universidad de Oriente</h2>
+                        <p class="galeria-desc">La alma mater del oriente cubano. Un centro de conocimiento que ha formado a miles de profesionales comprometidos con el desarrollo del país.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 24 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0a/Museo_Emilio_Bacardi.jpg/800px-Museo_Emilio_Bacardi.jpg" alt="Museo Emilio Bacardí" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Arte</span>
+                        <h2 class="galeria-title">Museo Emilio Bacardí</h2>
+                        <p class="galeria-desc">El primer museo público de Cuba. Alberga una colección invaluable de arte, historia y arqueología.</p>
+                    </div>
+                </article>
+
+                <!-- FOTO 25 -->
+                <article class="galeria-card">
+                    <div class="galeria-img">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/Malec%C3%B3n_de_Santiago.jpg/800px-Malec%C3%B3n_de_Santiago.jpg" alt="Malecón" loading="lazy">
+                    </div>
+                    <div class="galeria-body">
+                        <span class="galeria-cat">Costumbres</span>
+                        <h2 class="galeria-title">Malecón de Santiago</h2>
+                        <p class="galeria-desc">El lugar donde la ciudad se asoma al mar. Punto de encuentro para pescadores, enamorados y amigos que comparten atardeceres.</p>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- Columna Derecha (Sidebar) -->
+            <div class="col-lg-4">
+                <div class="sidebar-wrapper">
+                    <div class="boletin-card">
+                        <h4>Boletín Semanal</h4>
+                        <p class="small">Recibe lo más relevante de la pedagogía cubana cada lunes.</p>
+                        <form action="contacto.html">
+                            <input type="email" placeholder="Tu correo electrónico" required>
+                            <button type="submit">Suscribirme</button>
+                        </form>
+                    </div>
+                    
+                    <div class="ficha-card">
+                        <h4>Ficha técnica</h4>
+                        <ul>
+                            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><strong>Ciudad:</strong> Santiago de Cuba</li>
+                            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><strong>Fundación:</strong> 1515</li>
+                            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg><strong>Apodo:</strong> Ciudad Héroe</li>
+                        </ul>
+                    </div>
+
+                    <!-- PROYECTOS COLABORATIVOS (Añadido aquí) -->
+                    <div class="about-card proyectos-card">
+                        <h3 class="section-title">PROYECTOS COLABORATIVOS</h3>
+                        <br><hr>
+                        <div class="proy-item">
+                            <h4>Consultor de Tesis UO</h4>
+                            <div class="proy-img"><img src="imagen/consultor.png" alt="Consultor de Tesis de la Universidad de Oriente" loading="lazy" onerror="this.style.display='none'"></div>
+                            <p>Proyecto en colaboración con la Universidad de Oriente para elevar la calidad educativa, fomentar la investigación pedagógica y la formación permanente de los docentes.</p>
+                            <a href="https://sosasoftcuba.github.io/base_consultora_UO/" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
+                        </div>
+                        <br><hr>
+                        <div class="proy-item">
+                            <h4>Proyecto Educamos Contigo</h4>
+                            <div class="proy-img"><img src="imagen/Educamos-contigo.png" alt="Proyecto Educamos Contigo" loading="lazy" onerror="this.style.display='none'"></div>
+                            <p>Enseñando Ud. ... Aprendemos Nosotros: proyecto educativo de la filial que acompaña a docentes y familias.</p>
+                            <a href="https://www.facebook.com/sosasoftcuba.cu" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
+                        </div>
+                        <br><hr>
+                        <div class="proy-item">
+                            <h4>Proyecto SosaSoftCuba:</h4>
+                            <div class="proy-img"><img src="imagen/previa-sosasoftcuba-portal.png" alt="Canal de YouTube de la revista" loading="lazy" onerror="this.style.display='none'"></div>
+                            <p>Vitrina digital abierta, profesional al servicio del conocimiento. Creamos herramientas digitales, ofertamos servicios desde programación a Mantenimiento general y colaboramos con docentes, escuelas y universidades por un mundo digital mejor.</p>
+                            <p>El Grupo Sosa·Soft·Cuba es un colectivo cubano sin fines de lucro que desarrolla y publica en plataformas educativas, académicas y culturales.</p>
+                            <a href="https://sosasoftcuba.github.io" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
+                        </div>
+                        <br><hr>
+                        <div class="proy-item">
+                            <h4>APC Filial Santiago de Cuba</h4>
+                            <div class="proy-img"><img src="imagen/banner-quienes-somos.png" alt="Asociación APC Santiago" loading="lazy" onerror="this.style.display='none'"></div>
+                            <p>Pagina Social en facebook de la Asociación de Pedagogos de Cuba (APC). en su Filial Santiago de Cuba</p>
+                            <a href="https://www.facebook.com/apcfilialsantiago" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
+                        </div>
+                    </div>
+                    <br><hr>
+                    <div class="about-card">
+                        <h4>¿Quiénes Somos?</h4>
+                        <p>La Asociación de Pedagogos de Cuba (APC) es una organización científica y social que agrupa a los profesionales de la educación en el país.</p>
+                        <p>Fundada con el objetivo de elevar la calidad educativa, fomentar la investigación pedagógica y promover la formación permanente de los docentes.</p>
+                        <a href="acerca-de.html" class="btn-leer-mas">Leer más sobre la APC</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Menú Inferior -->
+    <nav class="navbar navbar-custom" aria-label="Navegación secundaria" style="margin-bottom: 0; padding-bottom: 0; border-bottom: none;">
+        <div class="container" style="padding-bottom: 0;">
+            <div class="navbar-collapse justify-content-center" style="margin-bottom: 0;">
+                <ul class="navbar-nav" style="margin-bottom: 0;">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="acerca-de.html">Acerca de</a></li>
+                    <li class="nav-item"><a class="nav-link" href="articulos_publicados.html">Artículos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="conosca_santiago.html">Conosca Santiago</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h5 style="color: var(--azul-cielo);">MAKARENKOS</h5>
+                    <p class="small">Revista informativa de la Asociación de Pedagogos de Cuba, Filial Santiago de Cuba.</p>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 style="color: var(--azul-cielo);">Enlaces Rápidos</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="articulos_publicados.html">Artículos publicados</a></li>
+                        <li><a href="conosca_santiago.html">Conosca Santiago</a></li>
+                        <li><a href="acerca-de.html">Acerca de</a></li>
+                        <li><a href="contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h5 style="color: var(--azul-cielo);">Contacto</h5>
+                    <p class="small mb-1"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> redaccion@apc-santiago.cu</p>
+                    <p class="small mb-1"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> sosasoftcuba@gmail.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                © 2026 Revistas Makarenko · Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- INDICADOR DE PÁGINA -->
+    <script>
+        (function () {
+            var el = document.getElementById('pagina-actual');
+            if (!el) return;
+            var MAPA = { 
+                'index.html': 'Inicio', 
+                'acerca-de.html': 'Acerca de', 
+                'articulos_publicados.html': 'Artículos publicados', 
+                'contacto.html': 'Contacto',
+                'conosca_santiago.html': 'Conosca Santiago'
+            };
+            var archivo = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
+            if (archivo.indexOf('.html') === -1) archivo = 'index.html';
+            el.textContent = '· Estás en: ' + (MAPA[archivo] || 'Inicio');
+        })();
+    </script>
+
+    <!-- FECHA Y HORA -->
+    <script>
+    (function () {
+        var el = document.getElementById('fecha-actual');
+        if (!el) return;
+        var DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+        var MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+        function capitalizar(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
+        function formatear(d) {
+            try {
+                if (window.Intl && Intl.DateTimeFormat) {
+                    var f = new Intl.DateTimeFormat('es', { timeZone: 'America/Caracas', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true });
+                    return capitalizar(f.format(d));
+                }
+            } catch (e) { }
+            return "Fecha no disponible";
+        }
+        el.textContent = formatear(new Date());
+    })();
+    </script>
+
+    <!-- MENÚ MÓVIL -->
+    <script>
+        (function () {
+            var btn = document.getElementById('nav-toggler');
+            var menu = document.getElementById('navbarNav');
+            if (!btn || !menu) return;
+            btn.addEventListener('click', function () {
+                var abierto = menu.classList.toggle('open');
+                btn.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+            });
+        })();
+    </script>
+
+    <!-- AJUSTE AUTOMÁTICO DE LA SOLAPA "MAKARENKOS" -->
+    <script>
+        (function () {
+            var h1 = document.querySelector('.header-title');
+            var span = h1 ? h1.querySelector('span') : null;
+            if (!h1 || !span) return;
+            function ajustar() {
+                span.style.fontSize = '';
+                var disponible = document.body.clientWidth - 16;
+                if (disponible < 40) return;
+                var intentos = 0;
+                while (span.offsetWidth > disponible && intentos < 8) {
+                    var fs = parseFloat(getComputedStyle(span).fontSize) || 16;
+                    var nuevo = Math.max(10, fs * disponible / span.offsetWidth);
+                    span.style.fontSize = nuevo + 'px';
+                    intentos++;
+                }
+            }
+            ajustar();
+            window.addEventListener('resize', ajustar);
+            window.addEventListener('orientationchange', ajustar);
+            window.addEventListener('load', ajustar);
+        })();
+    </script>
+
+    <!-- PWA -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
+        }
+    </script>
+</body>
+</html>
