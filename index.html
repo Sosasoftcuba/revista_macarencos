@@ -699,10 +699,19 @@
 
     <!-- PORTADA DINÁMICA + CARRUSEL (UNIFICADOS) -->
      
+        <!-- PORTADA DINÁMICA + CARRUSEL (UNIFICADOS) -->
     <script>
     (function () {
-        // 1. INYECTAR TARJETAS DE CARGA INMEDIATAMENTE
         var track = document.getElementById('carousel-track');
+        var btnPrev  = document.getElementById('btn-prev');
+        var btnNext  = document.getElementById('btn-next');
+        
+        var SPEED = 30; 
+        var intervaloMs = 30;
+        var pausadoPorUsuario = false;
+        var timerAuto = null;
+
+        // 1. INYECTAR TARJETAS DE CARGA (Mientras llega el JSON)
         if (track) {
             var skeletonHTML = '';
             for (var i = 0; i < 18; i++) { 
@@ -716,14 +725,7 @@
             track.innerHTML = skeletonHTML;
         }
 
-        // 2. MOTOR DEL CARRUSEL
-        var btnPrev  = document.getElementById('btn-prev');
-        var btnNext  = document.getElementById('btn-next');
-        var SPEED = 30; 
-        var intervaloMs = 30;
-        var pausadoPorUsuario = false;
-        var timerAuto = null;
-
+        // 2. FUNCIONES DEL MOTOR
         function pausarTemporalmente() {
             pausadoPorUsuario = true;
             if (timerAuto) clearTimeout(timerAuto);
@@ -741,7 +743,10 @@
         }
 
         function tickAuto() {
-            if (!track || pausadoPorUsuario || track.children.length === 0) return;
+            if (!track || pausadoPorUsuario || track.children.length === 0) {
+                timerAuto = setTimeout(tickAuto, intervaloMs); // Sigue intentando si está vacío
+                return;
+            }
             var unTercio = getUnTercio();
             if (unTercio > 0) {
                 track.scrollLeft += (SPEED * intervaloMs) / 1000;
@@ -752,10 +757,15 @@
             timerAuto = setTimeout(tickAuto, intervaloMs);
         }
 
-        if (track) {
-            // Arrancamos el motor asegurándonos de que las tarjetas ya estén creadas
+        // LA FUNCIÓN QUE ENCIENDE EL MOTOR
+        function arrancarMotor() {
+            if (timerAuto) clearTimeout(timerAuto); // Prevenir duplicados
+            pausadoPorUsuario = false;
             timerAuto = setTimeout(tickAuto, intervaloMs);
+        }
 
+        // 3. BOTONES
+        if (track) {
             function moverCarrusel(dir) {
                 pausarTemporalmente();
                 var tarjeta = track.querySelector('.carousel-item-card');
@@ -763,37 +773,44 @@
                 var anchoPaso = tarjeta.offsetWidth + 20;
                 var unTercio = getUnTercio();
 
-                if (dir > 0 && unTercio > 0 && track.scrollLeft >= unTercio * 2 - 20) track.scrollLeft -= unTercio;
-                else if (dir < 0 && unTercio > 0 && track.scrollLeft <= 20) track.scrollLeft += unTercio;
-                else track.scrollBy({ left: anchoPaso * dir, behavior: 'auto' });
+                // Usamos scrollLeft directo para evitar fallos de scrollBy en Firefox
+                if (dir > 0 && unTercio > 0 && track.scrollLeft >= unTercio * 2 - 20) {
+                    track.scrollLeft -= unTercio;
+                } else if (dir < 0 && unTercio > 0 && track.scrollLeft <= 20) {
+                    track.scrollLeft += unTercio;
+                } else {
+                    track.scrollLeft += (anchoPaso * dir);
+                }
             }
 
             if (btnNext) btnNext.addEventListener('click', function() { moverCarrusel(1); });
             if (btnPrev) btnPrev.addEventListener('click', function() { moverCarrusel(-1); });
 
-            // Pausar al tocar o hacer clic
             track.addEventListener('touchstart', function() { pausadoPorUsuario = true; }, { passive: true });
             track.addEventListener('touchend', function() { pausarTemporalmente(); }, { passive: true });
             track.addEventListener('mousedown', function() { pausadoPorUsuario = true; });
             track.addEventListener('mouseup', function() { pausarTemporalmente(); });
         }
 
-        // 3. CARGAR DATOS DEL JSON Y REEMPLAZAR
+        // 4. CARGAR DATOS Y ENCENDER EL MOTOR
         function rellenar(lista) {
             if (!track || !lista.length) return;
+            
             function tarjeta(a, esDuplicado) {
                 var aria = esDuplicado ? ' aria-hidden="true" tabindex="-1"' : '';
                 return '<article class="card-articulo carousel-item-card"' + aria + '>' +
-                    '<a href="articulos/' + a.url + '"><div class="card-img-wrapper"><img src="' + a.img + '" alt="' + a.imgAlt + '" loading="lazy"></div></a>' +
+                    '<a href="articulos/' + a.url + '"><div class="card-img-wrapper"><img src="' + a.img + '" alt="' + (a.imgAlt||'') + '" loading="lazy"></div></a>' +
                     '<div class="card-body"><span class="card-cat">' + a.cat + '</span>' +
                     '<h4 class="card-title"><a href="articulos/' + a.url + '"' + (esDuplicado ? ' tabindex="-1"' : '') + '>' + a.titulo + '</a></h4>' +
                     '<p class="card-excerpt">' + a.resumen + '</p>' +
                     '<div class="card-meta">' + a.autor + ' · ' + a.fechaTxt + '</div></div></article>';
             }
+            
             var DESTACADAS = ['articulo_2.html', 'articulo_9.html'];
             var rotacion = lista.filter(function (a) { return DESTACADAS.indexOf(a.url) === -1; });
             var visibles = rotacion.slice(0, 6);
 
+            // Inyectar tarjetas reales
             track.innerHTML =
                 visibles.map(function (a) { return tarjeta(a, false); }).join('') +
                 visibles.map(function (a) { return tarjeta(a, true); }).join('') +
@@ -809,12 +826,25 @@
             if (ul) ul.innerHTML = lista.slice(0, 5).map(function (a) {
                 return '<li><span class="lista-ultimas-info"><a href="articulos/' + a.url + '">' + a.titulo + '</a><span class="fecha-ult">' + (a.fechaTxt || '') + '</span></span></li>';
             }).join('');
+
+            // ¡AQUÍ SE ENCIENDE EL MOTOR! Solo cuando las tarjetas reales están en el DOM
+            arrancarMotor();
         }
 
+        // Iniciar la carga
         fetch('articulos/indice.json').then(function (r) { return r.json(); }).then(rellenar).catch(function () {
             var s = document.createElement('script');
             s.src = 'articulos/indice.js';
-            s.onload = function () { rellenar(window.INDICE_ARTICULOS || []); };
+            s.onload = function () { 
+                if(window.INDICE_ARTICULOS && window.INDICE_ARTICULOS.length > 0){
+                    rellenar(window.INDICE_ARTICULOS); 
+                } else {
+                    arrancarMotor(); // Si falla el JSON, arranca de todos modos con los esqueletos
+                }
+            };
+            s.onerror = function() {
+                arrancarMotor(); // Si el archivo ni siquiera existe, arranca con los esqueletos
+            };
             document.head.appendChild(s);
         });
     })();
