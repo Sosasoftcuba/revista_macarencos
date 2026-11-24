@@ -3,27 +3,36 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Macarenco · Revista informativa de la Asociación de Pedagogos de Cuba — Filial Santiago de Cuba</title>
+    <title>MAKARENKOS · Revista informativa de la Asociación de Pedagogos de Cuba — Filial Santiago de Cuba</title>
     <meta name="description" content="Artículos, novedades, eventos y premios sobre pedagogía y educación cubana. Filial Santiago de Cuba.">
     <meta name="author" content="Asociación de Pedagogos de Cuba — Filial Santiago de Cuba">
     <meta name="theme-color" content="#039ed6">
-    <meta name="keywords" content="Macarenco, Pedagogía, Educación, Cuba, Asociación de Pedagogos de Cuba, APC, Santiago de Cuba, revista pedagógica, investigación educativa, práctica docente, sosasoftcuba">
+    <meta name="keywords" content="MAKARENKOS, Pedagogía, Educación, Cuba, Asociación de Pedagogos de Cuba, APC, Santiago de Cuba, revista pedagógica, investigación educativa, práctica docente, sosasoftcuba">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://sosasoftcuba.github.io/revista_macarencos/">
-    <meta property="og:site_name" content="Macarenco">
+    <link rel="canonical" href="https://sosasoftcuba.github.io/revista_MAKARENKOSs/">
+    <meta property="og:site_name" content="MAKARENKOS">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://sosasoftcuba.github.io/revista_macarencos/">
-    <meta property="og:title" content="Macarenco · Revista informativa de la Asociación de Pedagogos de Cuba">
+    <meta property="og:url" content="https://sosasoftcuba.github.io/revista_MAKARENKOSs/">
+    <meta property="og:title" content="MAKARENKOS · Revista informativa de la Asociación de Pedagogos de Cuba">
     <meta property="og:description" content="Artículos, novedades, eventos y premios sobre pedagogía y educación cubana. Filial Santiago de Cuba.">
-    <meta property="og:image" content="https://sosasoftcuba.github.io/revista_macarencos/imagen/banner-header.png">
+    <meta property="og:image" content="https://sosasoftcuba.github.io/revista_MAKARENKOSs/imagen/banner-header.png">
     <meta property="og:locale" content="es_CU">
-    <link href="imagen/logo-apc.png" rel="icon" type="image/png">
+
+    <!-- FAVICON REPARADO: varios tamaños y formatos para que funcione en
+         todos los navegadores. El .ico es el que más compatibilidad tiene;
+         los PNG son para navegadores modernos y el apple-touch-icon para
+         iOS. El ?v=2 fuerza al navegador a recargar el archivo si antes
+         había cacheado un 404. -->
+    <link rel="icon" href="imagen/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="imagen/favicon-32.png?v=2">
+    <link rel="icon" type="image/png" sizes="192x192" href="imagen/icon-192.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="imagen/apple-touch-icon.png?v=2">
+
     <!-- PWA: manifest + iconos para que el teléfono ofrezca "Instalar app" -->
     <link rel="manifest" href="manifest.webmanifest">
-    <link rel="apple-touch-icon" href="imagen/icon-192.png">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="Macarenco">
+    <meta name="apple-mobile-web-app-title" content="MAKARENKOS">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -93,12 +102,14 @@
         .justify-content-between { justify-content: space-between; }
         .justify-content-center { justify-content: center; }
         .align-items-center { align-items: center; }
+        .align-items-stretch { align-items: stretch; }
         .flex-wrap { flex-wrap: wrap; }
         .small { font-size: 80%; }
         .list-unstyled { list-style: none; padding-left: 0; }
         .text-muted { color: #777; }
 
         .mt-2 { margin-top: .5rem !important; }
+        .mt-3 { margin-top: 1rem !important; }
         .mt-4 { margin-top: 1.5rem !important; }
         .mt-5 { margin-top: 3rem !important; }
         .mb-0 { margin-bottom: 0 !important; }
@@ -124,7 +135,6 @@
         }
         .top-bar a { color: var(--blanco); margin-left: 15px; text-decoration: none; }
         .top-bar a:hover { color: var(--azul-cielo); }
-        /* Indicador de página actual (junto al reloj) */
         #pagina-actual { color: #7dd3f7; font-weight: 600; white-space: nowrap; }
 
         .main-header {
@@ -152,7 +162,7 @@
         .logo-banner {
             display: block; position: relative; z-index: 1;
             width: auto; height: auto; max-width: 100%;
-            max-height: 420px;              /* respaldo para Firefox antiguo */
+            max-height: 420px;
             max-height: clamp(220px, 40vw, 420px);
             object-fit: contain;
         }
@@ -160,7 +170,7 @@
             position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 2;
             display: flex; align-items: center; justify-content: center;
             font-family: 'Fuente1979', 'Poppins', sans-serif;
-            font-size: 2.5rem;              /* respaldo para Firefox antiguo */
+            font-size: 2.5rem;
             font-size: clamp(2.5rem, 9vw, 6.5rem);
             font-weight: normal; line-height: 1; margin: 0;
             letter-spacing: 1px; color: var(--blanco);
@@ -264,9 +274,6 @@
         .card-articulo:hover, .card-especial:hover {
             transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 68, 204, 0.25);
         }
-        /* RECUADRO 16:9 COMPATIBLE CON NAVEGADORES ANTIGUOS (truco del
-           padding-bottom): la imagen SIEMPRE se adapta al recuadro y se
-           recorta por el centro, sin importar su tamaño real. */
         .card-img-wrapper {
             position: relative; width: 100%; height: 0; padding-bottom: 56.25%;
             overflow: hidden;
@@ -286,23 +293,35 @@
         .card-excerpt { font-size: 0.95rem; color: #555; flex-grow: 1; overflow: hidden; }
         .card-meta { font-size: 0.85rem; color: #777; border-top: 1px solid #ddd; padding-top: 10px; margin-top: 10px; }
 
-        /* CARRUSEL (CINTA CONTINUA, estilo "caballitos del parque"): las fichas
-           desfilan solas y sin parar, como una cinta que da vueltas; se
-           detienen al pasar el cursor por encima y mientras se toca la
-           pantalla. Las flechas SVG viejas quedan en el HTML pero ocultas:
-           con movimiento constante no hacen falta. Con "movimiento reducido"
-           (accesibilidad) la cinta queda quieta y se desliza con el dedo. */
+        /* FICHAS DE SECCIÓN (Novedades, Tecnológicas, Curiosidades)
+           Altura uniforme para que las dos columnas queden parejas. */
+        .grid-card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .grid-card .card-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .grid-card .card-excerpt { flex-grow: 1; }
+
+        /* CARRUSEL (CINTA CONTINUA, estilo "caballitos del parque") */
         .carousel-container { position: relative; padding: 0; overflow: hidden; }
         .carousel-btn { display: none; }
         .horizontal-scroll-wrapper {
             display: flex; overflow-x: hidden; padding: 10px 0 20px 0;
-            width: max-content; animation: gira-carrusel 45s linear infinite;
+            width: max-content;
+            animation: gira-carrusel 55s linear infinite;
+            will-change: transform;
+            transform: translateZ(0);
         }
         .horizontal-scroll-wrapper.pausa { animation-play-state: paused; }
         .carousel-container:hover .horizontal-scroll-wrapper { animation-play-state: paused; }
         @keyframes gira-carrusel {
             from { transform: translateX(0); }
-            to   { transform: translateX(-50%); } /* la mitad es idéntica: el giro no se nota */
+            to   { transform: translateX(-50%); }
         }
         @media (prefers-reduced-motion: reduce) {
             .horizontal-scroll-wrapper { animation: none; overflow-x: auto; }
@@ -312,7 +331,31 @@
 
         .section-title {
             border-left: 5px solid var(--azul-fuerte); padding-left: 10px;
-            color: var(--azul-fuerte); font-weight: bold; margin-bottom: 20px;
+            color: var(--azul-fuerte); font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 22px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid rgba(3, 158, 214, 0.25);
+        }
+
+        /* FRANJA DIVISORIA ENTRE SECCIONES (tipo revista de sport) */
+        .franja-seccion {
+            width: 100%;
+            height: 14px;
+            margin: 40px 0 30px;
+            background: linear-gradient(
+                90deg,
+                var(--azul-fuerte) 0%,
+                var(--azul-fuerte) 25%,
+                var(--azul-cielo) 25%,
+                var(--azul-cielo) 50%,
+                var(--blanco) 50%,
+                var(--blanco) 75%,
+                var(--gris-oscuro) 75%,
+                var(--gris-oscuro) 100%
+            );
+            border-radius: 2px;
+            box-shadow: 0 2px 6px rgba(0, 68, 204, 0.15);
         }
 
         /* EVENTOS Y PREMIOS */
@@ -330,9 +373,7 @@
         .card-premio .card-img-wrapper { border-bottom-color: var(--dorado-premio); }
         .card-premio .card-cat, .card-premio .card-title a:hover { color: #f57f17; }
 
-        /* SIDEBAR — SIN sticky: el bloque PROYECTOS COLABORATIVOS
-           y todo el contenido de la columna derecha siempre se ve
-           completo, sin recortes, en cualquier navegador. */
+        /* SIDEBAR */
         .sidebar-wrapper { position: static; }
 
         .boletin-card {
@@ -356,19 +397,12 @@
             border-radius: 10px; padding: 20px; text-align: center; margin-bottom: 20px;
         }
         .indexadores-card h4 { color: var(--azul-fuerte); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; }
-        .indexadores-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; align-items: center; justify-items: center; }
-        .indexadores-grid img { max-width: 100%; max-height: 60px; object-fit: contain; filter: grayscale(100%); opacity: 0.7; transition: all 0.3s ease; }
-        .indexadores-grid img:hover { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
-        /* «Últimas entradas»: las 5 más recientes, numeradas. Diseño
-           profesional: número en insignia a la izquierda, titular en una
-           línea y la DEBAJO la fecha, pequeña y discreta (la fecha nunca
-           comparte línea con el titular: eso apretaba el texto y daba
-           aspecto de tabloide). */
+
         .lista-ultimas { list-style: none; counter-reset: ult; margin: 0; padding: 0; }
         .lista-ultimas li {
             counter-increment: ult; display: flex; align-items: flex-start;
             gap: 12px; padding: 12px 2px; border-bottom: 1px solid #e3edf8;
-            text-align: left; /* la tarjeta centra su título; la lista queda alineada a la izquierda */
+            text-align: left;
         }
         .lista-ultimas li:last-child { border-bottom: none; padding-bottom: 2px; }
         .lista-ultimas li::before {
@@ -421,188 +455,58 @@
         .proyectos-card hr { border-top: 1px solid #d7e4f2; opacity: 1; margin: 16px 0; }
         .proyectos-card .btn-leer-mas:hover { opacity: 0.92; }
 
-        /* TARJETAS RELACIONADAS (páginas de artículo) */
-        .related-card {
-            border: 3px solid transparent;
-            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
-                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
-            border-radius: 10px; padding: 20px; margin-bottom: 20px;
-        }
-        .related-card h4 { color: var(--azul-fuerte); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; text-align: center; }
-        .related-item { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; text-decoration: none; color: inherit; transition: transform 0.2s; }
-        .related-item:last-child { margin-bottom: 0; }
-        .related-item:hover { transform: translateX(5px); }
-        .related-thumb { width: 70px; height: 70px; object-fit: cover; border-radius: 6px; border: 2px solid var(--azul-cielo); flex-shrink: 0; background: #eef4fb; }
-        .related-info h5 { font-size: 0.9rem; font-weight: 600; line-height: 1.3; margin: 0 0 5px 0; color: var(--gris-oscuro); }
-        .related-item:hover .related-info h5 { color: var(--azul-fuerte); }
-        .related-info span { font-size: 0.75rem; color: #777; }
-
-        /* PÁGINAS INTERNAS: título, breadcrumb y tarjetas de contenido */
-        .breadcrumb-custom { background: transparent; padding: 0; margin-bottom: 20px; font-size: 0.9rem; }
-        .breadcrumb-custom a { color: var(--azul-fuerte); text-decoration: none; }
-        .breadcrumb-custom a:hover { text-decoration: underline; }
-        .breadcrumb-custom span { color: #777; margin: 0 5px; }
-        .page-title { font-size: 2.2rem; font-size: clamp(1.8rem, 6vw, 2.6rem); margin-bottom: 10px; }
-        .page-lead { font-size: 1.05rem; color: #555; max-width: 850px; }
-        .page-card {
-            background: var(--blanco); border-radius: 10px;
-            border: 3px solid transparent;
-            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
-                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
-            padding: 25px; margin-bottom: 25px;
-        }
-        .page-card h2 { color: var(--azul-oscuro); margin-bottom: 12px; }
-
-        /* ARTÍCULOS */
-        .article-container {
-            background: var(--blanco); border-radius: 10px;
-            border: 3px solid transparent;
-            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
-                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
-            overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 30px;
-        }
-        /* Recuadro del artículo: 16:9 con padding-bottom (compatible con
-           Firefox antiguo; la imagen siempre llena y recortada al recuadro) */
-        .article-hero { position: relative; width: 100%; height: 0; padding-bottom: 56.25%; overflow: hidden; border-bottom: 3px solid var(--azul-cielo); background: linear-gradient(135deg, #eef4fb, #dce9f7); }
-        .article-hero img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-        .article-content { padding: 30px; }
-        .article-category { color: var(--azul-fuerte); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; display: block; }
-        .article-title { font-family: Georgia, serif; font-size: 2.3rem; font-weight: 700; color: var(--gris-oscuro); line-height: 1.2; margin-bottom: 15px; }
-        .article-meta { display: flex; flex-wrap: wrap; gap: 15px; font-size: 0.9rem; color: #666; border-bottom: 1px solid #ddd; padding-bottom: 20px; margin-bottom: 25px; }
-        .article-meta strong { color: var(--azul-oscuro); }
-        .article-body { font-size: 1.1rem; line-height: 1.8; color: #333; }
-        .article-body p { margin-bottom: 1.5rem; }
-        .article-body h2, .article-body h3 { font-family: Georgia, serif; color: var(--azul-oscuro); margin-top: 2rem; margin-bottom: 1rem; font-weight: 700; }
-        .article-body img { max-width: 100%; height: auto; border-radius: 8px; border: 2px solid #eee; margin: 20px 0; display: block; }
-        @media (min-width: 768px) {
-            .article-body img.float-right { float: right; max-width: 45%; margin: 0 0 20px 20px; }
-            .article-body img.float-left { float: left; max-width: 45%; margin: 0 20px 20px 0; }
-        }
-        .article-body blockquote { border-left: 5px solid var(--azul-fuerte); background: var(--gris-fondo); padding: 15px 20px; font-style: italic; color: #444; margin: 25px 0; border-radius: 0 8px 8px 0; }
-        .article-navigation { display: flex; justify-content: space-between; align-items: center; padding: 20px 30px; background-color: var(--gris-fondo); border-top: 2px dashed #ccc; gap: 10px; flex-wrap: wrap; }
-        .article-navigation a { color: var(--azul-fuerte); font-weight: 600; font-size: 1rem; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: all 0.2s; }
-        .article-navigation a:hover { color: var(--azul-cielo); }
-        .article-navigation .nav-prev:hover { transform: translateX(-5px); }
-        .article-navigation .nav-next:hover { transform: translateX(5px); }
-
-        /* CONTACTO: una sola tarjeta con envío directo por correo */
-        .contacto-card {
-            background: var(--blanco); border-radius: 10px;
-            border: 3px solid transparent;
-            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
-                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
-            padding: 30px; max-width: 760px;
-        }
-        .contacto-card h2 { color: var(--azul-oscuro); }
-        .contacto-aviso {
-            background: #fff8e1; border: 1px solid #f2d795; border-radius: 8px;
-            padding: 12px 16px; font-size: 0.92rem; color: #7a5b00; margin-bottom: 20px;
-        }
-        .contacto-aviso .icon { color: #b8860b; }
-        .form-group { margin-bottom: 16px; }
-        .form-group label { display: block; font-weight: 600; font-size: 0.92rem; margin-bottom: 6px; }
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%; padding: 10px 12px; border: 2px solid #cfe0f3; border-radius: 6px;
-            font-size: 0.95rem; font-family: inherit; background: #fbfdff;
-        }
-        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-            outline: none; border-color: var(--azul-cielo);
-        }
-        .form-group textarea { min-height: 130px; resize: vertical; }
-        .form-group small { color: #777; }
-        .btn-primario {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte));
-            color: var(--blanco); font-weight: 600; font-size: 1rem;
-            border: none; border-radius: 6px; padding: 12px 26px; cursor: pointer;
-        }
-        .btn-primario:hover { opacity: 0.93; }
-        .nota-envio {
-            display: none; background: #e8f5e9; border: 1px solid #a5d6a7; border-radius: 8px;
-            padding: 12px 16px; font-size: 0.92rem; color: #1b5e20; margin-top: 16px;
-        }
-        .contacto-datos {
-            border-top: 1px solid #e3edf8; margin-top: 22px; padding-top: 16px;
-            font-size: 0.9rem; color: #555;
-        }
-        .contacto-datos .icon { color: var(--azul-fuerte); margin-right: 6px; }
-        .contacto-datos p { margin-bottom: 6px; }
-
-        /* ARTÍCULOS PUBLICADOS: tarjeta alargada de resultado */
-        .resultado-card {
-            display: flex; gap: 18px; align-items: stretch;
-            background: var(--blanco); border-radius: 10px;
-            border: 3px solid transparent;
-            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
-                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
-            padding: 18px; margin-bottom: 22px; flex-wrap: wrap;
-        }
-        .resultado-img {
-            flex: 0 0 210px; height: 150px; border-radius: 8px; overflow: hidden;
+        /* IMAGEN DEL DÍA: franja de ancho completo al cierre de la columna */
+        .imagen-del-dia {
             position: relative;
-            background: linear-gradient(135deg, #eef4fb, #dce9f7); text-decoration: none;
+            width: 100%;
+            margin: 40px 0 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 4px solid var(--azul-fuerte);
+            box-shadow: 0 8px 24px rgba(0, 68, 204, 0.25);
+            background: linear-gradient(135deg, #eef4fb, #dce9f7);
         }
-        .resultado-img img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
-        .resultado-body { flex: 1 1 280px; min-width: 0; }
-        .resultado-cat { color: var(--azul-fuerte); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
-        .resultado-body h3 { font-size: 1.25rem; margin: 6px 0; }
-        .resultado-body h3 a { color: var(--gris-oscuro); text-decoration: none; }
-        .resultado-body h3 a:hover { color: var(--azul-cielo); }
-        .resultado-body p { font-size: 0.95rem; color: #555; margin-bottom: 8px; }
-        .resultado-meta { font-size: 0.85rem; color: #777; border-top: 1px solid #e6eef7; padding-top: 8px; }
-        .resultado-acciones {
-            flex: 0 0 170px; display: flex; flex-direction: column;
-            justify-content: center; gap: 10px;
+        .imagen-del-dia img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-height: 520px;
+            object-fit: cover;
         }
-        .btn-pdf {
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            gap: 4px; padding: 14px 10px; border-radius: 8px; text-decoration: none;
-            background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte));
-            color: var(--blanco); font-weight: 600; font-size: 0.95rem; text-align: center;
+        .imagen-del-dia figcaption {
+            position: absolute;
+            left: 0; right: 0; bottom: 0;
+            padding: 18px 22px 14px;
+            color: var(--blanco);
+            font-size: 0.95rem;
+            line-height: 1.4;
+            background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0));
         }
-        .btn-pdf svg.icon { width: 34px; height: 34px; }
-        .btn-pdf small { font-weight: 500; opacity: 0.9; letter-spacing: 1px; }
-        .btn-pdf:hover { opacity: 0.93; color: var(--blanco); }
-        .btn-leer-mini {
-            display: block; text-align: center; padding: 9px 10px; border-radius: 8px;
-            border: 2px solid var(--azul-fuerte); color: var(--azul-fuerte);
-            font-weight: 600; font-size: 0.9rem; text-decoration: none;
+        .imagen-del-dia figcaption strong {
+            display: block;
+            font-size: 1.05rem;
+            margin-bottom: 4px;
+            color: #ffffff;
         }
-        .btn-leer-mini:hover { background: var(--azul-fuerte); color: var(--blanco); }
-        .sin-resultados {
-            background: #fff8e1; border: 1px solid #f2d795; border-radius: 10px;
-            padding: 20px; font-size: 1rem; color: #7a5b00;
+        .imagen-del-dia .credito {
+            display: block;
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin-top: 4px;
         }
-        .buscando-info { font-size: 0.95rem; color: #555; margin-bottom: 18px; }
-
-        /* ACERCA DE */
-        .lista-secciones { list-style: none; padding-left: 0; }
-        .lista-secciones li { padding-left: 0; margin-bottom: 10px; font-size: 0.95rem; color: #444; }
-        .lista-secciones .icon { color: var(--azul-fuerte); margin-right: 8px; }
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; }
-        .team-member { text-align: center; }
-        .team-member img { width: 90px; height: 90px; object-fit: cover; border-radius: 50%; border: 3px solid var(--azul-cielo); margin-bottom: 10px; background: #eef4fb; }
-        .team-member h4 { font-size: 0.95rem; margin-bottom: 4px; }
-        .team-member .role { font-size: 0.8rem; color: #777; }
-        .ficha-card {
-            border: 3px solid transparent;
-            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
-                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
-            border-radius: 10px; padding: 20px; margin-bottom: 20px;
+        .imagen-del-dia .etiqueta-dia {
+            position: absolute;
+            top: 16px; left: 16px;
+            background: var(--azul-fuerte);
+            color: var(--blanco);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 14px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
-        .ficha-card h4 { color: var(--azul-fuerte); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; text-align: center; }
-        .ficha-card ul { list-style: none; padding-left: 0; margin-bottom: 0; }
-        .ficha-card li { font-size: 0.9rem; color: #555; margin-bottom: 10px; }
-        .ficha-card .icon { color: var(--azul-fuerte); margin-right: 6px; }
-        .publica-card {
-            border: 3px solid transparent;
-            background: linear-gradient(var(--azul-cielo), var(--azul-cielo)) padding-box,
-                        linear-gradient(135deg, var(--azul-fuerte), var(--azul-oscuro)) border-box;
-            color: var(--blanco); border-radius: 10px; padding: 20px; text-align: center;
-        }
-        .publica-card h4 { font-weight: 700; margin-bottom: 10px; }
-        .publica-card p { font-size: 0.9rem; opacity: 0.95; }
-        .publica-card .btn-leer-mas { background: linear-gradient(135deg, var(--gris-oscuro), #31404d); }
 
         /* FOOTER */
         .footer {
@@ -616,13 +520,11 @@
 
         /* RESPONSIVE */
         @media (max-width: 992px) {
-            .carousel-btn { width: 45px; height: 45px; }
-            .carousel-btn svg.icon { width: 20px; height: 20px; }
             .article-title { font-size: 1.9rem; }
         }
         @media (max-width: 768px) {
             .logo-banner {
-                height: 210px;                  /* respaldo para Firefox antiguo */
+                height: 210px;
                 height: clamp(180px, 48vw, 230px);
                 width: 100%;
                 max-height: none;
@@ -631,26 +533,15 @@
             }
             .search-container, .header-actions .btn-enviar { width: 100%; }
             .header-actions { flex-direction: column; gap: 10px; }
-            .carousel-btn { top: auto; bottom: -20px; }
-            .carousel-btn.prev { left: 30%; }
-            .carousel-btn.next { right: 30%; }
-            .article-content { padding: 20px; }
-            .article-navigation { flex-direction: column; align-items: stretch; text-align: center; padding: 15px 20px; }
-            .article-navigation a { justify-content: center; }
-            .resultado-card { flex-direction: column; }
-            .resultado-img { flex: 1 1 auto; width: 100%; height: 160px; }
-            .resultado-acciones { flex: 1 1 auto; flex-direction: row; }
-            .resultado-acciones .btn-pdf, .resultado-acciones .btn-leer-mini { flex: 1; }
+            .imagen-del-dia img { max-height: 320px; }
+            .imagen-del-dia figcaption { padding: 14px 16px 10px; font-size: 0.85rem; }
+            .imagen-del-dia figcaption strong { font-size: 0.95rem; }
         }
         @media (max-width: 480px) {
             .header-box { padding: 16px 12px; }
             .header-title span { padding: 8px 11px; }
-            /* Partida GRANDE: el script de autoajuste solo afina para que los
-               bordes de la solapa queden con 8px de margen dentro del borde
-               azul de la página, ocupando el máximo posible (sin encogerla
-               más de lo necesario). */
             .header-title { font-size: 1.4rem; font-size: clamp(1.4rem, 12vw, 2.7rem); letter-spacing: 0px; }
-            .carousel-item-card { min-height: 0; } /* sin espacio vacío abajo en teléfonos */
+            .carousel-item-card { min-height: 0; }
             .footer { margin-top: 25px; }
         }
     </style>
@@ -659,9 +550,6 @@
     <!-- Top Bar -->
     <div class="top-bar">
         <div class="container d-flex justify-content-between align-items-center flex-wrap">
-            <!-- FECHA: la pide a servidores de hora sincronizados (zona Caracas).
-                 Si no hay conexión muestra "Sin acceso al servidor de horario";
-                 NUNCA usa el reloj local del PC. -->
             <div><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> <span id="fecha-actual">Consultando el servidor de horario…</span> <span id="pagina-actual"></span></div>
             <div class="mt-2 mt-sm-0">
                 <a href="contacto.html">Suscríbete</a>
@@ -675,10 +563,9 @@
         <div class="container">
             <div class="header-box">
                 <a href="index.html" class="header-brand">
-                    <!-- Banner con "Macarenco" superpuesto (sin reflejo) -->
                     <div class="banner-wrapper">
                         <img src="imagen/banner-header.png" alt="Asociación de Pedagogos de Cuba" class="logo-banner">
-                        <h1 class="header-title"><span>Macarenco</span></h1>
+                        <h1 class="header-title"><span>MAKARENKOS</span></h1>
                     </div>
                     <span class="header-subtitle">Revista informativa de la Asociación de Pedagogos de Cuba<br>Filial Santiago de Cuba</span>
                 </a>
@@ -722,107 +609,69 @@
                 </div>
 
                 <div class="carousel-container">
-                    <!-- Flechas SVG antiguas retiradas: la cinta gira sola y no
-                         necesita botones. El CSS de .carousel-btn queda por si
-                         algún día se quiere volver al modo manual. -->
-
                     <div class="horizontal-scroll-wrapper" id="carousel-track">
-                        <!-- Las 5 fichas (por partida doble, para el giro continuo)
-                             se rellenan solas desde articulos/indice.json -->
-
-
+                        <!-- Las fichas se rellenan solas desde articulos/indice.json -->
                     </div>
-
                 </div>
 
-                <!-- 2. NOVEDADES -->
+                <!-- ============ NOVEDADES ============ -->
                 <div class="mt-5">
                     <h3 class="section-title">Novedades</h3>
-                    <div class="row">
+                    <div class="row align-items-stretch">
                         <div class="col-md-6 mb-4">
                             <article class="card-articulo grid-card" id="novedad-1"></article>
                         </div>
-
                         <div class="col-md-6 mb-4">
                             <article class="card-articulo grid-card" id="novedad-2"></article>
                         </div>
                     </div>
                 </div>
-                <!-- 2. NOVEDADES -->
+
+                <div class="franja-seccion"></div>
+
+                <!-- ============ TECNOLÓGICAS ============ -->
                 <div class="mt-5">
                     <h3 class="section-title">Tecnológicas</h3>
-                    <div class="row">
+                    <div class="row align-items-stretch">
                         <div class="col-md-6 mb-4">
                             <article class="card-articulo grid-card" id="novedad-3"></article>
                         </div>
-
                         <div class="col-md-6 mb-4">
                             <article class="card-articulo grid-card" id="novedad-4"></article>
                         </div>
                     </div>
                 </div>
-				
-                <!-- 3. EVENTOS Y PREMIOS -->
-                <div class="row mt-4">
-                    <!-- TARJETA EVENTO -->
+
+                <div class="franja-seccion"></div>
+
+                <!-- ============ CURIOSIDADES LINGÜÍSTICAS ============ -->
+                <div class="mt-5">
+                    <h3 class="section-title">Curiosidades Lingüísticas</h3>
+                    <div class="row align-items-stretch">
+                        <div class="col-md-6 mb-4">
+                            <article class="card-articulo grid-card" id="novedad-5"></article>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <article class="card-articulo grid-card" id="novedad-6"></article>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="franja-seccion"></div>
+
+                <!-- ============ EVENTOS Y PREMIOS (fijas) ============ -->
+                <div class="row align-items-stretch">
                     <div class="col-md-6 mb-4 d-flex">
                         <article class="card-especial card-evento">
                             <a href="articulos/articulo_2.html"><div class="card-img-wrapper"><img src="https://www.ahora.cu/images/pedagogia-2027-1.jpg" alt="Salón principal del Palacio de Convenciones de La Habana durante una sesión internacional"></div></a>
                             <div class="card-body">
                                 <span class="card-cat">Próximo Evento</span>
                                 <h4 class="card-title"><a href="articulos/articulo_2.html">Desarrollan en Holguín evento provincial de Pedagogía 2027</a></h4>
-                                <p class="card-excerpt">La vigésima edición del Evento Provincial de Pedagogía 2027 en Holguín ratificó la voluntad de los educadores de esta región nororiental para seguir
-perfeccionando la calidad educativa mediante la ciencia, la innovación, el uso de la tecnología, la formación de valores y el pensamiento crítico e innovador
-en las nuevas generaciones.</p>
+                                <p class="card-excerpt">La vigésima edición del Evento Provincial de Pedagogía 2027 en Holguín ratificó la voluntad de los educadores de esta región nororiental para seguir perfeccionando la calidad educativa mediante la ciencia, la innovación, el uso de la tecnología, la formación de valores y el pensamiento crítico e innovador en las nuevas generaciones.</p>
                                 <div class="card-meta">📍 Palacio de Convenciones, La Habana · En preparación</div>
                             </div>
                         </article>
                     </div>
-
-                    <!-- TARJETA PREMIO -->
-                    <div class="col-md-6 mb-4 d-flex">
-                        <article class="card-especial card-premio">
-                            <a href="articulos/articulo_9.html"><div class="card-img-wrapper"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsALMUHH3OQB9soGp5NXSYZtcTIIXj6OTU2PjpVk3zunupEjVQDTDr7Ok&s" alt="Parque Céspedes y Casa de Diego Velázquez, centro histórico de Santiago de Cuba"></div></a>
-                            <div class="card-body">
-                                <span class="card-cat">Patrimonio y Lectura</span>
-                                <h4 class="card-title"><a href="https://www.ejemplos.co/30-ejemplos-de-patrimonio-cultural/">El concepto de patrimonio cultural no es estático e invariable sino que va cambiando para cada sociedad.</a></h4>
-                                <p class="card-excerpt">Cuando la Unesco selecciona un objeto o actividad como Patrimonio Cultural de la Humanidad, se debe a que cumple con alguno de los siguientes criterios:</p>
-                                <div class="card-meta">📍 Esta institución busca identificar los bienes culturales que son relevantes para cada pueblo y de esta manera preservarlos.</div>
-                            </div>
-                        </article>
-                    </div>
-                </div>
-				
-				<!-- 2. NOVEDADES -->
-                <div class="mt-5">
-                    <h3 class="section-title">Curiosidades Linguisticas</h3>
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <article class="card-articulo grid-card" id="novedad-5"></article>
-                        </div>
-
-                        <div class="col-md-6 mb-4">
-                            <article class="card-articulo grid-card" id="novedad-6"></article>
-                        </div>
-                    </div>
-                </div>
-				
-				<!-- 3. EVENTOS Y PREMIOS -->
-                <div class="row mt-4">
-                    <!-- TARJETA EVENTO -->
-                    <div class="col-md-6 mb-4 d-flex">
-                        <article class="card-especial card-evento">
-                            <a href="articulos/articulo_2.html"><div class="card-img-wrapper"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a2/Zahid_Maleque_Speech_G-77_Plus_China_Summit_Havana_Cuba_2023-09-19_%28PID-0013584%29.jpg/500px-Zahid_Maleque_Speech_G-77_Plus_China_Summit_Havana_Cuba_2023-09-19_%28PID-0013584%29.jpg" alt="Salón principal del Palacio de Convenciones de La Habana durante una sesión internacional"></div></a>
-                            <div class="card-body">
-                                <span class="card-cat">Próximo Evento</span>
-                                <h4 class="card-title"><a href="articulos/articulo_2.html">Pedagogía 2027: camino a la XX edición</a></h4>
-                                <p class="card-excerpt">Los congresos municipales y provinciales preparan la cita mundial de los educadores en La Habana.</p>
-                                <div class="card-meta">📍 Palacio de Convenciones, La Habana · En preparación</div>
-                            </div>
-                        </article>
-                    </div>
-
-                    <!-- TARJETA PREMIO -->
                     <div class="col-md-6 mb-4 d-flex">
                         <article class="card-especial card-premio">
                             <a href="articulos/articulo_9.html"><div class="card-img-wrapper"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0b/Santiago_de_Cuba_-_Parque_Cespedes_and_House_of_Don_Diego_Velasquez.jpg/500px-Santiago_de_Cuba_-_Parque_Cespedes_and_House_of_Don_Diego_Velasquez.jpg" alt="Parque Céspedes y Casa de Diego Velázquez, centro histórico de Santiago de Cuba"></div></a>
@@ -835,14 +684,23 @@ en las nuevas generaciones.</p>
                         </article>
                     </div>
                 </div>
-				<hr>
-				<figure class="articulo-hero">
-                        <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Escuela_Primaria_de_Tony_Alom%C3%A1.jpg/960px-Escuela_Primaria_de_Tony_Alom%C3%A1.jpg" alt="Edificio de una escuela primaria rural cubana" loading="lazy" referrerpolicy="no-referrer">
-                        <figcaption>Escuela primaria rural cubana: el destino de buena parte de los nuevos maestros.<span class="credito">Foto: CubanoBoi · CC BY-SA 4.0 · Wikimedia Commons</span></figcaption>
-                    </figure>			
+
+                <!-- ============ IMAGEN DEL DÍA (cierre a todo lo ancho) ============ -->
+                <figure class="imagen-del-dia">
+                    <span class="etiqueta-dia">Imagen del día</span>
+                    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Escuela_Primaria_de_Tony_Alom%C3%A1.jpg/960px-Escuela_Primaria_de_Tony_Alom%C3%A1.jpg"
+                         alt="Edificio de una escuela primaria rural cubana"
+                         loading="lazy" referrerpolicy="no-referrer">
+                    <figcaption>
+                        <strong>Escuela primaria rural cubana</strong>
+                        El destino de buena parte de los nuevos maestros.
+                        <span class="credito">Foto: CubanoBoi · CC BY-SA 4.0 · Wikimedia Commons</span>
+                    </figcaption>
+                </figure>
 
             </div>
-            <!-- Columna Derecha (Sidebar, sin sticky: siempre visible) -->
+
+            <!-- Columna Derecha (Sidebar) -->
             <div class="col-lg-4">
                 <div class="sidebar-wrapper">
                     <div class="boletin-card">
@@ -856,25 +714,15 @@ en las nuevas generaciones.</p>
 
                     <div class="indexadores-card">
                         <h4>Últimas entradas</h4>
-                        <!-- La lista se rellena sola desde articulos/indice.json:
-                             son las 5 entradas más recientes, numeradas, cada una
-                             con la fecha debajo del titular. Sustituye a la vieja
-                             caja "Indexada en". -->
                         <ol class="lista-ultimas" id="lista-ultimas">
                             <li class="ult-cargando">Cargando los artículos…</li>
                         </ol>
                         <p class="small mt-3 mb-0"><a href="articulos_publicados.html">Ver todas y buscar &rarr;</a></p>
                     </div>
 
-                    <!-- PROYECTOS COLABORATIVOS (restaurado de la versión original) --><!--
-                         IMPORTANTE: copia estas 4 imágenes desde la carpeta
-                         "Macarenco · ... _files" de tu página guardada a la
-                         carpeta imagen/ del sitio:
-                         consultor.png · Educamos-contigo.png · youtube.png · banner-macarencos.png
-                         (si falta alguna, la tarjeta muestra un recuadro suave en su lugar)-->
                     <div class="about-card proyectos-card">
                         <h3 class="section-title">- PROYECTOS COLABORATIVOS -</h3>
-<br><hr>
+                        <br><hr>
                         <div class="proy-item">
                             <h4>Consultor de Tesis UO</h4>
                             <div class="proy-img"><img src="imagen/consultor.png" alt="Consultor de Tesis de la Universidad de Oriente" loading="lazy" onerror="this.style.display='none'"></div>
@@ -889,26 +737,22 @@ en las nuevas generaciones.</p>
                             <a href="https://www.facebook.com/sosasoftcuba.cu" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
                         </div>
                         <br><hr>
-
                         <div class="proy-item">
                             <h4>Proyecto SosaSoftCuba:</h4>
                             <div class="proy-img"><img src="imagen/previa-sosasoftcuba-portal.png" alt="Canal de YouTube de la revista" loading="lazy" onerror="this.style.display='none'"></div>
-                            <p>Vitrina digital abierta, profesional y sin fines de lucro, al servicio del conocimiento. Creamos herramientas digitales y colaboramos con docentes, escuelas y universidades por un mundo digital mejor.</p>
-                            <p>El Grupo Sosa·Soft·Cuba es un colectivo cubano sin fines de lucro que desarrolla y publica plataformas educativas, académicas y culturales.
-  							<p>Este portal (https://sosasoftcuba.github.io/) es su punto de encuentro central y galería de proyectos. Todo el contenido y las herramientas son gratuitos para docentes, estudiantes e instituciones.
-                               Canal oficial de la revista y la filial en YouTube.</p>
+                            <p>Vitrina digital abierta, profesional al servicio del conocimiento. Creamos herramientas digitales, ofertamos servicios desde programación y diseño a Mantenimiento general  y colaboramos con docentes, escuelas y universidades por un mundo digital mejor.</p>
+                            <p>El Grupo Sosa·Soft·Cuba es un colectivo cubano sin fines de lucro que desarrolla y publica en plataformas educativas, académicas y culturales.</p>
                             <a href="https://sosasoftcuba.github.io" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
                         </div>
                         <br><hr>
-
                         <div class="proy-item">
-                            <h4>Asociación APC Santiago:</h4>
-                            <div class="proy-img"><img src="imagen/banner-macarencos.png" alt="Asociación APC Santiago" loading="lazy" onerror="this.style.display='none'"></div>
-                            <p>Enlace a los recursos y colaboradores de la Asociación de Pedagogos de Cuba.</p>
+                            <h4>>>> CubaPlaza.Net:</h4>
+                            <div class="proy-img"><img src="imagen/banner-MAKARENKOSs.png" alt="Asociación APC Santiago" loading="lazy" onerror="this.style.display='none'"></div>
+                            <p>un directorio laboral gratuito donde puedes registar tu pequeño negocio para que te localizan mas clientes.</p>
                             <a href="https://cubaplaza.net/" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
                         </div>
                     </div>
-<br><hr>
+                    <br><hr>
                     <div class="about-card">
                         <h4>¿Quiénes Somos?</h4>
                         <p>La Asociación de Pedagogos de Cuba (APC) es una organización científica y social que agrupa a los profesionales de la educación en el país.</p>
@@ -925,7 +769,7 @@ en las nuevas generaciones.</p>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
-                    <h5 style="color: var(--azul-cielo);">Macarenco</h5>
+                    <h5 style="color: var(--azul-cielo);">Makarenko</h5>
                     <p class="small">Revista informativa de la Asociación de Pedagogos de Cuba, Filial Santiago de Cuba.</p>
                 </div>
                 <div class="col-md-4 mb-4">
@@ -945,18 +789,12 @@ en las nuevas generaciones.</p>
                 </div>
             </div>
             <div class="footer-bottom">
-                © 2026 Macarenco · Todos los derechos reservados.
+                © 2026 Revistas Makarenko · Todos los derechos reservados.
             </div>
         </div>
     </footer>
 
-    <!-- INDICADOR DE PÁGINA: muestra junto al reloj en qué página del
-         sitio estás ("Estás en: Inicio", "Acerca de", etc.). En los
-         teléfonos, donde al abrir un enlace no se ve la barra de menú
-         sin desplazarse, deja claro de una vez si cambiaste de página.
-         Funciona en cualquier página del sitio: reconoce los archivos
-         conocidos y deduce el nombre de los demás (articulo_1.html →
-         "Artículo", etc.). -->
+    <!-- INDICADOR DE PÁGINA -->
     <script>
         (function () {
             var el = document.getElementById('pagina-actual');
@@ -978,12 +816,8 @@ en las nuevas generaciones.</p>
             el.textContent = '· Estás en: ' + (nombre || 'Inicio');
         })();
     </script>
-    <!-- FECHA Y HORA REAL: zona horaria America/Caracas (Venezuela).
-         La pide a servidores de hora sincronizados por NTP (se consulta su
-         hora por HTTPS). time.windows.com es un servidor NTP "puro" y los
-         navegadores no pueden leerlo directamente, así que se usan dos
-         servidores equivalentes con hora certificada. Si no hay conexión,
-         muestra "Sin acceso al servidor de horario" (no usa el reloj del PC). -->
+
+    <!-- FECHA Y HORA REAL (zona Caracas) -->
     <script>
     (function () {
         var el = document.getElementById('fecha-actual');
@@ -991,10 +825,7 @@ en las nuevas generaciones.</p>
         var DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
         var MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio',
                      'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-
         function capitalizar(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
-
-        /* Convierte un instante (Date) a texto en hora de Caracas */
         function formatear(d) {
             try {
                 if (window.Intl && Intl.DateTimeFormat) {
@@ -1005,8 +836,7 @@ en las nuevas generaciones.</p>
                     });
                     return capitalizar(f.format(d));
                 }
-            } catch (e) { /* sin Intl: formato manual */ }
-            /* Respaldo manual: Caracas = UTC-4 */
+            } catch (e) { }
             var u = new Date(d.getTime() - 4 * 3600000);
             var h = u.getUTCHours(), m = u.getUTCMinutes();
             var h12 = ((h + 11) % 12) + 1;
@@ -1015,7 +845,6 @@ en las nuevas generaciones.</p>
                 MESES[u.getUTCMonth()] + ' de ' + u.getUTCFullYear() + ', ' +
                 h12 + ':' + (m < 10 ? '0' : '') + m + ' ' + suf);
         }
-
         function pedir(url, alRecibir, alFallar) {
             if (typeof fetch !== 'function') { alFallar(); return; }
             var ctrl = null, timer = null;
@@ -1036,22 +865,16 @@ en las nuevas generaciones.</p>
                 alFallar();
             });
         }
-
         function consultar() {
-            /* 1er servidor de hora (NTP sincronizado) */
             pedir('https://worldtimeapi.org/api/timezone/America/Caracas',
                 function (datos) {
-                    var d = new Date(datos.datetime);          /* ISO con desplazamiento -04:00 */
+                    var d = new Date(datos.datetime);
                     if (isNaN(d.getTime())) throw new Error('fecha inválida');
                     el.textContent = formatear(d);
                 },
                 function () {
-                    /* 2do servidor de hora (NTP sincronizado) */
                     pedir('https://timeapi.io/api/Time/current/zone?timeZone=America/Caracas',
                         function (datos) {
-                            /* dateTime viene en hora local de Caracas, sin zona:
-                               se interpreta como UTC y se le suman las 4 horas
-                               que separan a Caracas (UTC-4) del UTC. */
                             var d = new Date(datos.dateTime + 'Z');
                             if (isNaN(d.getTime())) throw new Error('fecha inválida');
                             d = new Date(d.getTime() + 4 * 3600000);
@@ -1062,12 +885,12 @@ en las nuevas generaciones.</p>
                         });
                 });
         }
-
         consultar();
-        setInterval(consultar, 60000); /* reintenta cada minuto: si vuelve la conexión, se actualiza */
+        setInterval(consultar, 60000);
     })();
     </script>
-    <!-- MENÚ MÓVIL (JS propio, sin jQuery) -->
+
+    <!-- MENÚ MÓVIL -->
     <script>
         (function () {
             var btn = document.getElementById('nav-toggler');
@@ -1079,17 +902,10 @@ en las nuevas generaciones.</p>
             });
         })();
     </script>
-    <!-- PORTADA DINÁMICA: el carrusel y las novedades se rellenan solos
-         leyendo articulos/indice.json (lo genera hacer_indice.py con los
-         metadatos que lleva cada artículo). Publicar un artículo nuevo ya
-         NO requiere tocar esta página:
-         1) guarda el artículo en la carpeta articulos/,
-         2) ejecuta "python hacer_indice.py",
-         3) sube la carpeta articulos/ al repositorio.
-         Si indice.json no se puede leer (p. ej. al abrir la página con
-         doble clic, porque el navegador bloquea fetch() sobre archivos
-         locales), se usa el respaldo articulos/indice.js con los mismos
-         datos: así la portada funciona también desde el disco o una USB. -->
+
+    <!-- PORTADA DINÁMICA: carrusel + secciones + últimas entradas.
+         Lee articulos/indice.json (o el respaldo indice.js si no hay
+         conexión / se abre desde el disco). -->
     <script>
         (function () {
             function esc(s) {
@@ -1108,10 +924,6 @@ en las nuevas generaciones.</p>
                         + '<div class="card-meta">' + esc(a.autor) + ' · ' + esc(a.fechaTxt) + '</div>'
                         + '</div></article>';
                 }
-                /* SIN REPETIDOS EN LA PORTADA: los artículos de las dos fichas
-                   fijas de «Eventos y Premios» ya tienen su ficha ahí, así que
-                   se apartan del carrusel y de las novedades. Así ningún
-                   artículo aparece dos veces entre las fichas de la portada. */
                 var DESTACADAS = ['articulo_2.html', 'articulo_9.html'];
                 var rotacion = lista.filter(function (a) {
                     return DESTACADAS.indexOf(a.url) === -1;
@@ -1119,26 +931,31 @@ en las nuevas generaciones.</p>
                 track.innerHTML = rotacion.slice(0, 5).map(function (a) {
                     return tarjeta(a, 'card-articulo carousel-item-card');
                 }).join('')
-                /* Segunda mitad idéntica (oculta a lectores de pantalla): la
-                   cinta del carrusel gira sin parar y, al acabar la primera
-                   mitad, la segunda ya está en pantalla: el salto no se nota. */
                 + rotacion.slice(0, 5).map(function (a) {
                     return tarjeta(a, 'card-articulo carousel-item-card')
                         .replace('<article ', '<article aria-hidden="true" tabindex="-1" ');
                 }).join('');
-                /* Las 2 novedades van después de las 5 del carrusel: así ningún
-                   artículo se repite entre el carrusel y las novedades. */
-                if (rotacion[5]) {
-                    var n1 = document.getElementById('novedad-1');
-                    if (n1) n1.outerHTML = tarjeta(rotacion[5], 'card-articulo grid-card');
-                }
-                if (rotacion[6]) {
-                    var n2 = document.getElementById('novedad-2');
-                    if (n2) n2.outerHTML = tarjeta(rotacion[6], 'card-articulo grid-card');
-                }
-                /* Caja lateral «Últimas entradas»: las 5 más recientes,
-                   numeradas, con la fecha DEBAJO del titular (una línea cada
-                   cosa: nada pegado a la derecha ni titulares apretados). */
+
+                /* Rellenar las 6 fichas de secciones (Novedades, Tecnológicas, Curiosidades) */
+                var secciones = [
+                    { id: 'novedad-1', idx: 5 },
+                    { id: 'novedad-2', idx: 6 },
+                    { id: 'novedad-3', idx: 7 },
+                    { id: 'novedad-4', idx: 8 },
+                    { id: 'novedad-5', idx: 9 },
+                    { id: 'novedad-6', idx: 10 }
+                ];
+                secciones.forEach(function (s) {
+                    var el = document.getElementById(s.id);
+                    if (!el) return;
+                    if (rotacion[s.idx]) {
+                        el.outerHTML = tarjeta(rotacion[s.idx], 'card-articulo grid-card');
+                    } else {
+                        el.outerHTML = '<div class="card-articulo grid-card" style="padding:30px;text-align:center;color:#6b7a89;align-items:center;justify-content:center;">Próximamente…</div>';
+                    }
+                });
+
+                /* Caja lateral «Últimas entradas» */
                 var ul = document.getElementById('lista-ultimas');
                 if (ul) ul.innerHTML = lista.slice(0, 5).map(function (a) {
                     return '<li><span class="lista-ultimas-info">'
@@ -1161,8 +978,8 @@ en las nuevas generaciones.</p>
             });
         })();
     </script>
-    <!-- JAVASCRIPT DEL CARRUSEL: la cinta gira sola por CSS. Aquí solo se
-         detiene mientras un dedo la toca (con el ratón basta el :hover). -->
+
+    <!-- CARRUSEL: pausa al tocar (móvil). Con ratón basta el :hover del CSS. -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var zona = document.querySelector('.carousel-container');
@@ -1173,25 +990,15 @@ en las nuevas generaciones.</p>
             zona.addEventListener('touchcancel', function () { track.classList.remove('pausa'); }, { passive: true });
         });
     </script>
-    <!-- AJUSTE AUTOMÁTICO DE LA SOLAPA "MACARENCO": mide el ancho real del
-         texto con la fuente que haya cargado (1979, Poppins o la del sistema)
-         y afina el tamaño de la letra para que la solapa sea LO MÁS GRANDE
-         POSIBLE sin que sus bordes se salgan del recuadro azul que delimita
-         la página: queda con solo 8px de margen a cada lado dentro de ese
-         borde. En PC, si ya cabe, no se toca (se ve igual que siempre).
-         Se recalcula al girar el teléfono, al redimensionar y al terminar
-         de cargar la fuente. -->
+
+    <!-- AJUSTE AUTOMÁTICO DE LA SOLAPA "MAKARENKOS" -->
     <script>
         (function () {
             var h1 = document.querySelector('.header-title');
             var span = h1 ? h1.querySelector('span') : null;
             if (!h1 || !span) return;
-
             function ajustar() {
-                span.style.fontSize = '';            /* parte del tamaño del CSS */
-                /* Límite = ancho interior del borde azul de la página,
-                   con 8px de margen por lado. body.clientWidth ya excluye
-                   el margen y el borde del body. */
+                span.style.fontSize = '';
                 var disponible = document.body.clientWidth - 16;
                 if (disponible < 40) return;
                 var intentos = 0;
@@ -1202,7 +1009,6 @@ en las nuevas generaciones.</p>
                     intentos++;
                 }
             }
-
             ajustar();
             window.addEventListener('resize', ajustar);
             window.addEventListener('orientationchange', ajustar);
@@ -1213,9 +1019,8 @@ en las nuevas generaciones.</p>
             }
         })();
     </script>
-    <!-- PWA: registra el service worker. Es lo que hace que el menú de
-         Chrome en el teléfono muestre la opción "Instalar aplicación"
-         (sin esto solo ofrece guardar miniatura o acceso directo). -->
+
+    <!-- PWA: registra el service worker -->
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
