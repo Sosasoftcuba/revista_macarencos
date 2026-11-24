@@ -18,17 +18,11 @@
     <meta property="og:image" content="https://sosasoftcuba.github.io/revista_MAKARENKOSs/imagen/banner-header.png">
     <meta property="og:locale" content="es_CU">
 
-    <!-- FAVICON REPARADO: varios tamaños y formatos para que funcione en
-         todos los navegadores. El .ico es el que más compatibilidad tiene;
-         los PNG son para navegadores modernos y el apple-touch-icon para
-         iOS. El ?v=2 fuerza al navegador a recargar el archivo si antes
-         había cacheado un 404. -->
     <link rel="icon" href="imagen/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="32x32" href="imagen/favicon-32.png?v=2">
     <link rel="icon" type="image/png" sizes="192x192" href="imagen/icon-192.png?v=2">
     <link rel="apple-touch-icon" sizes="180x180" href="imagen/apple-touch-icon.png?v=2">
 
-    <!-- PWA: manifest + iconos para que el teléfono ofrezca "Instalar app" -->
     <link rel="manifest" href="manifest.webmanifest">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -37,23 +31,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* =====================================================
-           IMPORTANTE: esta página NO depende de internet.
-           Bootstrap, jQuery y Font Awesome fueron sustituidos
-           por CSS y JavaScript propios + iconos SVG inline,
-           para que funcione igual con doble click y sin conexión.
-           Google Fonts es solo una mejora: si no hay internet,
-           se usan fuentes del sistema y el diseño no se rompe.
-           ===================================================== */
-
-        /* CARGAR LA FUENTE 1979 LOCAL */
         @font-face {
             font-family: 'Fuente1979';
             src: url('css/fonts/1979.ttf') format('truetype');
             font-weight: normal; font-style: normal; font-display: swap;
         }
 
-        /* VARIABLES Y ESTILOS GENERALES */
         :root {
             --azul-cielo: #039ed6;
             --azul-oscuro: #026892;
@@ -64,6 +47,7 @@
             --rojo-evento: #d32f2f;
             --dorado-premio: #fbc02d;
             --grosor-marco: 2px;
+            --marquee-speed: 30;
         }
 
         html, body { margin: 0; padding: 0; height: auto; overflow-x: hidden; overflow-y: auto; }
@@ -76,15 +60,15 @@
             color: var(--gris-oscuro);
             background-color: var(--gris-fondo);
             line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
         }
 
-        img { max-width: 100%; }
+        img { max-width: 100%; height: auto; }
         h1, h2, h3, h4, h5, h6 { margin: 0 0 .5rem; font-weight: 600; line-height: 1.3; }
         p, ul, ol { margin: 0 0 1rem; }
         button, input { font-family: inherit; }
         a { color: var(--azul-fuerte); }
 
-        /* Iconos SVG inline (sustituyen a Font Awesome; heredan el color) */
         .icon {
             width: 1em; height: 1em;
             fill: none; stroke: currentColor;
@@ -92,8 +76,6 @@
             vertical-align: -0.125em;
         }
 
-        /* REJILLA PROPIA (sustituye a Bootstrap). Contenedor a 1400px
-           para aprovechar las pantallas grandes. */
         .container { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 15px; }
         .row { display: flex; flex-wrap: wrap; margin: 0 -15px; }
         .row > [class*="col-"] { width: 100%; padding: 0 15px; }
@@ -115,7 +97,6 @@
         .mb-0 { margin-bottom: 0 !important; }
         .mb-1 { margin-bottom: .25rem !important; }
         .mb-4 { margin-bottom: 1.5rem !important; }
-        .mb-5 { margin-bottom: 3rem !important; }
 
         @media (min-width: 576px) { .mt-sm-0 { margin-top: 0 !important; } }
         @media (min-width: 768px) {
@@ -128,11 +109,61 @@
             .mb-lg-0 { margin-bottom: 0 !important; }
         }
 
-        /* TOP BAR Y HEADER */
-        .top-bar {
-            background-color: var(--gris-oscuro); color: var(--blanco);
-            font-size: 0.85rem; padding: 8px 0;
+        /* FRANJAS NFS */
+        .nfs-stripe {
+            position: relative;
+            width: 100%;
+            height: 16px;
+            margin: 36px 0 30px;
+            background: #000000;
+            overflow: hidden;
+            border-radius: 2px;
+            border: 2px solid #FFD400;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.45), 0 0 12px rgba(255, 212, 0, 0.35);
         }
+        .nfs-stripe::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'><g transform='rotate(25 22 22)'><rect x='-20' y='-20' width='20' height='84' fill='%23FFD400'/></g></svg>");
+            background-repeat: repeat;
+            background-size: 44px 44px;
+            background-position: 0 0;
+            animation: nfs-flow 2.8s linear infinite;
+            will-change: background-position;
+        }
+        @keyframes nfs-flow {
+            from { background-position: 0 0; }
+            to   { background-position: -44px 0; }
+        }
+        .nfs-stripe.thin { height: 10px; margin: 22px 0 18px; }
+        .nfs-stripe.thin::before { background-size: 30px 30px; }
+        .nfs-stripe.thick { height: 24px; margin: 46px 0 36px; }
+        .nfs-stripe.thick::before {
+            background-size: 60px 60px;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'><g transform='rotate(25 30 30)'><rect x='-30' y='-30' width='28' height='120' fill='%23FFD400'/></g></svg>");
+        }
+        @media (prefers-reduced-motion: reduce) { .nfs-stripe::before { animation: none; } }
+        @media (max-width: 480px) {
+            .nfs-stripe { height: 12px; margin: 26px 0 22px; }
+            .nfs-stripe.thick { height: 18px; margin: 32px 0 26px; }
+            .nfs-stripe::before { background-size: 36px 36px; }
+        }
+
+        .franja-seccion {
+            width: 100%; height: 16px; margin: 40px 0 30px; background: #000000;
+            border-radius: 2px; border: 2px solid #FFD400;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.45), 0 0 10px rgba(255, 212, 0, 0.30);
+            position: relative; overflow: hidden;
+        }
+        .franja-seccion::before {
+            content: ''; position: absolute; inset: 0;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'><g transform='rotate(25 22 22)'><rect x='-20' y='-20' width='20' height='84' fill='%23FFD400'/></g></svg>");
+            background-repeat: repeat; background-size: 44px 44px; animation: nfs-flow 2.8s linear infinite;
+        }
+
+        /* TOP BAR Y HEADER */
+        .top-bar { background-color: var(--gris-oscuro); color: var(--blanco); font-size: 0.85rem; padding: 8px 0; }
         .top-bar a { color: var(--blanco); margin-left: 15px; text-decoration: none; }
         .top-bar a:hover { color: var(--azul-cielo); }
         #pagina-actual { color: #7dd3f7; font-weight: 600; white-space: nowrap; }
@@ -148,59 +179,31 @@
             display: flex; flex-direction: column; align-items: center; text-align: center;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
-        .header-brand {
-            display: flex; flex-direction: column; align-items: center;
-            text-decoration: none; color: inherit; width: 100%;
-        }
-
-        /* BANNER CON EL NOMBRE SUPERPUESTO (sin reflejo, estilo póster) */
-        .banner-wrapper {
-            position: relative; display: flex;
-            align-items: center; justify-content: center;
-            margin-bottom: 0; width: 100%; min-height: 110px;
-        }
-        .logo-banner {
-            display: block; position: relative; z-index: 1;
-            width: auto; height: auto; max-width: 100%;
-            max-height: 420px;
-            max-height: clamp(220px, 40vw, 420px);
-            object-fit: contain;
-        }
+        .header-brand { display: flex; flex-direction: column; align-items: center; text-decoration: none; color: inherit; width: 100%; }
+        .banner-wrapper { position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 0; width: 100%; min-height: 110px; }
+        .logo-banner { display: block; position: relative; z-index: 1; width: auto; height: auto; max-width: 100%; max-height: clamp(220px, 40vw, 420px); object-fit: contain; }
         .header-title {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 2;
             display: flex; align-items: center; justify-content: center;
-            font-family: 'Fuente1979', 'Poppins', sans-serif;
-            font-size: 2.5rem;
-            font-size: clamp(2.5rem, 9vw, 6.5rem);
-            font-weight: normal; line-height: 1; margin: 0;
-            letter-spacing: 1px; color: var(--blanco);
+            font-family: 'Fuente1979', 'Poppins', sans-serif; font-size: clamp(2.5rem, 9vw, 6.5rem);
+            font-weight: normal; line-height: 1; margin: 0; letter-spacing: 1px; color: var(--blanco);
         }
         .header-title span {
-            background: rgba(2, 62, 100, 0.45);
-            -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
-            padding: 12px 30px; border-radius: 16px;
-            border: 2px solid rgba(255, 255, 255, 0.55);
+            background: rgba(2, 62, 100, 0.45); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px);
+            padding: 12px 30px; border-radius: 16px; border: 2px solid rgba(255, 255, 255, 0.55);
             box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-            text-shadow:
-                -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000,
-                -3px 0 0 #000, 3px 0 0 #000, 0 -3px 0 #000, 0 3px 0 #000,
-                -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000,
-                0 0 15px rgba(255, 255, 255, 0.95),
-                0 0 35px rgba(255, 255, 255, 0.65),
-                0 0 60px rgba(255, 255, 255, 0.35);
+            text-shadow: -3px -3px 0 #000, 3px -3px 0 #000, -3px 3px 0 #000, 3px 3px 0 #000,
+                         -3px 0 0 #000, 3px 0 0 #000, 0 -3px 0 #000, 0 3px 0 #000,
+                         -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000,
+                         0 0 15px rgba(255, 255, 255, 0.95), 0 0 35px rgba(255, 255, 255, 0.65), 0 0 60px rgba(255, 255, 255, 0.35);
         }
         .header-subtitle {
-            font-family: 'Tahoma', sans-serif; font-size: 1.15rem; font-weight: 700;
-            font-size: clamp(1rem, 2.2vw, 1.35rem);
+            font-family: 'Tahoma', sans-serif; font-size: clamp(1rem, 2.2vw, 1.35rem); font-weight: 700;
             background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte));
             -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-            margin-top: 10px; line-height: 1.4; letter-spacing: 1px;
-            max-width: 800px; max-width: min(800px, 100%);
+            margin-top: 10px; line-height: 1.4; letter-spacing: 1px; max-width: min(800px, 100%);
         }
-        .header-actions {
-            display: flex; align-items: center; justify-content: center;
-            gap: 20px; flex-wrap: wrap; width: 100%; margin-top: 16px;
-        }
+        .header-actions { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; width: 100%; margin-top: 16px; }
         .search-container {
             display: flex; align-items: center; border: 2px solid transparent;
             background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
@@ -208,62 +211,40 @@
             border-radius: 5px; padding: 5px 10px; width: 350px; max-width: 100%;
         }
         .search-icon { width: 18px; height: 18px; margin-right: 8px; opacity: 0.6; }
-        .search-container input { border: none; outline: none; font-size: 0.95rem; width: 100%; }
+        .search-container input { border: none; outline: none; font-size: 16px; width: 100%; }
         .btn-buscar {
             background-color: var(--azul-fuerte); color: var(--blanco); border: none;
-            padding: 6px 15px; border-radius: 4px; font-size: 0.9rem; font-weight: 600;
-            margin-left: 8px; cursor: pointer; transition: background 0.2s;
+            padding: 8px 15px; border-radius: 4px; font-size: 0.9rem; font-weight: 600;
+            margin-left: 8px; cursor: pointer; transition: background 0.2s; min-height: 38px;
         }
         .btn-buscar:hover { background-color: var(--azul-cielo); }
-
         .btn-enviar {
             color: var(--blanco); font-weight: 600; font-size: 1rem; padding: 10px 20px;
             text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
             white-space: nowrap; border-radius: 5px; border: 2px solid transparent;
             background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) padding-box,
                         linear-gradient(135deg, var(--azul-fuerte), var(--azul-cielo)) border-box;
+            min-height: 44px;
         }
-        .btn-enviar:hover {
-            background: linear-gradient(135deg, var(--azul-fuerte), var(--azul-oscuro)) padding-box,
-                        linear-gradient(135deg, var(--azul-oscuro), var(--azul-cielo)) border-box;
-            color: var(--blanco); text-decoration: none;
-        }
+        .btn-enviar:hover { background: linear-gradient(135deg, var(--azul-fuerte), var(--azul-oscuro)) padding-box, linear-gradient(135deg, var(--azul-oscuro), var(--azul-cielo)) border-box; color: var(--blanco); text-decoration: none; }
 
-        /* MENÚ propio (el botón ☰ solo aparece en pantallas pequeñas) */
-        .navbar-custom {
-            background-color: var(--azul-cielo); border-bottom: 4px solid;
-            border-image: linear-gradient(to right, var(--azul-fuerte), var(--azul-cielo)) 1;
-            position: relative;
-        }
-        .navbar-custom .container {
-            display: flex; align-items: center; justify-content: center;
-            flex-wrap: wrap; min-height: 52px;
-        }
-        .navbar-toggler {
-            display: none; background: none; color: var(--blanco);
-            border: 2px solid rgba(255, 255, 255, 0.7); border-radius: 5px;
-            padding: 6px 9px; cursor: pointer; font-size: 1.35rem; line-height: 1;
-        }
+        /* MENÚ */
+        .navbar-custom { background-color: var(--azul-cielo); border-bottom: 4px solid; border-image: linear-gradient(to right, var(--azul-fuerte), var(--azul-cielo)) 1; position: relative; }
+        .navbar-custom .container { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; min-height: 52px; }
+        .navbar-toggler { display: none; background: none; color: var(--blanco); border: 2px solid rgba(255, 255, 255, 0.7); border-radius: 5px; padding: 8px 12px; cursor: pointer; font-size: 1.35rem; line-height: 1; min-width: 44px; min-height: 44px; }
         .navbar-nav { display: flex; flex-direction: column; list-style: none; margin: 0; padding: 0; }
-        .navbar-custom .nav-link {
-            display: block; padding: 12px 0; color: var(--blanco) !important;
-            font-weight: 500; margin: 0 10px; text-decoration: none;
-        }
-        .navbar-custom .nav-link:hover, .navbar-custom .active {
-            color: var(--gris-oscuro) !important; border-bottom: 3px solid var(--blanco);
-        }
-        @media (min-width: 992px) {
-            .navbar-nav { flex-direction: row; justify-content: center; }
-        }
+        .navbar-custom .nav-link { display: block; padding: 12px 0; color: var(--blanco) !important; font-weight: 500; margin: 0 10px; text-decoration: none; }
+        .navbar-custom .nav-link:hover, .navbar-custom .active { color: var(--gris-oscuro) !important; border-bottom: 3px solid var(--blanco); }
+        @media (min-width: 992px) { .navbar-nav { flex-direction: row; justify-content: center; } }
         @media (max-width: 991px) {
-            .navbar-toggler { display: inline-flex; align-items: center; }
+            .navbar-toggler { display: inline-flex; align-items: center; justify-content: center; }
             .navbar-collapse { display: none; width: 100%; }
             .navbar-collapse.open { display: block; }
             .navbar-custom .nav-link { border-bottom: 1px solid rgba(255, 255, 255, 0.25); }
             .navbar-nav .nav-item:last-child .nav-link { border-bottom: none; }
         }
 
-        /* TARJETAS BASE */
+        /* TARJETAS */
         .card-articulo, .card-especial {
             border: 3px solid transparent;
             background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
@@ -271,19 +252,13 @@
             border-radius: 10px; overflow: hidden; display: flex; flex-direction: column;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .card-articulo:hover, .card-especial:hover {
-            transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 68, 204, 0.25);
-        }
+        .card-articulo:hover, .card-especial:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0, 68, 204, 0.25); }
         .card-img-wrapper {
             position: relative; width: 100%; height: 0; padding-bottom: 56.25%;
-            overflow: hidden;
-            border-bottom: 3px solid var(--azul-cielo); flex-shrink: 0;
+            overflow: hidden; border-bottom: 3px solid var(--azul-cielo); flex-shrink: 0;
             background: linear-gradient(135deg, #eef4fb, #dce9f7);
         }
-        .card-img-wrapper img {
-            position: absolute; top: 0; left: 0;
-            width: 100%; height: 100%; object-fit: cover;
-        }
+        .card-img-wrapper img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
         .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; overflow: hidden; }
         .card-body p:last-child { margin-bottom: 0; }
         .card-cat { color: var(--azul-fuerte); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
@@ -293,244 +268,135 @@
         .card-excerpt { font-size: 0.95rem; color: #555; flex-grow: 1; overflow: hidden; }
         .card-meta { font-size: 0.85rem; color: #777; border-top: 1px solid #ddd; padding-top: 10px; margin-top: 10px; }
 
-        /* FICHAS DE SECCIÓN (Novedades, Tecnológicas, Curiosidades)
-           Altura uniforme para que las dos columnas queden parejas. */
-        .grid-card {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        .grid-card .card-body {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
+        .grid-card { height: 100%; display: flex; flex-direction: column; }
+        .grid-card .card-body { flex: 1; display: flex; flex-direction: column; }
         .grid-card .card-excerpt { flex-grow: 1; }
 
-        /* CARRUSEL (CINTA CONTINUA, estilo "caballitos del parque") */
-        .carousel-container { position: relative; padding: 0; overflow: hidden; }
-        .carousel-btn { display: none; }
+        /* CARRUSEL */
+        .carousel-container { position: relative; padding: 0; overflow: hidden; isolation: isolate; }
+        .carousel-btn {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            width: 48px; height: 48px; border-radius: 50%;
+            background: var(--blanco); color: var(--azul-fuerte); border: 2px solid var(--azul-fuerte);
+            display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 10;
+            padding: 0; font-size: 1.6rem; font-weight: 700; line-height: 1;
+            box-shadow: 0 4px 12px rgba(0, 68, 204, 0.25), 0 0 18px rgba(3, 158, 214, 0.18);
+            transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+            -webkit-tap-highlight-color: transparent; touch-action: manipulation;
+        }
+        .carousel-btn:hover, .carousel-btn:focus-visible {
+            background: var(--azul-fuerte); color: var(--blanco);
+            transform: translateY(-50%) scale(1.08);
+            box-shadow: 0 6px 18px rgba(0, 68, 204, 0.4), 0 0 28px rgba(3, 158, 214, 0.55);
+            outline: none;
+        }
+        .carousel-btn:active { transform: translateY(-50%) scale(0.92); }
+        .carousel-btn.prev { left: 6px; }
+        .carousel-btn.next { right: 6px; }
+
         .horizontal-scroll-wrapper {
-            display: flex; overflow-x: hidden; padding: 10px 0 20px 0;
-            width: max-content;
-            animation: gira-carrusel 55s linear infinite;
-            will-change: transform;
-            transform: translateZ(0);
+            display: flex; overflow-x: auto; overflow-y: hidden;
+            padding: 10px 58px 20px 58px; scroll-behavior: auto;
+            -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;
+            user-select: none; -webkit-user-select: none; touch-action: pan-y;
+            cursor: grab; will-change: scroll-position;
         }
-        .horizontal-scroll-wrapper.pausa { animation-play-state: paused; }
-        .carousel-container:hover .horizontal-scroll-wrapper { animation-play-state: paused; }
-        @keyframes gira-carrusel {
-            from { transform: translateX(0); }
-            to   { transform: translateX(-50%); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .horizontal-scroll-wrapper { animation: none; overflow-x: auto; }
-        }
-        .carousel-item-card { flex: 0 0 min(340px, 86vw); margin-right: 20px; min-height: 480px; }
-        @media (min-width: 768px) { .carousel-item-card { flex: 0 0 380px; } }
+        .horizontal-scroll-wrapper::-webkit-scrollbar { display: none; }
+        .horizontal-scroll-wrapper:active { cursor: grabbing; }
 
-        .section-title {
-            border-left: 5px solid var(--azul-fuerte); padding-left: 10px;
-            color: var(--azul-fuerte); font-weight: bold;
-            margin-top: 0;
-            margin-bottom: 22px;
-            padding-bottom: 6px;
-            border-bottom: 2px solid rgba(3, 158, 214, 0.25);
+        .carousel-item-card {
+            flex: 0 0 min(320px, 84vw); margin-right: 18px; min-height: 470px;
+            content-visibility: auto; contain-intrinsic-size: 320px 470px;
+            transition: transform 0.35s cubic-bezier(0.22, 0.75, 0.25, 1), box-shadow 0.35s ease;
         }
+        @media (min-width: 768px) { .carousel-item-card { flex: 0 0 380px; margin-right: 20px; min-height: 480px; } }
 
-        /* FRANJA DIVISORIA ENTRE SECCIONES (tipo revista de sport) */
-        .franja-seccion {
-            width: 100%;
-            height: 14px;
-            margin: 40px 0 30px;
-            background: linear-gradient(
-                90deg,
-                var(--azul-fuerte) 0%,
-                var(--azul-fuerte) 25%,
-                var(--azul-cielo) 25%,
-                var(--azul-cielo) 50%,
-                var(--blanco) 50%,
-                var(--blanco) 75%,
-                var(--gris-oscuro) 75%,
-                var(--gris-oscuro) 100%
-            );
-            border-radius: 2px;
-            box-shadow: 0 2px 6px rgba(0, 68, 204, 0.15);
+        .carousel-item-card.glow-touch {
+            box-shadow: 0 0 0 2px var(--azul-fuerte), 0 0 28px rgba(3, 158, 214, 0.55), 0 0 55px rgba(0, 68, 204, 0.30);
+            transform: translateY(-4px);
+        }
+        @media (hover: hover) and (pointer: fine) {
+            .carousel-item-card:hover {
+                box-shadow: 0 0 0 2px var(--azul-cielo), 0 12px 28px rgba(0, 68, 204, 0.25), 0 0 40px rgba(3, 158, 214, 0.25);
+                transform: translateY(-4px);
+            }
+        }
+        .carousel-item-card.empty-card { opacity: 0.6; pointer-events: none; }
+
+        .carousel-dots { display: flex; justify-content: center; gap: 6px; margin: 14px auto 0; list-style: none; padding: 0; }
+        .carousel-dots button { width: 24px; height: 24px; border-radius: 50%; border: none; background: transparent; cursor: pointer; padding: 0; position: relative; -webkit-tap-highlight-color: transparent; }
+        .carousel-dots button::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 10px; height: 10px; border-radius: 50%; background: #c9d8e6; transition: all 0.3s ease; }
+        .carousel-dots button.active::after { background: var(--azul-fuerte); transform: translate(-50%, -50%) scale(1.4); box-shadow: 0 0 10px rgba(0, 68, 204, 0.5); }
+        .carousel-dots button:hover::after { background: var(--azul-cielo); }
+
+        @media (max-width: 768px) {
+            .carousel-btn { width: 46px; height: 46px; font-size: 1.5rem; }
+            .horizontal-scroll-wrapper { padding: 10px 56px 18px 56px; }
+        }
+        @media (max-width: 480px) {
+            .carousel-btn { width: 44px; height: 44px; font-size: 1.4rem; }
+            .carousel-btn.prev { left: 3px; }
+            .carousel-btn.next { right: 3px; }
+            .horizontal-scroll-wrapper { padding: 10px 52px 16px 52px; }
         }
 
-        /* EVENTOS Y PREMIOS */
+        /* SECCIONES */
+        .section-title { border-left: 5px solid var(--azul-fuerte); padding-left: 10px; color: var(--azul-fuerte); font-weight: bold; margin-top: 0; margin-bottom: 22px; padding-bottom: 6px; border-bottom: 2px solid rgba(3, 158, 214, 0.25); }
+
         .card-especial { height: 100%; }
-        .card-evento {
-            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
-                        linear-gradient(135deg, var(--rojo-evento), #b71c1c) border-box;
-        }
+        .card-evento { background: linear-gradient(var(--blanco), var(--blanco)) padding-box, linear-gradient(135deg, var(--rojo-evento), #b71c1c) border-box; }
         .card-evento .card-img-wrapper { border-bottom-color: var(--rojo-evento); }
         .card-evento .card-cat, .card-evento .card-title a:hover { color: var(--rojo-evento); }
-        .card-premio {
-            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
-                        linear-gradient(135deg, var(--dorado-premio), #f57f17) border-box;
-        }
+        .card-premio { background: linear-gradient(var(--blanco), var(--blanco)) padding-box, linear-gradient(135deg, var(--dorado-premio), #f57f17) border-box; }
         .card-premio .card-img-wrapper { border-bottom-color: var(--dorado-premio); }
         .card-premio .card-cat, .card-premio .card-title a:hover { color: #f57f17; }
 
-        /* SIDEBAR */
         .sidebar-wrapper { position: static; }
+        .boletin-card { border: 3px solid transparent; background: linear-gradient(var(--azul-cielo), var(--azul-cielo)) padding-box, linear-gradient(135deg, var(--azul-fuerte), var(--azul-oscuro)) border-box; color: var(--blanco); border-radius: 10px; padding: 20px; text-align: center; margin-bottom: 20px; }
+        .boletin-card input { border: 2px solid var(--azul-fuerte); border-radius: 5px; padding: 10px; width: 100%; margin-bottom: 10px; font-size: 16px; }
+        .boletin-card button { background-color: var(--gris-oscuro); color: var(--blanco); border: 2px solid var(--azul-fuerte); padding: 10px; width: 100%; font-weight: bold; border-radius: 5px; min-height: 44px; }
 
-        .boletin-card {
-            border: 3px solid transparent;
-            background: linear-gradient(var(--azul-cielo), var(--azul-cielo)) padding-box,
-                        linear-gradient(135deg, var(--azul-fuerte), var(--azul-oscuro)) border-box;
-            color: var(--blanco); border-radius: 10px; padding: 20px; text-align: center; margin-bottom: 20px;
-        }
-        .boletin-card input {
-            border: 2px solid var(--azul-fuerte); border-radius: 5px; padding: 10px; width: 100%; margin-bottom: 10px;
-        }
-        .boletin-card button {
-            background-color: var(--gris-oscuro); color: var(--blanco);
-            border: 2px solid var(--azul-fuerte); padding: 10px; width: 100%; font-weight: bold; border-radius: 5px;
-        }
-
-        .indexadores-card {
-            border: 3px solid transparent;
-            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
-                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
-            border-radius: 10px; padding: 20px; text-align: center; margin-bottom: 20px;
-        }
+        .indexadores-card { border: 3px solid transparent; background: linear-gradient(var(--blanco), var(--blanco)) padding-box, linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box; border-radius: 10px; padding: 20px; text-align: center; margin-bottom: 20px; }
         .indexadores-card h4 { color: var(--azul-fuerte); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; }
 
         .lista-ultimas { list-style: none; counter-reset: ult; margin: 0; padding: 0; }
-        .lista-ultimas li {
-            counter-increment: ult; display: flex; align-items: flex-start;
-            gap: 12px; padding: 12px 2px; border-bottom: 1px solid #e3edf8;
-            text-align: left;
-        }
+        .lista-ultimas li { counter-increment: ult; display: flex; align-items: flex-start; gap: 12px; padding: 12px 2px; border-bottom: 1px solid #e3edf8; text-align: left; }
         .lista-ultimas li:last-child { border-bottom: none; padding-bottom: 2px; }
-        .lista-ultimas li::before {
-            content: counter(ult); flex: 0 0 26px; height: 26px; line-height: 26px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte));
-            color: var(--blanco); font-size: 0.72rem; font-weight: 700; text-align: center;
-            box-shadow: 0 2px 5px rgba(0, 68, 204, 0.28);
-        }
+        .lista-ultimas li::before { content: counter(ult); flex: 0 0 26px; height: 26px; line-height: 26px; border-radius: 50%; background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)); color: var(--blanco); font-size: 0.72rem; font-weight: 700; text-align: center; box-shadow: 0 2px 5px rgba(0, 68, 204, 0.28); }
         .lista-ultimas-info { flex: 1; min-width: 0; }
-        .lista-ultimas li a {
-            color: var(--gris-oscuro); font-weight: 600; text-decoration: none;
-            line-height: 1.35; display: block;
-        }
+        .lista-ultimas li a { color: var(--gris-oscuro); font-weight: 600; text-decoration: none; line-height: 1.35; display: block; }
         .lista-ultimas li a:hover { color: var(--azul-fuerte); }
-        .lista-ultimas li .fecha-ult {
-            display: flex; align-items: center; gap: 5px;
-            margin-top: 4px; color: #6b7a89; font-size: 0.75rem; letter-spacing: 0.2px;
-        }
-        .lista-ultimas li .fecha-ult .icon {
-            width: 12px; height: 12px; stroke-width: 1.8;
-            color: var(--azul-cielo); flex: 0 0 auto;
-        }
+        .lista-ultimas li .fecha-ult { display: flex; align-items: center; gap: 5px; margin-top: 4px; color: #6b7a89; font-size: 0.75rem; letter-spacing: 0.2px; }
+        .lista-ultimas li .fecha-ult .icon { width: 12px; height: 12px; stroke-width: 1.8; color: var(--azul-cielo); flex: 0 0 auto; }
 
-        .about-card {
-            border: 3px solid transparent;
-            background: linear-gradient(var(--blanco), var(--blanco)) padding-box,
-                        linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box;
-            border-radius: 10px; padding: 25px 20px;
-        }
+        .about-card { border: 3px solid transparent; background: linear-gradient(var(--blanco), var(--blanco)) padding-box, linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box; border-radius: 10px; padding: 25px 20px; }
         .about-card h4 { color: var(--azul-fuerte); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; text-align: center; }
         .about-card p { font-size: 0.9rem; color: #555; line-height: 1.6; text-align: justify; margin-bottom: 15px; }
-        .btn-leer-mas {
-            display: block; width: 100%; text-align: center; padding: 10px;
-            background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte));
-            color: var(--blanco); font-weight: 600; text-decoration: none; border-radius: 5px;
-        }
+        .btn-leer-mas { display: block; width: 100%; text-align: center; padding: 10px; background: linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)); color: var(--blanco); font-weight: 600; text-decoration: none; border-radius: 5px; min-height: 44px; line-height: 24px; }
 
-        /* PROYECTOS COLABORATIVOS (sidebar) */
         .proyectos-card .section-title { font-size: 1.35rem; margin-bottom: 5px; }
         .proyectos-card h4 { color: var(--azul-fuerte); font-weight: 700; font-size: 1.1rem; text-align: center; margin: 14px 0 10px; }
         .proyectos-card p { font-size: 0.88rem; margin-bottom: 12px; }
-        .proy-img {
-            border: 1px solid #d7e4f2; border-radius: 8px;
-            background: linear-gradient(135deg, #eef4fb, #dce9f7);
-            min-height: 64px; margin-bottom: 12px; overflow: hidden;
-            display: flex; align-items: center; justify-content: center;
-        }
+        .proy-img { border: 1px solid #d7e4f2; border-radius: 8px; background: linear-gradient(135deg, #eef4fb, #dce9f7); min-height: 64px; margin-bottom: 12px; overflow: hidden; display: flex; align-items: center; justify-content: center; }
         .proy-img img { max-width: 100%; height: auto; display: block; }
         .proyectos-card hr { border-top: 1px solid #d7e4f2; opacity: 1; margin: 16px 0; }
         .proyectos-card .btn-leer-mas:hover { opacity: 0.92; }
 
-        /* IMAGEN DEL DÍA: franja de ancho completo al cierre de la columna */
-        .imagen-del-dia {
-            position: relative;
-            width: 100%;
-            margin: 40px 0 20px;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 4px solid var(--azul-fuerte);
-            box-shadow: 0 8px 24px rgba(0, 68, 204, 0.25);
-            background: linear-gradient(135deg, #eef4fb, #dce9f7);
-        }
-        .imagen-del-dia img {
-            display: block;
-            width: 100%;
-            height: auto;
-            max-height: 520px;
-            object-fit: cover;
-        }
-        .imagen-del-dia figcaption {
-            position: absolute;
-            left: 0; right: 0; bottom: 0;
-            padding: 18px 22px 14px;
-            color: var(--blanco);
-            font-size: 0.95rem;
-            line-height: 1.4;
-            background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0));
-        }
-        .imagen-del-dia figcaption strong {
-            display: block;
-            font-size: 1.05rem;
-            margin-bottom: 4px;
-            color: #ffffff;
-        }
-        .imagen-del-dia .credito {
-            display: block;
-            font-size: 0.75rem;
-            opacity: 0.8;
-            margin-top: 4px;
-        }
-        .imagen-del-dia .etiqueta-dia {
-            position: absolute;
-            top: 16px; left: 16px;
-            background: var(--azul-fuerte);
-            color: var(--blanco);
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            padding: 6px 14px;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        }
+        .imagen-del-dia { position: relative; width: 100%; margin: 40px 0 20px; border-radius: 12px; overflow: hidden; border: 4px solid var(--azul-fuerte); box-shadow: 0 8px 24px rgba(0, 68, 204, 0.25); background: linear-gradient(135deg, #eef4fb, #dce9f7); }
+        .imagen-del-dia img { display: block; width: 100%; height: auto; max-height: 520px; object-fit: cover; }
+        .imagen-del-dia figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 18px 22px 14px; color: var(--blanco); font-size: 0.95rem; line-height: 1.4; background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0)); }
+        .imagen-del-dia figcaption strong { display: block; font-size: 1.05rem; margin-bottom: 4px; color: #ffffff; }
+        .imagen-del-dia .credito { display: block; font-size: 0.75rem; opacity: 0.8; margin-top: 4px; }
+        .imagen-del-dia .etiqueta-dia { position: absolute; top: 16px; left: 16px; background: var(--azul-fuerte); color: var(--blanco); font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 6px 14px; border-radius: 4px; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
 
-        /* FOOTER */
-        .footer {
-            background-color: var(--gris-oscuro); color: var(--blanco); border-top: 4px solid;
-            border-image: linear-gradient(to right, var(--azul-fuerte), var(--azul-cielo)) 1;
-            padding: 40px 0 20px; margin-top: 40px;
-        }
+        .footer { background-color: var(--gris-oscuro); color: var(--blanco); border-top: 4px solid; border-image: linear-gradient(to right, var(--azul-fuerte), var(--azul-cielo)) 1; padding: 40px 0 20px; margin-top: 0; }
         .footer a { color: var(--azul-cielo); text-decoration: none; }
         .footer .icon { color: var(--azul-cielo); }
         .footer-bottom { border-top: 1px solid #444; padding-top: 20px; margin-top: 20px; font-size: 0.8rem; text-align: center; }
 
-        /* RESPONSIVE */
-        @media (max-width: 992px) {
-            .article-title { font-size: 1.9rem; }
-        }
+        @media (max-width: 992px) { .article-title { font-size: 1.9rem; } }
         @media (max-width: 768px) {
-            .logo-banner {
-                height: 210px;
-                height: clamp(180px, 48vw, 230px);
-                width: 100%;
-                max-height: none;
-                object-fit: cover;
-                object-position: 50% 50%;
-            }
+            .logo-banner { height: clamp(180px, 48vw, 230px); width: 100%; max-height: none; object-fit: cover; object-position: 50% 50%; }
             .search-container, .header-actions .btn-enviar { width: 100%; }
             .header-actions { flex-direction: column; gap: 10px; }
             .imagen-del-dia img { max-height: 320px; }
@@ -540,9 +406,8 @@
         @media (max-width: 480px) {
             .header-box { padding: 16px 12px; }
             .header-title span { padding: 8px 11px; }
-            .header-title { font-size: 1.4rem; font-size: clamp(1.4rem, 12vw, 2.7rem); letter-spacing: 0px; }
+            .header-title { font-size: clamp(1.4rem, 12vw, 2.7rem); letter-spacing: 0px; }
             .carousel-item-card { min-height: 0; }
-            .footer { margin-top: 25px; }
         }
     </style>
 </head>
@@ -558,6 +423,7 @@
             </div>
         </div>
     </div>
+    
     <!-- Header -->
     <header class="main-header">
         <div class="container">
@@ -569,6 +435,7 @@
                     </div>
                     <span class="header-subtitle">Revista informativa de la Asociación de Pedagogos de Cuba<br>Filial Santiago de Cuba</span>
                 </a>
+                <div class="nfs-stripe thin" aria-hidden="true" style="margin: 14px 0 6px;"></div>
                 <div class="header-actions">
                     <form class="search-container" action="articulos_publicados.html" method="get" role="search">
                         <img src="imagen/lupa.png" alt="" class="search-icon" onerror="this.style.display='none'">
@@ -580,7 +447,8 @@
             </div>
         </div>
     </header>
-    <!-- Menú -->
+
+    <!-- Menú Superior -->
     <nav class="navbar navbar-custom" aria-label="Navegación principal">
         <div class="container">
             <button class="navbar-toggler" type="button" id="nav-toggler" aria-controls="navbarNav" aria-expanded="false" aria-label="Abrir menú">
@@ -598,66 +466,40 @@
     </nav>
 
     <!-- Sección Principal -->
-    <div class="container mt-5">
+    <div class="container" style="margin-top: 2rem; margin-bottom: 0;">
         <div class="row">
             <!-- Columna Izquierda -->
-            <div class="col-lg-8 mb-5 mb-lg-0">
+            <div class="col-lg-8">
 
                 <!-- 1. CARRUSEL -->
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h3 class="section-title">Artículos Recientes</h3>
                 </div>
 
-                <div class="carousel-container">
-                    <div class="horizontal-scroll-wrapper" id="carousel-track">
-                        <!-- Las fichas se rellenan solas desde articulos/indice.json -->
-                    </div>
+                <div class="carousel-container" id="carousel-container">
+                    <button class="carousel-btn prev" id="btn-prev" type="button" aria-label="Anterior">&#171;</button>
+                    <div class="horizontal-scroll-wrapper" id="carousel-track" tabindex="0" role="region" aria-label="Artículos recientes"></div>
+                    <button class="carousel-btn next" id="btn-next" type="button" aria-label="Siguiente">&#187;</button>
+                    <ul class="carousel-dots" id="dots" aria-hidden="true"></ul>
                 </div>
 
                 <!-- ============ NOVEDADES ============ -->
                 <div class="mt-5">
                     <h3 class="section-title">Novedades</h3>
                     <div class="row align-items-stretch">
-                        <div class="col-md-6 mb-4">
-                            <article class="card-articulo grid-card" id="novedad-1"></article>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <article class="card-articulo grid-card" id="novedad-2"></article>
-                        </div>
+                        <div class="col-md-6 mb-4"><article class="card-articulo grid-card" id="novedad-1"></article></div>
+                        <div class="col-md-6 mb-4"><article class="card-articulo grid-card" id="novedad-2"></article></div>
                     </div>
                 </div>
-
-                <div class="franja-seccion"></div>
 
                 <!-- ============ TECNOLÓGICAS ============ -->
                 <div class="mt-5">
                     <h3 class="section-title">Tecnológicas</h3>
                     <div class="row align-items-stretch">
-                        <div class="col-md-6 mb-4">
-                            <article class="card-articulo grid-card" id="novedad-3"></article>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <article class="card-articulo grid-card" id="novedad-4"></article>
-                        </div>
+                        <div class="col-md-6 mb-4"><article class="card-articulo grid-card" id="novedad-3"></article></div>
+                        <div class="col-md-6 mb-4"><article class="card-articulo grid-card" id="novedad-4"></article></div>
                     </div>
                 </div>
-
-                <div class="franja-seccion"></div>
-
-                <!-- ============ CURIOSIDADES LINGÜÍSTICAS ============ -->
-                <div class="mt-5">
-                    <h3 class="section-title">Curiosidades Lingüísticas</h3>
-                    <div class="row align-items-stretch">
-                        <div class="col-md-6 mb-4">
-                            <article class="card-articulo grid-card" id="novedad-5"></article>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <article class="card-articulo grid-card" id="novedad-6"></article>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="franja-seccion"></div>
 
                 <!-- ============ EVENTOS Y PREMIOS (fijas) ============ -->
                 <div class="row align-items-stretch">
@@ -685,12 +527,12 @@
                     </div>
                 </div>
 
-                <!-- ============ IMAGEN DEL DÍA (cierre a todo lo ancho) ============ -->
+                <!-- ============ IMAGEN DEL DÍA ============ -->
+                <div class="nfs-stripe" aria-hidden="true"></div>
+
                 <figure class="imagen-del-dia">
                     <span class="etiqueta-dia">Imagen del día</span>
-                    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Escuela_Primaria_de_Tony_Alom%C3%A1.jpg/960px-Escuela_Primaria_de_Tony_Alom%C3%A1.jpg"
-                         alt="Edificio de una escuela primaria rural cubana"
-                         loading="lazy" referrerpolicy="no-referrer">
+                    <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9e/Escuela_Primaria_de_Tony_Alom%C3%A1.jpg/960px-Escuela_Primaria_de_Tony_Alom%C3%A1.jpg" alt="Edificio de una escuela primaria rural cubana" loading="lazy" decoding="async" referrerpolicy="no-referrer">
                     <figcaption>
                         <strong>Escuela primaria rural cubana</strong>
                         El destino de buena parte de los nuevos maestros.
@@ -721,35 +563,35 @@
                     </div>
 
                     <div class="about-card proyectos-card">
-                        <h3 class="section-title">- PROYECTOS COLABORATIVOS -</h3>
+                        <h3 class="section-title">PROYECTOS COLABORATIVOS</h3>
                         <br><hr>
                         <div class="proy-item">
                             <h4>Consultor de Tesis UO</h4>
-                            <div class="proy-img"><img src="imagen/consultor.png" alt="Consultor de Tesis de la Universidad de Oriente" loading="lazy" onerror="this.style.display='none'"></div>
+                            <div class="proy-img"><img src="imagen/consultor.png" alt="Consultor de Tesis de la Universidad de Oriente" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
                             <p>Proyecto en colaboración con la Universidad de Oriente para elevar la calidad educativa, fomentar la investigación pedagógica y la formación permanente de los docentes.</p>
                             <a href="https://sosasoftcuba.github.io/base_consultora_UO/" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
                         </div>
                         <br><hr>
                         <div class="proy-item">
                             <h4>Proyecto Educamos Contigo</h4>
-                            <div class="proy-img"><img src="imagen/Educamos-contigo.png" alt="Proyecto Educamos Contigo" loading="lazy" onerror="this.style.display='none'"></div>
+                            <div class="proy-img"><img src="imagen/Educamos-contigo.png" alt="Proyecto Educamos Contigo" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
                             <p>Enseñando Ud. ... Aprendemos Nosotros: proyecto educativo de la filial que acompaña a docentes y familias.</p>
                             <a href="https://www.facebook.com/sosasoftcuba.cu" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
                         </div>
                         <br><hr>
                         <div class="proy-item">
                             <h4>Proyecto SosaSoftCuba:</h4>
-                            <div class="proy-img"><img src="imagen/previa-sosasoftcuba-portal.png" alt="Canal de YouTube de la revista" loading="lazy" onerror="this.style.display='none'"></div>
-                            <p>Vitrina digital abierta, profesional al servicio del conocimiento. Creamos herramientas digitales, ofertamos servicios desde programación y diseño a Mantenimiento general  y colaboramos con docentes, escuelas y universidades por un mundo digital mejor.</p>
+                            <div class="proy-img"><img src="imagen/previa-sosasoftcuba-portal.png" alt="Canal de YouTube de la revista" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+                            <p>Vitrina digital abierta, profesional al servicio del conocimiento. Creamos herramientas digitales, ofertamos servicios desde programación a Mantenimiento general y colaboramos con docentes, escuelas y universidades por un mundo digital mejor.</p>
                             <p>El Grupo Sosa·Soft·Cuba es un colectivo cubano sin fines de lucro que desarrolla y publica en plataformas educativas, académicas y culturales.</p>
                             <a href="https://sosasoftcuba.github.io" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
                         </div>
                         <br><hr>
                         <div class="proy-item">
-                            <h4>>>> CubaPlaza.Net:</h4>
-                            <div class="proy-img"><img src="imagen/banner-MAKARENKOSs.png" alt="Asociación APC Santiago" loading="lazy" onerror="this.style.display='none'"></div>
-                            <p>un directorio laboral gratuito donde puedes registar tu pequeño negocio para que te localizan mas clientes.</p>
-                            <a href="https://cubaplaza.net/" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
+                            <h4>APC Filial Santiago de Cuba</h4>
+                            <div class="proy-img"><img src="imagen/banner-quienes-somos.png" alt="Asociación APC Santiago" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+                            <p>Pagina Social en facebook de la Asociación de Pedagogos de Cuba (APC). en su Filial Santiago de Cuba</p>
+                            <a href="https://www.facebook.com/apcfilialsantiago" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
                         </div>
                     </div>
                     <br><hr>
@@ -764,6 +606,21 @@
 
         </div>
     </div>
+
+    <!-- Menú Inferior (Pegado al Footer, sin huecos) -->
+    <nav class="navbar navbar-custom" aria-label="Navegación secundaria" style="margin-bottom: 0; padding-bottom: 0; border-bottom: none;">
+        <div class="container" style="padding-bottom: 0;">
+            <div class="navbar-collapse justify-content-center" style="margin-bottom: 0;">
+                <ul class="navbar-nav" style="margin-bottom: 0;">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="acerca-de.html">Acerca de</a></li>
+                    <li class="nav-item"><a class="nav-link" href="articulos_publicados.html">Artículos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -799,94 +656,31 @@
         (function () {
             var el = document.getElementById('pagina-actual');
             if (!el) return;
-            var MAPA = {
-                'index.html': 'Inicio',
-                'acerca-de.html': 'Acerca de',
-                'articulos_publicados.html': 'Artículos publicados',
-                'contacto.html': 'Contacto'
-            };
+            var MAPA = { 'index.html': 'Inicio', 'acerca-de.html': 'Acerca de', 'articulos_publicados.html': 'Artículos publicados', 'contacto.html': 'Contacto' };
             var archivo = (location.pathname.split('/').pop() || 'index.html').toLowerCase();
             if (archivo.indexOf('.html') === -1) archivo = 'index.html';
-            var nombre = MAPA[archivo];
-            if (!nombre) {
-                nombre = archivo.replace(/\.html?$/, '').replace(/[_-]+/g, ' ').trim();
-                if (/^articulo/.test(nombre)) nombre = 'Artículo';
-                if (nombre) nombre = nombre.charAt(0).toUpperCase() + nombre.slice(1);
-            }
-            el.textContent = '· Estás en: ' + (nombre || 'Inicio');
+            el.textContent = '· Estás en: ' + (MAPA[archivo] || 'Inicio');
         })();
     </script>
 
-    <!-- FECHA Y HORA REAL (zona Caracas) -->
+    <!-- FECHA Y HORA REAL -->
     <script>
     (function () {
         var el = document.getElementById('fecha-actual');
         if (!el) return;
         var DIAS = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
-        var MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio',
-                     'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+        var MESES = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
         function capitalizar(t) { return t.charAt(0).toUpperCase() + t.slice(1); }
         function formatear(d) {
             try {
                 if (window.Intl && Intl.DateTimeFormat) {
-                    var f = new Intl.DateTimeFormat('es', {
-                        timeZone: 'America/Caracas',
-                        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
-                        hour: 'numeric', minute: '2-digit', hour12: true
-                    });
+                    var f = new Intl.DateTimeFormat('es', { timeZone: 'America/Caracas', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', hour: 'numeric', minute: '2-digit', hour12: true });
                     return capitalizar(f.format(d));
                 }
             } catch (e) { }
-            var u = new Date(d.getTime() - 4 * 3600000);
-            var h = u.getUTCHours(), m = u.getUTCMinutes();
-            var h12 = ((h + 11) % 12) + 1;
-            var suf = h < 12 ? 'a. m.' : 'p. m.';
-            return capitalizar(DIAS[u.getUTCDay()] + ', ' + u.getUTCDate() + ' de ' +
-                MESES[u.getUTCMonth()] + ' de ' + u.getUTCFullYear() + ', ' +
-                h12 + ':' + (m < 10 ? '0' : '') + m + ' ' + suf);
+            return "Fecha no disponible";
         }
-        function pedir(url, alRecibir, alFallar) {
-            if (typeof fetch !== 'function') { alFallar(); return; }
-            var ctrl = null, timer = null;
-            try {
-                if (window.AbortController) { ctrl = new AbortController(); timer = setTimeout(function () { ctrl.abort(); }, 6000); }
-            } catch (e) { ctrl = null; }
-            var opciones = { cache: 'no-store' };
-            if (ctrl) opciones.signal = ctrl.signal;
-            fetch(url, opciones).then(function (r) {
-                if (timer) clearTimeout(timer);
-                if (!r.ok) throw new Error('HTTP ' + r.status);
-                return r.json();
-            }).then(function (datos) {
-                if (timer) clearTimeout(timer);
-                alRecibir(datos);
-            }).catch(function () {
-                if (timer) clearTimeout(timer);
-                alFallar();
-            });
-        }
-        function consultar() {
-            pedir('https://worldtimeapi.org/api/timezone/America/Caracas',
-                function (datos) {
-                    var d = new Date(datos.datetime);
-                    if (isNaN(d.getTime())) throw new Error('fecha inválida');
-                    el.textContent = formatear(d);
-                },
-                function () {
-                    pedir('https://timeapi.io/api/Time/current/zone?timeZone=America/Caracas',
-                        function (datos) {
-                            var d = new Date(datos.dateTime + 'Z');
-                            if (isNaN(d.getTime())) throw new Error('fecha inválida');
-                            d = new Date(d.getTime() + 4 * 3600000);
-                            el.textContent = formatear(d);
-                        },
-                        function () {
-                            el.textContent = 'Sin acceso al servidor de horario';
-                        });
-                });
-        }
-        consultar();
-        setInterval(consultar, 60000);
+        el.textContent = formatear(new Date()); // Evita el error de CORS usando la hora local
     })();
     </script>
 
@@ -903,92 +697,127 @@
         })();
     </script>
 
-    <!-- PORTADA DINÁMICA: carrusel + secciones + últimas entradas.
-         Lee articulos/indice.json (o el respaldo indice.js si no hay
-         conexión / se abre desde el disco). -->
+    <!-- PORTADA DINÁMICA + CARRUSEL (UNIFICADOS) -->
+     
     <script>
-        (function () {
-            function esc(s) {
-                return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+    (function () {
+        // 1. INYECTAR TARJETAS DE CARGA INMEDIATAMENTE
+        var track = document.getElementById('carousel-track');
+        if (track) {
+            var skeletonHTML = '';
+            for (var i = 0; i < 18; i++) { 
+                skeletonHTML += '<article class="card-articulo carousel-item-card empty-card">' +
+                    '<div class="card-img-wrapper" style="background:#eef4fb;"></div>' +
+                    '<div class="card-body"><span class="card-cat">...</span>' +
+                    '<h4 class="card-title">Cargando artículo...</h4>' +
+                    '<p class="card-excerpt">Esperando datos del servidor...</p>' +
+                    '<div class="card-meta">...</div></div></article>';
             }
-            function rellenar(lista) {
-                var track = document.getElementById('carousel-track');
-                if (!track || !lista.length) return;
-                function tarjeta(a, clase) {
-                    return '<article class="' + clase + '">'
-                        + '<a href="articulos/' + a.url + '"><div class="card-img-wrapper"><img src="' + a.img + '" alt="' + esc(a.imgAlt) + '" loading="lazy"></div></a>'
-                        + '<div class="card-body">'
-                        + '<span class="card-cat">' + esc(a.cat) + '</span>'
-                        + '<h4 class="card-title"><a href="articulos/' + a.url + '">' + esc(a.titulo) + '</a></h4>'
-                        + '<p class="card-excerpt">' + esc(a.resumen) + '</p>'
-                        + '<div class="card-meta">' + esc(a.autor) + ' · ' + esc(a.fechaTxt) + '</div>'
-                        + '</div></article>';
+            track.innerHTML = skeletonHTML;
+        }
+
+        // 2. MOTOR DEL CARRUSEL
+        var btnPrev  = document.getElementById('btn-prev');
+        var btnNext  = document.getElementById('btn-next');
+        var SPEED = 30; 
+        var intervaloMs = 30;
+        var pausadoPorUsuario = false;
+        var timerAuto = null;
+
+        function pausarTemporalmente() {
+            pausadoPorUsuario = true;
+            if (timerAuto) clearTimeout(timerAuto);
+            timerAuto = setTimeout(function() { 
+                pausadoPorUsuario = false; 
+                tickAuto(); 
+            }, 4000);
+        }
+
+        function getUnTercio() {
+            if (!track) return 0;
+            var tarjeta = track.querySelector('.carousel-item-card');
+            if (!tarjeta) return 0;
+            return (tarjeta.offsetWidth + 20) * 6;
+        }
+
+        function tickAuto() {
+            if (!track || pausadoPorUsuario || track.children.length === 0) return;
+            var unTercio = getUnTercio();
+            if (unTercio > 0) {
+                track.scrollLeft += (SPEED * intervaloMs) / 1000;
+                if (track.scrollLeft >= unTercio * 2) {
+                    track.scrollLeft -= unTercio;
                 }
-                var DESTACADAS = ['articulo_2.html', 'articulo_9.html'];
-                var rotacion = lista.filter(function (a) {
-                    return DESTACADAS.indexOf(a.url) === -1;
-                });
-                track.innerHTML = rotacion.slice(0, 5).map(function (a) {
-                    return tarjeta(a, 'card-articulo carousel-item-card');
-                }).join('')
-                + rotacion.slice(0, 5).map(function (a) {
-                    return tarjeta(a, 'card-articulo carousel-item-card')
-                        .replace('<article ', '<article aria-hidden="true" tabindex="-1" ');
-                }).join('');
-
-                /* Rellenar las 6 fichas de secciones (Novedades, Tecnológicas, Curiosidades) */
-                var secciones = [
-                    { id: 'novedad-1', idx: 5 },
-                    { id: 'novedad-2', idx: 6 },
-                    { id: 'novedad-3', idx: 7 },
-                    { id: 'novedad-4', idx: 8 },
-                    { id: 'novedad-5', idx: 9 },
-                    { id: 'novedad-6', idx: 10 }
-                ];
-                secciones.forEach(function (s) {
-                    var el = document.getElementById(s.id);
-                    if (!el) return;
-                    if (rotacion[s.idx]) {
-                        el.outerHTML = tarjeta(rotacion[s.idx], 'card-articulo grid-card');
-                    } else {
-                        el.outerHTML = '<div class="card-articulo grid-card" style="padding:30px;text-align:center;color:#6b7a89;align-items:center;justify-content:center;">Próximamente…</div>';
-                    }
-                });
-
-                /* Caja lateral «Últimas entradas» */
-                var ul = document.getElementById('lista-ultimas');
-                if (ul) ul.innerHTML = lista.slice(0, 5).map(function (a) {
-                    return '<li><span class="lista-ultimas-info">'
-                        + '<a href="articulos/' + a.url + '">' + esc(a.titulo) + '</a>'
-                        + '<span class="fecha-ult">'
-                        + '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>'
-                        + esc(a.fechaTxt || a.fecha || '') + '</span></span></li>';
-                }).join('');
             }
-            function avisarFallo() {
-                var track = document.getElementById('carousel-track');
-                if (track) track.innerHTML = '<p style="padding:24px;color:#6b7a89;">No se pudo cargar el índice de artículos. Comprueba que existan <strong>articulos/indice.json</strong> e <strong>indice.js</strong> junto a esta página.</p>';
+            timerAuto = setTimeout(tickAuto, intervaloMs);
+        }
+
+        if (track) {
+            // Arrancamos el motor asegurándonos de que las tarjetas ya estén creadas
+            timerAuto = setTimeout(tickAuto, intervaloMs);
+
+            function moverCarrusel(dir) {
+                pausarTemporalmente();
+                var tarjeta = track.querySelector('.carousel-item-card');
+                if (!tarjeta) return;
+                var anchoPaso = tarjeta.offsetWidth + 20;
+                var unTercio = getUnTercio();
+
+                if (dir > 0 && unTercio > 0 && track.scrollLeft >= unTercio * 2 - 20) track.scrollLeft -= unTercio;
+                else if (dir < 0 && unTercio > 0 && track.scrollLeft <= 20) track.scrollLeft += unTercio;
+                else track.scrollBy({ left: anchoPaso * dir, behavior: 'auto' });
             }
-            fetch('articulos/indice.json').then(function (r) { return r.json(); }).then(rellenar).catch(function () {
-                var s = document.createElement('script');
-                s.src = 'articulos/indice.js';
-                s.onload = function () { rellenar(window.INDICE_ARTICULOS || []); };
-                s.onerror = avisarFallo;
-                document.head.appendChild(s);
+
+            if (btnNext) btnNext.addEventListener('click', function() { moverCarrusel(1); });
+            if (btnPrev) btnPrev.addEventListener('click', function() { moverCarrusel(-1); });
+
+            // Pausar al tocar o hacer clic
+            track.addEventListener('touchstart', function() { pausadoPorUsuario = true; }, { passive: true });
+            track.addEventListener('touchend', function() { pausarTemporalmente(); }, { passive: true });
+            track.addEventListener('mousedown', function() { pausadoPorUsuario = true; });
+            track.addEventListener('mouseup', function() { pausarTemporalmente(); });
+        }
+
+        // 3. CARGAR DATOS DEL JSON Y REEMPLAZAR
+        function rellenar(lista) {
+            if (!track || !lista.length) return;
+            function tarjeta(a, esDuplicado) {
+                var aria = esDuplicado ? ' aria-hidden="true" tabindex="-1"' : '';
+                return '<article class="card-articulo carousel-item-card"' + aria + '>' +
+                    '<a href="articulos/' + a.url + '"><div class="card-img-wrapper"><img src="' + a.img + '" alt="' + a.imgAlt + '" loading="lazy"></div></a>' +
+                    '<div class="card-body"><span class="card-cat">' + a.cat + '</span>' +
+                    '<h4 class="card-title"><a href="articulos/' + a.url + '"' + (esDuplicado ? ' tabindex="-1"' : '') + '>' + a.titulo + '</a></h4>' +
+                    '<p class="card-excerpt">' + a.resumen + '</p>' +
+                    '<div class="card-meta">' + a.autor + ' · ' + a.fechaTxt + '</div></div></article>';
+            }
+            var DESTACADAS = ['articulo_2.html', 'articulo_9.html'];
+            var rotacion = lista.filter(function (a) { return DESTACADAS.indexOf(a.url) === -1; });
+            var visibles = rotacion.slice(0, 6);
+
+            track.innerHTML =
+                visibles.map(function (a) { return tarjeta(a, false); }).join('') +
+                visibles.map(function (a) { return tarjeta(a, true); }).join('') +
+                visibles.map(function (a) { return tarjeta(a, true); }).join('');
+
+            var secciones = [{ id: 'novedad-1', idx: 6 }, { id: 'novedad-2', idx: 7 }, { id: 'novedad-3', idx: 8 }, { id: 'novedad-4', idx: 9 }];
+            secciones.forEach(function (s) {
+                var el = document.getElementById(s.id);
+                if (el && rotacion[s.idx]) el.outerHTML = tarjeta(rotacion[s.idx], false);
             });
-        })();
-    </script>
 
-    <!-- CARRUSEL: pausa al tocar (móvil). Con ratón basta el :hover del CSS. -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var zona = document.querySelector('.carousel-container');
-            var track = document.getElementById('carousel-track');
-            if (!zona || !track) return;
-            zona.addEventListener('touchstart', function () { track.classList.add('pausa'); }, { passive: true });
-            zona.addEventListener('touchend', function () { track.classList.remove('pausa'); }, { passive: true });
-            zona.addEventListener('touchcancel', function () { track.classList.remove('pausa'); }, { passive: true });
+            var ul = document.getElementById('lista-ultimas');
+            if (ul) ul.innerHTML = lista.slice(0, 5).map(function (a) {
+                return '<li><span class="lista-ultimas-info"><a href="articulos/' + a.url + '">' + a.titulo + '</a><span class="fecha-ult">' + (a.fechaTxt || '') + '</span></span></li>';
+            }).join('');
+        }
+
+        fetch('articulos/indice.json').then(function (r) { return r.json(); }).then(rellenar).catch(function () {
+            var s = document.createElement('script');
+            s.src = 'articulos/indice.js';
+            s.onload = function () { rellenar(window.INDICE_ARTICULOS || []); };
+            document.head.appendChild(s);
         });
+    })();
     </script>
 
     <!-- AJUSTE AUTOMÁTICO DE LA SOLAPA "MAKARENKOS" -->
@@ -1013,21 +842,14 @@
             window.addEventListener('resize', ajustar);
             window.addEventListener('orientationchange', ajustar);
             window.addEventListener('load', ajustar);
-            if (document.fonts) {
-                if (document.fonts.ready && document.fonts.ready.then) document.fonts.ready.then(ajustar);
-                if (document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', ajustar);
-            }
         })();
     </script>
 
-    <!-- PWA: registra el service worker -->
+    <!-- PWA -->
     <script>
         if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function () {
-                navigator.serviceWorker.register('sw.js').catch(function () {});
-            });
+            window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
         }
     </script>
-
 </body>
 </html>
