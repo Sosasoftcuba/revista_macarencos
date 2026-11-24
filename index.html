@@ -31,10 +31,20 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        
+		@font-face {
+            font-family: 'DMSerif';
+            src: url('css/fonts/DMSerifDisplay-Regular.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
         @font-face {
-            font-family: 'Fuente1979';
-            src: url('css/fonts/1979.ttf') format('truetype');
-            font-weight: normal; font-style: normal; font-display: swap;
+            font-family: 'DMSerif';
+            src: url('css/fonts/DMSerifDisplay-Italic.ttf') format('truetype');
+            font-weight: normal;
+            font-style: italic;
+            font-display: swap;
         }
 
         :root {
@@ -185,7 +195,8 @@
         .header-title {
             position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 2;
             display: flex; align-items: center; justify-content: center;
-            font-family: 'Fuente1979', 'Poppins', sans-serif; font-size: clamp(2.5rem, 9vw, 6.5rem);
+            font-family: 'DMSerif', 'Poppins', serif; 
+			font-size: clamp(2.5rem, 9vw, 6.5rem);
             font-weight: normal; line-height: 1; margin: 0; letter-spacing: 1px; color: var(--blanco);
         }
         .header-title span {
