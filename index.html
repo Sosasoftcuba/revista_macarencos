@@ -907,5 +907,125 @@
             window.addEventListener('load', function () { navigator.serviceWorker.register('sw.js').catch(function () {}); });
         }
     </script>
+	
+	    <!-- VENTANA DE RECOMENDACIÓN DE CURSOS (SALE A LOS 45 SEGUNDOS) -->
+    <style>
+        .modal-cursos-overlay {
+            display: none; 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.75); 
+            z-index: 9999;
+            align-items: center; justify-content: center;
+            padding: 20px;
+        }
+        .modal-cursos-content {
+            background: #ffffff;
+            border-radius: 12px;
+            width: 100%; max-width: 480px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+            animation: slideUpModal 0.4s ease-out;
+            text-align: center;
+            font-family: 'Poppins', sans-serif;
+        }
+        @keyframes slideUpModal {
+            from { transform: translateY(30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .modal-cursos-close {
+            position: absolute; top: 10px; right: 15px;
+            background: none; border: none; color: #1a2630; font-size: 1.8rem;
+            cursor: pointer; line-height: 1; padding: 0; z-index: 10;
+        }
+        .modal-cursos-close:hover { color: #d32f2f; }
+        
+        .modal-cursos-logo {
+            background: linear-gradient(135deg, #039ed6, #0044cc);
+            padding: 25px 20px 15px;
+            color: #ffffff;
+        }
+        .modal-cursos-logo h2 {
+            font-family: 'DMSerif', serif;
+            font-size: 2rem; margin: 0; letter-spacing: 1px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        .modal-cursos-logo p {
+            margin: 5px 0 0; font-size: 0.85rem; opacity: 0.9;
+        }
+        
+        .modal-cursos-body { padding: 25px 25px 20px; }
+        .modal-cursos-body p { font-size: 1.05rem; color: #1a2630; margin-bottom: 20px; line-height: 1.5; }
+        .modal-cursos-body strong { color: #0044cc; }
+        
+        .modal-cursos-btn {
+            display: block; width: 100%;
+            background: linear-gradient(135deg, #039ed6, #0044cc);
+            color: #ffffff; text-decoration: none; font-weight: 600;
+            padding: 14px; border-radius: 6px; font-size: 1rem;
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .modal-cursos-btn:hover { opacity: 0.95; transform: translateY(-2px); color: #fff; }
+        
+        .modal-cursos-ahora-no {
+            display: block; margin-top: 15px; color: #777; font-size: 0.85rem;
+            text-decoration: none; cursor: pointer; background: none; border: none;
+            width: 100%; text-align: center;
+        }
+        .modal-cursos-ahora-no:hover { text-decoration: underline; color: #333; }
+    </style>
+
+    <div class="modal-cursos-overlay" id="modal-cursos-overlay">
+        <div class="modal-cursos-content">
+            <button class="modal-cursos-close" id="modal-cursos-close" aria-label="Cerrar">&times;</button>
+            <div class="modal-cursos-logo">
+                <h2>MAKARENKOS</h2>
+                <p>Asociación de Pedagogos de Cuba</p>
+            </div>
+            <div class="modal-cursos-body">
+                <p>En <strong>MAKARENKOS</strong> apoyamos tu superación profesional.<br><br>Le recomendamos visitar nuestra sección de <strong>cursos y ofertas académicas vigentes</strong> de la APC.</p>
+                <a href="cursos.html" class="modal-cursos-btn">Ver Cursos Disponibles</a>
+                <button class="modal-cursos-ahora-no" id="modal-cursos-ahora-no">No, gracias. Recordármelo en mi próxima visita.</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function() {
+        var modal = document.getElementById('modal-cursos-overlay');
+        var btnCerrar = document.getElementById('modal-cursos-close');
+        var btnAhoraNo = document.getElementById('modal-cursos-ahora-no');
+        
+        // Versión del aviso (si cambias esto, la ventana saldrá de nuevo para todos)
+        var versionAviso = 'v1';
+        var claveMemoria = 'makarenkos_curso_visto_' + versionAviso;
+
+        if (!modal) return;
+
+        // Si el usuario ya la vio o le dio a "Ahora no", no mostrarla
+        if (localStorage.getItem(claveMemoria) === 'true') {
+            return;
+        }
+
+        // Temporizador de 45 segundos
+        var timer = setTimeout(function() {
+            modal.style.display = 'flex';
+        }, 45000);
+
+        function cerrarModal() {
+            modal.style.display = 'none';
+            // Guardar en la memoria del navegador
+            localStorage.setItem(claveMemoria, 'true');
+        }
+
+        if (btnCerrar) btnCerrar.addEventListener('click', cerrarModal);
+        if (btnAhoraNo) btnAhoraNo.addEventListener('click', cerrarModal);
+        
+        // Cerrar si se hace clic fuera de la ventana
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) cerrarModal();
+        });
+    })();
+    </script>
 </body>
 </html>
