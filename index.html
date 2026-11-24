@@ -31,8 +31,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        
-		@font-face {
+        @font-face {
             font-family: 'DMSerif';
             src: url('css/fonts/DMSerifDisplay-Regular.ttf') format('truetype');
             font-weight: normal;
@@ -196,7 +195,7 @@
             position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 2;
             display: flex; align-items: center; justify-content: center;
             font-family: 'DMSerif', 'Poppins', serif; 
-			font-size: clamp(2.5rem, 9vw, 6.5rem);
+            font-size: clamp(2.5rem, 9vw, 6.5rem);
             font-weight: normal; line-height: 1; margin: 0; letter-spacing: 1px; color: var(--blanco);
         }
         .header-title span {
@@ -309,7 +308,8 @@
             display: flex; overflow-x: auto; overflow-y: hidden;
             padding: 10px 58px 20px 58px; scroll-behavior: auto;
             -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;
-            user-select: none; -webkit-user-select: none; touch-action: pan-y;
+            user-select: none; -webkit-user-select: none; 
+            touch-action: pan-x pan-y; /* PERMITE ARRASTRE HORIZONTAL Y SCROLL VERTICAL */
             cursor: grab; will-change: scroll-position;
         }
         .horizontal-scroll-wrapper::-webkit-scrollbar { display: none; }
@@ -691,7 +691,7 @@
             } catch (e) { }
             return "Fecha no disponible";
         }
-        el.textContent = formatear(new Date()); // Evita el error de CORS usando la hora local
+        el.textContent = formatear(new Date()); 
     })();
     </script>
 
@@ -748,13 +748,11 @@
             if (!track) return 0;
             var tarjeta = track.querySelector('.carousel-item-card');
             if (!tarjeta) return 0;
-            // Si el ancho es 0 (porque el CSS no ha cargado aún), usamos un valor por defecto
             var ancho = tarjeta.offsetWidth || 380; 
             return (ancho + 20) * 6;
         }
 
         function tickAuto() {
-            // Si el carrusel está vacío o pausado, intentamos de nuevo en 30ms sin apagar el motor
             if (!track || pausadoPorUsuario || track.children.length === 0) {
                 timerAuto = setTimeout(tickAuto, intervaloMs);
                 return;
@@ -767,7 +765,6 @@
                     track.scrollLeft -= unTercio;
                 }
             }
-            // ¡CRUCIAL! Esta línea debe ejecutarse SIEMPRE para que el motor no muera
             timerAuto = setTimeout(tickAuto, intervaloMs);
         }
 
@@ -777,7 +774,7 @@
             tickAuto(); // Arrancamos inmediatamente
         }
 
-        // 3. BOTONES Y ARRASTRE
+        // 3. BOTONES Y ARRASTRE (MEJORADO)
         if (track) {
             function moverCarrusel(dir) {
                 pausarTemporalmente();
@@ -798,11 +795,31 @@
             if (btnNext) btnNext.addEventListener('click', function() { moverCarrusel(1); });
             if (btnPrev) btnPrev.addEventListener('click', function() { moverCarrusel(-1); });
 
-            // Pausar solo si el usuario hace scroll manual o toca el carrusel
-            track.addEventListener('touchstart', function() { pausadoPorUsuario = true; }, { passive: true });
-            track.addEventListener('touchend', function() { pausarTemporalmente(); }, { passive: true });
-            
-            // ELIMINAMOS el mousedown/mouseup del track porque bloquea el clic en las tarjetas y botones
+            // DETECCIÓN DE ARRASTRE VS TOQUE
+            var touchStartX = 0;
+            var touchStartY = 0;
+            var isDragging = false;
+
+            track.addEventListener('touchstart', function(e) {
+                touchStartX = e.touches[0].clientX;
+                touchStartY = e.touches[0].clientY;
+                isDragging = false;
+            }, { passive: true });
+
+            track.addEventListener('touchmove', function(e) {
+                var deltaX = Math.abs(e.touches[0].clientX - touchStartX);
+                var deltaY = Math.abs(e.touches[0].clientY - touchStartY);
+                if (deltaX > 10 || deltaY > 10) {
+                    isDragging = true;
+                    pausadoPorUsuario = true; // Pausa mientras arrastra
+                }
+            }, { passive: true });
+
+            track.addEventListener('touchend', function() {
+                // Si fue arrastre, reanuda después de 2 segundos
+                // Si fue un toque simple, pausa 4 segundos para leer
+                pausarTemporalmente();
+            }, { passive: true });
         }
 
         // 4. CARGAR DATOS DEL JSON Y REEMPLAZAR
