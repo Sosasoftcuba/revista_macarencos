@@ -996,56 +996,146 @@
     </style>
 
     <div class="modal-cursos-overlay" id="modal-cursos-overlay">
-        <div class="modal-cursos-content">
-            <button class="modal-cursos-close" id="modal-cursos-close" aria-label="Cerrar">&times;</button>
-            <div class="modal-cursos-logo">
-                <h2>MAKARENKOS</h2>
-                <p>Asociación de Pedagogos de Cuba</p>
-            </div>
-            <div class="modal-cursos-body">
-                <p>En <strong>MAKARENKOS</strong> apoyamos tu superación profesional.<br><br>Le recomendamos visitar nuestra sección de <strong>cursos y ofertas académicas vigentes</strong> de la APC.</p>
-                <a href="cursos.html" class="modal-cursos-btn">Ver Cursos Disponibles</a>
-                <button class="modal-cursos-ahora-no" id="modal-cursos-ahora-no">No, gracias. Recordármelo en mi próxima visita.</button>
-            </div>
+    <div class="modal-cursos-content" role="dialog" aria-modal="true" aria-labelledby="modal-cursos-titulo">
+        <button class="modal-cursos-close" id="modal-cursos-close" aria-label="Cerrar">&times;</button>
+        <div class="modal-cursos-logo">
+            <h2 id="modal-cursos-titulo">MAKARENKOS</h2>
+            <p>Asociación de Pedagogos de Cuba · Filial Santiago de Cuba</p>
+        </div>
+        <div class="modal-cursos-body">
+            <p style="font-size:1.15rem; font-weight:700; color:#0044cc; margin-bottom:12px;">
+                ¿Está interesado en superarse?
+            </p>
+            <p>
+                La <strong>Asociación de Pedagogos de Cuba</strong>, en su <strong>Filial Santiago de Cuba</strong>,
+                le brinda <strong>cursos académicos con equivalencia a 1 crédito académico o más</strong>,
+                en dependencia del curso.
+            </p>
+            <p>
+                En estos momentos <strong>estamos ofertando cursos</strong> que quizás le interesen.
+                Si está interesado en superarse, le recomendamos encarecidamente visitar nuestra
+                lista de ofertas de cursos.
+            </p>
+            <a href="cursos.html" class="modal-cursos-btn">Ver ofertas de cursos</a>
+            <button class="modal-cursos-ahora-no" id="modal-cursos-ahora-no">
+                No, gracias. Recordármelo en mi próxima visita.
+            </button>
         </div>
     </div>
+</div>
 
-    <script>
-    (function() {
-        var modal = document.getElementById('modal-cursos-overlay');
-        var btnCerrar = document.getElementById('modal-cursos-close');
-        var btnAhoraNo = document.getElementById('modal-cursos-ahora-no');
-        
-        // Versión del aviso (si cambias esto, la ventana saldrá de nuevo para todos)
-        var versionAviso = 'v1';
-        var claveMemoria = 'makarenkos_curso_visto_' + versionAviso;
+<script>
+(function() {
+    var modal      = document.getElementById('modal-cursos-overlay');
+    var btnCerrar  = document.getElementById('modal-cursos-close');
+    var btnAhoraNo = document.getElementById('modal-cursos-ahora-no');
 
-        if (!modal) return;
+    if (!modal) return;
 
-        // Si el usuario ya la vio o le dio a "Ahora no", no mostrarla
-        if (localStorage.getItem(claveMemoria) === 'true') {
+    // ---- Configuración ----
+    var PRIMERA_ESPERA = 30000;   // 30 s primera aparición
+    var REPETIR_CADA   = 240000;  // 4 min (240 s) para la segunda aparición
+    var MAX_APARICIONES = 2;      // 1ª a los 30 s, 2ª a los 4 min. Si dice "No" en la 2ª, fin.
+
+    // ---- Modo prueba por URL ----
+    //   ?test=1 -> primera a los 3 s, segunda a los 15 s
+    var params = new URLSearchParams(location.search);
+    var esPrueba = params.get('test') === '1';
+    var primeraEspera = esPrueba ? 3000  : PRIMERA_ESPERA;
+    var repetirCada   = esPrueba ? 15000 : REPETIR_CADA;
+
+    // ---- Clave de sesión (se borra al cerrar el navegador/pestaña) ----
+    // Guardamos cuántas veces se ha mostrado y si el usuario ya dijo "No" en la 2ª.
+    var CLAVE_SESION = 'makarenkos_curso_sesion_v1';
+    var estado = { mostrados: 0, descartado: false };
+
+    try {
+        var raw = sessionStorage.getItem(CLAVE_SESION);
+        if (raw) estado = JSON.parse(raw);
+    } catch (e) { /* sessionStorage no disponible: seguimos en memoria */ }
+
+    function guardarEstado() {
+        try { sessionStorage.setItem(CLAVE_SESION, JSON.stringify(estado)); } catch (e) {}
+    }
+
+    // Si en esta sesión ya se descartó (dijo "No" en la 2ª), no mostrar nada
+    if (estado.descartado) {
+        console.log('[MAKARENKOS] Modal ya descartado en esta sesión. No se mostrará hasta cerrar el navegador.');
+        return;
+    }
+
+    var visible = false;
+    var timerSiguiente = null;
+
+    function mostrarModal() {
+        if (visible || estado.descartado) return;
+        visible = true;
+        estado.mostrados++;
+        guardarEstado();
+        modal.style.display = 'flex';
+        console.log('[MAKARENKOS] Modal mostrado (aparición ' + estado.mostrados + ' de ' + MAX_APARICIONES + ').');
+
+        // Si ya llegamos al máximo, no programamos más apariciones automáticas
+        if (estado.mostrados >= MAX_APARICIONES) {
+            // La 2ª ya se mostró: si el usuario la cierra con "No", se descarta.
+            // No programamos una 3ª.
+            console.log('[MAKARENKOS] Última aparición automática. Si pulsa "No, gracias", no volverá a salir en esta sesión.');
             return;
         }
 
-        // Temporizador de 45 segundos
-        var timer = setTimeout(function() {
-            modal.style.display = 'flex';
-        }, 45000);
+        // Programar la siguiente aparición a los 4 min
+        programarSiguiente();
+    }
 
-        function cerrarModal() {
-            modal.style.display = 'none';
-            // Guardar en la memoria del navegador
-            localStorage.setItem(claveMemoria, 'true');
+    function programarSiguiente() {
+        if (timerSiguiente) clearTimeout(timerSiguiente);
+        timerSiguiente = setTimeout(function() {
+            if (estado.descartado) return;
+            if (!visible) mostrarModal();
+            else programarSiguiente(); // si sigue visible, reintentar en 4 min
+        }, repetirCada);
+    }
+
+    function cerrarModal(porBotonNo) {
+        visible = false;
+        modal.style.display = 'none';
+
+        // Si es la 2ª aparición y el usuario pulsa "No, gracias" (o cierra),
+        // se descarta para el resto de la sesión.
+        if (estado.mostrados >= MAX_APARICIONES) {
+            estado.descartado = true;
+            guardarEstado();
+            if (timerSiguiente) { clearTimeout(timerSiguiente); timerSiguiente = null; }
+            console.log('[MAKARENKOS] Modal descartado hasta que se cierre el navegador.');
+        } else {
+            // 1ª aparición: se cierra pero volverá a salir a los 4 min
+            console.log('[MAKARENKOS] 1ª aparición cerrada. Volverá a salir a los ' + (repetirCada/1000) + ' s.');
+            programarSiguiente();
         }
+    }
 
-        if (btnCerrar) btnCerrar.addEventListener('click', cerrarModal);
-        if (btnAhoraNo) btnAhoraNo.addEventListener('click', cerrarModal);
-        
-        // Cerrar si se hace clic fuera de la ventana
-        modal.addEventListener('click', function(e) {
-            if (e.target === modal) cerrarModal();
-        });
-    })();
-    </script>
+    // ---- Primera aparición a los 30 s ----
+    timerSiguiente = setTimeout(mostrarModal, primeraEspera);
+
+    // ---- Eventos de cierre ----
+    if (btnCerrar)  btnCerrar.addEventListener('click',  function() { cerrarModal(false); });
+    if (btnAhoraNo) btnAhoraNo.addEventListener('click', function() { cerrarModal(true);  });
+    modal.addEventListener('click', function(e) {
+        if (e.target === modal) cerrarModal(false);
+    });
+
+    // ---- Pausar si la pestaña no está visible (opcional, mejora UX) ----
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            if (timerSiguiente) { clearTimeout(timerSiguiente); timerSiguiente = null; }
+        } else {
+            if (!estado.descartado && !visible) {
+                // Al volver, reprogramar la siguiente aparición
+                if (estado.mostrados < MAX_APARICIONES) programarSiguiente();
+            }
+        }
+    });
+})();
+</script>
 </body>
 </html>
