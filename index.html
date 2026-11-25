@@ -9,27 +9,45 @@
     <meta name="theme-color" content="#039ed6">
     <meta name="keywords" content="MAKARENKOS, Pedagogía, Educación, Cuba, Asociación de Pedagogos de Cuba, APC, Santiago de Cuba, revista pedagógica, investigación educativa, práctica docente, sosasoftcuba">
     <meta name="robots" content="index, follow">
+
+    <!-- ===== CANONICAL ===== -->
     <link rel="canonical" href="https://sosasoftcuba.github.io/revista_macarencos/">
+
+    <!-- ===== OPEN GRAPH (WhatsApp / Facebook / Messenger / Telegram) ===== -->
     <meta property="og:site_name" content="MAKARENKOS">
     <meta property="og:type" content="website">
-    <meta property="og:url" content=href="https://sosasoftcuba.github.io/revista_macarencos/">
+    <meta property="og:url" content="https://sosasoftcuba.github.io/revista_macarencos/">
     <meta property="og:title" content="MAKARENKOS · Revista informativa de la Asociación de Pedagogos de Cuba">
     <meta property="og:description" content="Artículos, novedades, eventos y premios sobre pedagogía y educación cubana. Filial Santiago de Cuba.">
     <meta property="og:image" content="https://sosasoftcuba.github.io/revista_macarencos/imagen/banner-header.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:alt" content="MAKARENKOS · Revista de la Asociación de Pedagogos de Cuba">
     <meta property="og:locale" content="es_CU">
 
+    <!-- ===== TWITTER CARD (respaldo Messenger / Telegram / X) ===== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MAKARENKOS · Revista de la Asociación de Pedagogos de Cuba">
+    <meta name="twitter:description" content="Artículos, novedades, eventos y premios sobre pedagogía y educación cubana. Filial Santiago de Cuba.">
+    <meta name="twitter:image" content="https://sosasoftcuba.github.io/revista_macarencos/imagen/banner-header.png">
+
+    <!-- ===== ICONOS ===== -->
     <link rel="icon" href="imagen/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="32x32" href="imagen/favicon-32.png?v=2">
     <link rel="icon" type="image/png" sizes="192x192" href="imagen/icon-192.png?v=2">
     <link rel="apple-touch-icon" sizes="180x180" href="imagen/apple-touch-icon.png?v=2">
 
+    <!-- ===== PWA ===== -->
     <link rel="manifest" href="manifest.webmanifest">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Revista MAKARENKOS">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <style>
         @font-face {
             font-family: 'DMSerif';
@@ -309,7 +327,7 @@
             padding: 10px 58px 20px 58px; scroll-behavior: auto;
             -webkit-overflow-scrolling: touch; scrollbar-width: none; -ms-overflow-style: none;
             user-select: none; -webkit-user-select: none; 
-            touch-action: pan-x pan-y; /* PERMITE ARRASTRE HORIZONTAL Y SCROLL VERTICAL */
+            touch-action: pan-x pan-y;
             cursor: grab; will-change: scroll-position;
         }
         .horizontal-scroll-wrapper::-webkit-scrollbar { display: none; }
@@ -777,7 +795,7 @@
         function arrancarMotor() {
             if (timerAuto) clearTimeout(timerAuto);
             pausadoPorUsuario = false;
-            tickAuto(); // Arrancamos inmediatamente
+            tickAuto();
         }
 
         // 3. BOTONES Y ARRASTRE (MEJORADO)
@@ -817,13 +835,11 @@
                 var deltaY = Math.abs(e.touches[0].clientY - touchStartY);
                 if (deltaX > 10 || deltaY > 10) {
                     isDragging = true;
-                    pausadoPorUsuario = true; // Pausa mientras arrastra
+                    pausadoPorUsuario = true;
                 }
             }, { passive: true });
 
             track.addEventListener('touchend', function() {
-                // Si fue arrastre, reanuda después de 2 segundos
-                // Si fue un toque simple, pausa 4 segundos para leer
                 pausarTemporalmente();
             }, { passive: true });
         }
@@ -860,7 +876,7 @@
                 return '<li><span class="lista-ultimas-info"><a href="articulos/' + a.url + '">' + a.titulo + '</a><span class="fecha-ult">' + (a.fechaTxt || '') + '</span></span></li>';
             }).join('');
 
-            arrancarMotor(); // ENCENDEMOS EL MOTOR AQUÍ
+            arrancarMotor();
         }
 
         // Iniciar fetch
@@ -912,7 +928,7 @@
         }
     </script>
 	
-	    <!-- VENTANA DE RECOMENDACIÓN DE CURSOS (SALE A LOS 45 SEGUNDOS) -->
+    <!-- VENTANA DE RECOMENDACIÓN DE CURSOS (SALE A LOS 45 SEGUNDOS) -->
     <style>
         .modal-cursos-overlay {
             display: none; 
