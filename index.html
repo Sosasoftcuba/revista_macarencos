@@ -194,6 +194,15 @@
         .top-bar a { color: var(--blanco); margin-left: 15px; text-decoration: none; }
         .top-bar a:hover { color: var(--azul-cielo); }
         #pagina-actual { color: #7dd3f7; font-weight: 600; white-space: nowrap; }
+		
+		.ficha-card { border: 3px solid transparent; background: linear-gradient(var(--blanco), var(--blanco)) padding-box, linear-gradient(135deg, var(--azul-cielo), var(--azul-fuerte)) border-box; border-radius: 10px; padding: 20px; margin-bottom: 20px; }
+        .ficha-card h4 { color: var(--azul-fuerte); font-weight: 700; margin-bottom: 15px; font-size: 1.2rem; text-align: center; }
+        .ficha-card ul { list-style: none; padding-left: 0; margin-bottom: 0; }
+        .ficha-card li { font-size: 0.9rem; color: #555; margin-bottom: 10px; }
+        .ficha-card .icon { color: var(--azul-fuerte); margin-right: 6px; }
+       
+		
+		
 
         .main-header {
             background: linear-gradient(135deg, var(--azul-oscuro), var(--azul-fuerte));
@@ -606,14 +615,14 @@
                         <div class="proy-item">
                             <h4>Proyecto Educamos Contigo</h4>
                             <div class="proy-img"><img src="imagen/Educamos-contigo.png" alt="Proyecto Educamos Contigo" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
-                            <p>Enseñando Ud. ... Aprendemos Nosotros: proyecto educativo de la filial que acompaña a docentes y familias.</p>
+                            <p><strong><rem>Enseñando Ud. ... Aprendemos Nosotros: </rem></strong></p><p>Proyecto Educativo de la Filial que acompaña a docentes y familias. basada en el pensamiento de los home schoolers ayudamos a que pueda enseñar mejor a sus hijos en casa brindandeles tecnicas educativas y medios de enseñanza</p>
                             <a href="https://www.facebook.com/sosasoftcuba.cu" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
                         </div>
                         <br><hr>
                         <div class="proy-item">
                             <h4>Proyecto SosaSoftCuba:</h4>
                             <div class="proy-img"><img src="imagen/previa-sosasoftcuba-portal.png" alt="Canal de YouTube de la revista" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
-                            <p>Vitrina digital abierta, profesional al servicio del conocimiento. Creamos herramientas digitales, ofertamos servicios desde programación a Mantenimiento general y colaboramos con docentes, escuelas y universidades por un mundo digital mejor.</p>
+                            <p>Vitrina digital abierta, profesional al servicio del conocimiento. Creamos herramientas digitales, ofertamos servicios desde programación a mantenimiento general de las PC, además colaboramos con docentes, escuelas y universidades por un mundo digital mejor.</p>
                             <p>El Grupo Sosa·Soft·Cuba es un colectivo cubano sin fines de lucro que desarrolla y publica en plataformas educativas, académicas y culturales.</p>
                             <a href="https://sosasoftcuba.github.io" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
                         </div>
@@ -625,13 +634,23 @@
                             <a href="https://www.facebook.com/apcfilialsantiago" class="btn-leer-mas" target="_blank" rel="noopener">VISITAR</a>
                         </div>
                     </div>
-                    <br><hr>
+                    <br><hr><br>
                     <div class="about-card">
                         <h4>¿Quiénes Somos?</h4>
-                        <p>La Asociación de Pedagogos de Cuba (APC) es una organización científica y social que agrupa a los profesionales de la educación en el país.</p>
+                        <p>La revista digital MAKARENKOS pertenece a la Asociación de Pedagogos de Cuba (APC) la cual es una organización científica y social que agrupa a los profesionales de la educación en el país.</p>
                         <p>Fundada con el objetivo de elevar la calidad educativa, fomentar la investigación pedagógica y promover la formación permanente de los docentes.</p>
                         <a href="acerca-de.html" class="btn-leer-mas">Leer más sobre la APC</a>
                     </div>
+					<br><hr><br>
+					<div class="ficha-card">
+                        <h4>Ficha técnica</h4>
+                        <ul>
+                            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><strong>Revista:</strong> MAKARENKOS, Publicación Digital</li>
+                            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg><strong>Edita:</strong> APC · Filial Santiago de Cuba</li>
+                            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><strong>Desde:</strong> 2026</li>
+                            <li><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><polygon points="1 6 8 3 16 6 23 3 23 18 16 21 8 18 1 21 1 6"/><line x1="8" y1="3" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="21"/></svg><strong>Cobertura:</strong> 9 municipios de Santiago de Cuba</li>
+                        </ul>
+                    </div><br>
                 </div>
             </div>
 
